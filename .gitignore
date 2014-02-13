@@ -1,3 +1,4 @@
 .jshintrc
 .settings
+.metadata
 node_modules
