@@ -1,0 +1,11 @@
+<%- include ../partials/header.ejs %>
+
+<h1>Here is Seungchul's world!</h1>
+
+<ul>
+	<% users.forEach(function(user) { %>
+		<li><%= user.username %> <%= user.email %></li>
+	<% }) %>
+</ul>
+
+<%- include ../partials/footer.ejs %>
