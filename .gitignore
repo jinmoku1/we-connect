@@ -3,3 +3,4 @@
 .metadata
 node_modules
 lab/db
+bin
