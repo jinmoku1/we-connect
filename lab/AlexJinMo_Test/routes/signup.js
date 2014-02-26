@@ -2,10 +2,17 @@
  * New node file
  */
 
-exports.some_page = function(req, res) {
-	res.render('signUpPgs/signup1',	{
+exports.index = function(req, res) {
+	res.render('signUpPgs/index',	{
 		title: 'MYPAGE',
 		description: 'Ha ha ha ha ha!!',
-		extra: 'Nice to meet you!',
+	});
+};
+
+exports.signup1 = function(req, res) {
+	res.render('signUpPgs/signup1',	{
+		title: 'MYPAGE',
+		description: 'Ha ha haa ha!!',
+		extra: 'uiwefiubef',
 	});
 };
