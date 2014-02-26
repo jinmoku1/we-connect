@@ -2,6 +2,7 @@
  * New node file
  */
 var routes = require('./routes')
+	, signup = require('./routes/signup')
 	, sub = require('./routes/sub')
 	, events = require('./routes/events')
 	, api = require('./routes/api');
@@ -13,6 +14,10 @@ exports.route = function (app) {
 	app.get('/', routes.index);
 	app.get('/about', routes.about);
 	
+	// signup
+	app.get('/signUpPgs', signup.index);
+	app.get('/signUpPgs/signup1', signup.signup1);
+
 	// sub
 	app.get('/sub', sub.index);
 	app.get('/sub/some-page', sub.some_page);
