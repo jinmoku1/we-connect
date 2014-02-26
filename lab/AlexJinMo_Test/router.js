@@ -16,7 +16,8 @@ exports.route = function (app) {
 	
 	// signup
 	app.get('/signUpPgs', signup.index);
-	app.get('/signUpPgs/signup1', signup.signup1);
+	app.get('/signUpPgs/signupStudent', signup.signupStudent);
+	app.get('/signUpPgs/signupFaculty', signup.signupFaculty);
 
 	// sub
 	app.get('/sub', sub.index);
