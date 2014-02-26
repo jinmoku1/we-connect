@@ -1,6 +1,61 @@
 <%- include ../partials/header.ejs %>
 
 <h1><%= title %></h1>
-<p><%= description %></p>
+
+<div style="height:300px; width:300px; border:1px solid #ccc; overflow:auto;">
+Text area.....................................................Text area
+Text area.....................................................Text area
+Text area.....................................................Text area
+Text area.....................................................Text area
+Text area.....................................................Text area
+Text area.....................................................Text area
+Text area.....................................................Text area
+
+Text area.....................................................Text area
+Text area.....................................................Text area
+Text area.....................................................Text area
+
+Text area.....................................................Text area
+Text area.....................................................Text area
+
+Text area.....................................................Text area
+
+Text area.....................................................Text area
+
+Text area.....................................................Text area
+
+Text area.....................................................Text area
+Text area.....................................................Text area
+</div>
+
+<form action="/signUpPgs/signupStudent">
+
+	Checkbox <input type="checkbox" id="agreement">
+	
+	<select id="userType">
+		<option value="student" selected>Student</option>
+		<option value="faculty">Faculty</option>
+	</select>
+
+	<button onclick="return getCheckBox(this.form);">next</button>
+	
+</form>
+
+<script>
+function getCheckBox(form) {
+	var clicked = document.getElementById("agreement").checked;
+	var userType = document.getElementById("userType").value;
+	alert(clicked);
+	if (clicked){
+		if (userType=="faculty")
+			form.action = "/signUpPgs/signupFaculty";
+		alert(form.action);
+		return true;
+	}
+	return false;
+}
+</script>
+	
+
 
 <%- include ../partials/footer.ejs %>
