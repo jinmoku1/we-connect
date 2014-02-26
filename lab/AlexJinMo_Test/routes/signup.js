@@ -4,15 +4,22 @@
 
 exports.index = function(req, res) {
 	res.render('signUpPgs/index',	{
-		title: 'MYPAGE',
-		description: 'Ha ha ha ha ha!!',
+		title: 'Terms and Agreements',
 	});
 };
 
-exports.signup1 = function(req, res) {
-	res.render('signUpPgs/signup1',	{
-		title: 'MYPAGE',
-		description: 'Ha ha haa ha!!',
+exports.signupStudent = function(req, res) {
+	res.render('signUpPgs/signupStudent',	{
+		title: 'Sign Up Page',
+		description: 'Blah!!',
+		extra: 'uiwefiubef',
+	});
+};
+
+exports.signupFaculty = function(req, res) {
+	res.render('signUpPgs/signupFaculty',	{
+		title: 'Sign Up Page',
+		description: 'Blah!!',
 		extra: 'uiwefiubef',
 	});
 };
