@@ -28,16 +28,16 @@ Text area.....................................................Text area
 Text area.....................................................Text area
 </div>
 
-<form action="/signUpPgs/signupStudent">
+<form method="post" action="/signUpPgs/signupMain">
 
-	Checkbox <input type="checkbox" id="agreement">
-	
+	I agree: <input type="checkbox" id="agreement">
+	<br>
 	<select name="userType">
-		<option value="student" selected>Student</option>
-		<option value="faculty">Faculty</option>
+		<option value="S" selected>Student</option>
+		<option value="F">Faculty</option>
 	</select>
-
-	<button onclick="return getCheckBox(this.form);">next</button>
+	<br>
+	<input type="submit" onclick="return getCheckBox(this.form);" value="Submit">
 	
 </form>
 
