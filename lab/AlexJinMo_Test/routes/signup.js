@@ -15,15 +15,11 @@ exports.signupMain = function(req, res) {
 	if (userType == "S"){
 		res.render('signUpPgs/signupStudent',	{
 			title: 'Sign Up Page',
-			description: 'Blah!!',
-			extra: 'uiwefiubef',
 		});
 	}
 	else {
 		res.render('signUpPgs/signupFaculty',	{
 			title: 'Sign Up Page',
-			description: 'Blah!!',
-			extra: 'uiwefiubef',
 		});
 	}
 	

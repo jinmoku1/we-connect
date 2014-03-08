@@ -44,9 +44,11 @@ Text area.....................................................Text area
 <script>
 function getCheckBox(form) {
 	var clicked = document.getElementById("agreement").checked;
-	alert(clicked);
 	if (clicked){
 		return true;
+	}
+	else {
+		alert("You need to agree to the Terms and Agreement");
 	}
 	return false;
 }

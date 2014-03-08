@@ -1,15 +1,14 @@
 <%- include ../partials/header.ejs %>
 
 <h1><%= title %></h1>
-<p><%= description %></p>
 <div>
-	<form>
+	<form method="post" action="">
 		netID: <input type="text" name="netid"><br>
 		First Name: <input type="text" name="firstname"><br>
 		Last Name: <input type="text" name="lastname"><br>
 		Field of Interest: <input type="text" name="interest"><br>
 		Department:
-		<select>
+		<select name="dept">
 			<% 
 				// DB call to get the list of departments
 				var dept = new Array("","CS", "ECE", "ENG");
@@ -19,7 +18,7 @@
 			<%
 				}
 			%>
-		</select>
+		</select name="standing">
 		Year in School:
 		<select>
 			<% 
@@ -31,6 +30,7 @@
 				}
 			%>
 		</select><br>
+		<input type="submit" onclick="return getCheckBox(this.form);" value="Submit">
 	</form>
 </div>
 <%- include ../partials/footer.ejs %>
