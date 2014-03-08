@@ -8,6 +8,11 @@ exports.index = function(req, res) {
 	});
 };
 
+exports.signup = function(req, res) {
+
+	
+};
+
 exports.signupStudent = function(req, res) {
 	res.render('signUpPgs/signupStudent',	{
 		title: 'Sign Up Page',
