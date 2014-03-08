@@ -2,7 +2,7 @@ exports.isLoggedIn = function(req) {
 	return req.session.loggedIn == true;
 };
 
-exports.logIn = function(req, username, password) {
+exports.logIn = function(req, netId, password) {
 	// todo: db access
 	
 	req.session.loggedIn = true;
@@ -16,6 +16,6 @@ exports.logOut = function(req) {
 	req.session.loggedIn = false;
 };
 
-exports.getSessionuser = function(req) {
+exports.getSessionUser = function(req) {
 	return req.session.user;
 };
