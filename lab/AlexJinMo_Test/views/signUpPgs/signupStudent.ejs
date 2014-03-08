@@ -7,11 +7,12 @@
 		netID: <input type="text" name="netid"><br>
 		First Name: <input type="text" name="firstname"><br>
 		Last Name: <input type="text" name="lastname"><br>
+		Field of Interest: <input type="text" name="interest"><br>
 		Department:
 		<select>
 			<% 
 				// DB call to get the list of departments
-				var dept = new Array("CS", "ECE", "ENG");
+				var dept = new Array("","CS", "ECE", "ENG");
 				for (var i=0; i<dept.length; i++) { 
 			%>
 					<option value="<%= dept[i] %>"><%= dept[i] %></option>
@@ -19,8 +20,17 @@
 				}
 			%>
 		</select>
-		Field of Interest: <input type="text" name="interest"><br>
-		
+		Year in School:
+		<select>
+			<% 
+				var yearSchool = new Array("", "Undergraduate", "Graduate", "Masters");
+				for (var i=0; i<yearSchool.length; i++) { 
+			%>
+					<option value="<%= yearSchool[i] %>"><%= yearSchool[i] %></option>
+			<%
+				}
+			%>
+		</select><br>
 	</form>
 </div>
 <%- include ../partials/footer.ejs %>
