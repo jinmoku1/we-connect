@@ -12,7 +12,8 @@ exports.sample = function(req, res){
 exports.logIn = function(req, res) {
 	session.logIn(req, 'username', 'password');
 	if (session.isLoggedIn(req)) {
-		res.send("User logged in.");
+		//res.send("User logged in.");
+		res.redirect('/');
 	}
 	else {
 		res.send("User log in failed.");

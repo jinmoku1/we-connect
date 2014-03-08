@@ -20,5 +20,32 @@ exports.signupMain = function(req, res) {
 			title: 'Sign Up Page',
 		});
 	}
+};
+
+exports.register = function(req, res) {
+	console.log(req.params.type);
+	var type = req.params.type;
+	var netID = req.body.netID;
+	var password = req.body.password;
+	var firstname = req.body.firstname;
+	var lastname = req.body.lastname;
+	var interest = req.body.interest;
+	var department = req.body.department;
+	var standing;
+	if (type="S"){
+		standing = req.body.standing;
+		// Student
+		// DB Insert
+	}
+	else {
+		// Faculty
+		// DB Insert
+	}
 	
+	var success = true;
+	if (success){
+		// Register session
+		
+		
+	}
 };

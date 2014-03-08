@@ -13,13 +13,12 @@ exports.route = function (app) {
 	// index
 	app.get('/', routes.index);
 	app.get('/about', routes.about);
-	app.post('/userMain', routes.userMain);
+	app.get('/userMain', routes.userMain);
 	
 	// signup
 	app.get('/signUpPgs', signup.index);
 	app.post('/signUpPgs/signupMain', signup.signupMain);
-	//app.get('/signUpPgs/signupStudent', signup.signupStudent);
-	//app.get('/signUpPgs/signupFaculty', signup.signupFaculty);
+	app.post('/signUpPgs/register/:type', signup.register);
 
 	// sub
 	app.get('/sub', sub.index);
