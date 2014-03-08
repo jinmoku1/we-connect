@@ -9,7 +9,7 @@ exports.index = function(req, res) {
 	});
 };
 
-exports.some_page = function(req, res) {
+exports.somePage = function(req, res) {
 	res.render('sub/some_page',	{
 		title: 'Some Page',
 		description: 'Ha ha ha ha ha!!',
