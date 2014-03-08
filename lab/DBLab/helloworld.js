@@ -6,3 +6,4 @@ MongoClient.connect("mongodb://hay.synology.me:27017", function(err, db){
 		console.log("Hello, World");
 	}
 });
+
