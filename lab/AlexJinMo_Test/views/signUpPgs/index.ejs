@@ -28,28 +28,24 @@ Text area.....................................................Text area
 Text area.....................................................Text area
 </div>
 
-<form action="/signUpPgs/signupStudent">
+<form method="post" action="/signUpPgs/signupMain">
 
-	Checkbox <input type="checkbox" id="agreement">
-	
-	<select id="userType">
-		<option value="student" selected>Student</option>
-		<option value="faculty">Faculty</option>
+	I agree: <input type="checkbox" id="agreement">
+	<br>
+	<select name="userType">
+		<option value="S" selected>Student</option>
+		<option value="F">Faculty</option>
 	</select>
-
-	<button onclick="return getCheckBox(this.form);">next</button>
+	<br>
+	<input type="submit" onclick="return getCheckBox(this.form);" value="Submit">
 	
 </form>
 
 <script>
 function getCheckBox(form) {
 	var clicked = document.getElementById("agreement").checked;
-	var userType = document.getElementById("userType").value;
 	alert(clicked);
 	if (clicked){
-		if (userType=="faculty")
-			form.action = "/signUpPgs/signupFaculty";
-		alert(form.action);
 		return true;
 	}
 	return false;
