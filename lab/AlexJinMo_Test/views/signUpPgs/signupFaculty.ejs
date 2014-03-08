@@ -1,25 +1,84 @@
 <%- include ../partials/header.ejs %>
 
 <h1><%= title %></h1>
-<div>
-	<form>
-		netID: <input type="text" name="netid"><br>
-		First Name: <input type="text" name="firstname"><br>
-		Last Name: <input type="text" name="lastname"><br>
-		Field of Interest: <input type="text" name="interest"><br>
-		Department:
-		<select>
-			<% 
-				var dept = new Array("", "CS", "ECE", "ENG");
-				for (var i=0; i<dept.length; i++) { 
-			%>
-					<option value="<%= dept[i] %>"><%= dept[i] %></option>
-			<%
-				}
-			%>
-		</select><br>
-	</form>
-</div>
+
+<form method="post" action="/userMain">
+	NetID: <input type="text" id="netID" name="netID"><br>
+	Password: <input type="password" id="pw1" name="pw1"><br>
+	Re-enter Password: <input type="password" id="pw2" name="pw2"><br>
+	First Name: <input type="text" id="firstName" name="firstname"><br>
+	Last Name: <input type="text" id="lastName" name="lastname"><br>
+	Field of Interest:
+	<select id="interest" name="interest">
+		<% 
+			var interest = new Array("", "Data Mining", "Machine Learning", "darkoworld");
+			for (var i=0; i<interest.length; i++) { 
+		%>
+				<option value="<%= interest[i] %>"><%= interest[i] %></option>
+		<%
+			}
+		%>
+	</select><br>
+	Department:
+	<select id="department" name="department">
+		<% 
+			// DB call to get the list of departments
+			var dept = new Array("","CS", "ECE", "ENG");
+			for (var i=0; i<dept.length; i++) { 
+		%>
+				<option value="<%= dept[i] %>"><%= dept[i] %></option>
+		<%
+			}
+		%>
+	</select><br>
+	<input type="submit" onclick="return checkInputs(this.form);" value="Submit">
+</form>
+
+
+<script>
+
+function validateNetID(netID) { 
+	var regex = new RegExp("^[a-zA-Z0-9.]*$");
+    return regex.test(netID);
+}
+
+function validateName(netID) { 
+	var regex = new RegExp("^[a-zA-Z0-9.-]*$");
+    return regex.test(netID);
+} 
+
+function checkInputs(form) {
+	var pw1 = document.getElementById("pw1").value;
+	var pw2 = document.getElementById("pw2").value;
+	var netID = document.getElementById("netID").value;
+	var firstName = document.getElementById("firstName").value;
+	var lastName = document.getElementById("lastName").value;
+	var interest = document.getElementById("interest").value;
+	var department = document.getElementById("department").value;
+	
+	if (pw1=="" || pw2=="" || pw1!=pw2){
+		alert("Your passwords don't match");
+		return false;
+	}
+	if (netID=="" || !validateNetID(netID)) {
+		alert("Your netID is not valid");
+		return false;
+	}
+	if (firstName=="" || lastName=="" || !validateName(firstName) || !validateName(lastName)) {
+		alert("Your name is not valid");
+		return false;
+	}
+	if (interest==""){
+		alert("Please choose your interest");
+		return false;
+	}
+	if (department==""){
+		alert("Please choose your department");
+		return false;
+	}
+	return true;
+}
+</script>
 
 
 <%- include ../partials/footer.ejs %>

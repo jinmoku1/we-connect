@@ -4,13 +4,15 @@
 <p><%= description %></p>
 
 <div>
-	<form>
-		User ID: <input type="text" name="userid"><br>
+	<form method="post" action="/userMain">
+		User ID: <input type="text" name="netID"><br>
 		Password: <input type="text" name="password">
 	</form>
 	
-	<button type="button">Login</button>
+	<input type="submit" value="Login">
 	<a href="/signUpPgs">Sign Up</a>
 </div>
+<script>
+</script>
 
 <%- include partials/footer.ejs %>
