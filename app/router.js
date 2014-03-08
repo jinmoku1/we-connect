@@ -15,7 +15,7 @@ exports.route = function (app) {
 	
 	// sub
 	app.get('/sub', sub.index);
-	app.get('/sub/some-page', sub.some_page);
+	app.get('/sub/some-page', sub.somePage);
 	
 	// events
 	app.get('/events', events.index);
@@ -23,4 +23,7 @@ exports.route = function (app) {
 	
 	// api
 	app.get('/api/sample', api.sample);
+	app.get('/api/log-in', api.logIn);
+	app.get('/api/log-out', api.logOut);
+	app.get('/api/is-logged-in', api.isLoggedIn);
 };
