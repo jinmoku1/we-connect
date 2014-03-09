@@ -71,12 +71,13 @@ exports.registerValidate = function(req, res) {
 exports.registerComplete = function(req, res) {
 	var type = req.params.type;
 	var netId = req.body.netId;
-	console.log(netId);
 	var password = req.body.password;
 	var firstname = req.body.firstname;
 	var lastname = req.body.lastname;
 	var interest = req.body.interest;
 	var department = req.body.department;
+	
+	console.log(interest);
 	
 	var extension = null;
 	if (type == "S"){
