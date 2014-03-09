@@ -20,6 +20,8 @@ exports.about = function(req, res) {
 
 exports.userMain = function(req, res) {
 	// Query user information
+	var session = require('../session');
+	var user = session.getSessionUser(req);
 	
 	res.render('userMain',	{
 		title: 'WeConnect: Main',

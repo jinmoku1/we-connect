@@ -31,7 +31,7 @@ exports.register = function(req, res) {
 	var lastname = req.body.lastname;
 	var interest = req.body.interest;
 	var department = req.body.department;
-	var standing;
+	var standing = "";
 	if (type="S"){
 		standing = req.body.standing;
 		// Student
@@ -46,10 +46,9 @@ exports.register = function(req, res) {
 	if (success){
 		// Register session
 		var session = require('../session');
-		session.logIn(req, netId, password);
+		session.signUp(req, type, netId, password, firstname, lastname, interest, department, standing);
 		if (session.isLoggedIn(req)) {
 			//res.send("User logged in.");
-			console.log("LJDSFOISJFODSJFIDSJFOSJDFIDSJO");
 			res.redirect('/userMain');
 		}
 		else {
