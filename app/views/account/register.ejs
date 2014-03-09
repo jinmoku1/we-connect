@@ -9,13 +9,13 @@
 <% } %>
 	<div class="form-group">
 		<div class="col-sm-3">
-			NetID: <input type="text" class="form-control" id="netID" name="netID"><br>
-			Password: <input type="password" class="form-control" id="pw1" name="password"><br>
-			Re-enter Password: <input type="password" class="form-control" id="pw2" name="pw2"><br>
-			First Name: <input type="text" class="form-control" id="firstName" name="firstname"><br>
-			Last Name: <input type="text" class="form-control" id="lastName" name="lastname"><br>
+			NetID: <input type="text" class="form-control" id="netId" name="netId" required/><br>
+			Password: <input type="password" class="form-control" id="pw1" name="password" required /><br>
+			Re-enter Password: <input type="password" class="form-control" id="pw2" name="pw2" required /><br>
+			First Name: <input type="text" class="form-control" id="firstName" name="firstname" required /><br>
+			Last Name: <input type="text" class="form-control" id="lastName" name="lastname" required /><br>
 			Field of Interest:
-			<select id="interest" class="form-control" name="interest">
+			<select id="interest" class="form-control" name="interest" required>
 				<% 
 					var interest = new Array("", "Data Mining", "Machine Learning", "darkoworld");
 					for (var i=0; i<interest.length; i++) { 
@@ -26,7 +26,7 @@
 				%>
 			</select><br>
 			Department:
-			<select id="department" class="form-control" name="department">
+			<select id="department" class="form-control" name="department" required>
 				<% 
 					// DB call to get the list of departments
 					var dept = new Array("","CS", "ECE", "ENG");
@@ -39,7 +39,7 @@
 			</select><br>
 			<% if (userType == "S"){ %>
 			Year in School:
-			<select id="standing" class="form-control" name="standing">
+			<select id="standing" class="form-control" name="standing" required> 
 				<% 
 					var yearSchool = new Array("", "Freshman", "Sophomore", "Junior", "Senior");
 					for (var i=0; i<yearSchool.length; i++) { 
@@ -50,7 +50,7 @@
 				%>
 			</select><br>
 			Degree:
-			<select id="degree" class="form-control" name="degree">
+			<select id="degree" class="form-control" name="degree" required>
 				<% 
 					var degrees = new Array("", "Undergraduate", "Graduate", "Masters");
 					for (var i=0; i<degrees.length; i++) { 
@@ -66,61 +66,19 @@
 	</div>
 </form>
 
-
 <script>
-
-function validateNetID(netID) { 
-	var regex = new RegExp("^[a-zA-Z0-9.]*$");
-    return regex.test(netID);
-}
-
-function validateName(netID) { 
-	var regex = new RegExp("^[a-zA-Z0-9.-]*$");
-    return regex.test(netID);
-} 
-
-function checkInputs(form) {
-	var pw1 = document.getElementById("pw1").value;
-	var pw2 = document.getElementById("pw2").value;
-	var netID = document.getElementById("netID").value;
-	var firstName = document.getElementById("firstName").value;
-	var lastName = document.getElementById("lastName").value;
-	var interest = document.getElementById("interest").value;
-	var department = document.getElementById("department").value;
+$('#signupForm').validate({
+	rules: {
+		pw2: {
+			equalTo: "#pw1"
+		}
+	}
+	errorClass: "validate-error",
 	
-	if (pw1=="" || pw2=="" || pw1!=pw2){
-		alert("Your passwords don't match");
-		return false;
+	messages: {
+		remote: jQuery.validator.format("{0} is already taken.")
 	}
-	if (netID=="" || !validateNetID(netID)) {
-		alert("Your netID is not valid");
-		return false;
-	}
-	if (firstName=="" || lastName=="" || !validateName(firstName) || !validateName(lastName)) {
-		alert("Your name is not valid");
-		return false;
-	}
-	if (interest==""){
-		alert("Please choose your interest");
-		return false;
-	}
-	if (department==""){
-		alert("Please choose your department");
-		return false;
-	}
-	
-	$.get("/account/registerValidate", { netId : netId }, function(data) {
-        	// return 1: success, 0: failture
-            if (data == "1"){
-                $('#signupForm').submit();
-            }
-            else {
-                alert("Sign up failed due to an invalid input.")
-            }
-	});
-
-    return false;
-}
+});
 </script>
 
 <%- include ../partials/footer.ejs %>

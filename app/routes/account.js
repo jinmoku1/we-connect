@@ -35,7 +35,6 @@ exports.logout = function(req, res) {
 exports.register = function(req, res) {
 	if (req.method == 'POST') {
 		var userType = req.body.userType;
-		console.log("THIS: "+userType);
 		res.render('account/register',	{
 			user : session.getSessionUser(req),
 			title: 'Personal Information',
@@ -58,7 +57,11 @@ exports.register = function(req, res) {
 
 exports.registerValidate = function(req, res) {
 	// DB query: validate netID
-	var netId = req.params.netId;
+	var netId = req.body.netId;
+	console.log("THIS IS:"+netId);
+	res.writeHeader(404, {"Content-Type": "text/plain"});    
+	res.write("false");
+	res.end();
 };
 
 exports.registerComplete = function(req, res) {
