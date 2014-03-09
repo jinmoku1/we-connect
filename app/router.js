@@ -2,7 +2,6 @@
  * New node file
  */
 var routes = require('./routes')
-	, signup = require('./routes/signup')
 	, sub = require('./routes/sub')
 	, events = require('./routes/events')
 	, api = require('./routes/api')
@@ -24,12 +23,6 @@ exports.route = function (app) {
 	app.post('/account/register', account.register);
 	app.get('/account/registerValidate', account.registerValidate);
 	app.post('/account/registerComplete/:type', account.registerComplete);
-	
-	//signup
-	//app.get('/signUpPgs', signup.index);
-	//app.post('/signUpPgs/signupMain', signup.signupMain);
-	//app.post('/signUpPgs/signupValidate/:type', signup.signupValidate);
-	//app.post('/signUpPgs/register/:type', signup.register);
 	
 	// sub
 	app.get('/sub', sub.index);
