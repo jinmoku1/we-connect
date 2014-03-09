@@ -4,7 +4,7 @@ exports.isLoggedIn = function(req) {
 
 exports.logIn = function(req, netId, password) {
 	// todo: db access
-	
+	// Check right ID and pw
 	req.session.loggedIn = true;
 	
 	// req.session.user = queried user

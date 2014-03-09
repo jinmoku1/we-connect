@@ -17,3 +17,12 @@ exports.about = function(req, res) {
 		extra: 'Some extra stuffs?'
 	});
 };
+
+exports.userMain = function(req, res) {
+	// Query user information
+	
+	res.render('userMain',	{
+		title: 'WeConnect: Main',
+		welcome: 'Hello, '
+	});
+};
