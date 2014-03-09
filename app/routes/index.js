@@ -3,28 +3,28 @@
  * GET rendered view page.
  */
 
+var session = require('../session');
+
 exports.index = function(req, res) {
-	res.render('index',	{
-		title: 'WeConnect',
-		description: 'Some description about this application should be placed here.',
-	});
+	session = require('../session');
+	
+	if (!session.isLoggedIn(req)) {
+		res.redirect('/account/login');
+	}
+	else {
+		res.render('index',	{
+			user : session.getSessionUser(req),
+			title: 'WeConnect: Main',
+			welcome: 'Hello, '
+		});
+	}
 };
 
 exports.about = function(req, res) {
 	res.render('about',	{
+		user : session.getSessionUser(req),
 		title: 'About WeConnect',
 		description: 'Some description about WeConnect should be placed here.',
 		extra: 'Some extra stuffs?'
-	});
-};
-
-exports.userMain = function(req, res) {
-	// Query user information
-	var session = require('../session');
-	var user = session.getSessionUser(req);
-	
-	res.render('userMain',	{
-		title: 'WeConnect: Main',
-		welcome: 'Hello, '
 	});
 };

@@ -1,9 +1,11 @@
 /**
  * New node file
  */
+var session = require('../session');
 
 exports.index = function(req, res) {
 	res.render('signUpPgs/index',	{
+		user : session.getSessionUser(req),
 		title: 'Terms and Agreements',
 	});
 };
@@ -12,11 +14,13 @@ exports.signupMain = function(req, res) {
 	var userType = req.body.userType;
 	if (userType == "S"){
 		res.render('signUpPgs/signupStudent',	{
+			user : session.getSessionUser(req),
 			title: 'Sign Up Page',
 		});
 	}
 	else {
 		res.render('signUpPgs/signupFaculty',	{
+			user : session.getSessionUser(req),
 			title: 'Sign Up Page',
 		});
 	}

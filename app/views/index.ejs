@@ -1,31 +1,6 @@
 <%- include partials/header.ejs %>
 
 <h1><%= title %></h1>
-<p><%= description %></p>
-
-<div>
-	<form method="post" action="/login">
-		User ID: <input type="text" name="netID"><br>
-		Password: <input type="password" name="password">
-		<br>
-		<input type="submit" onclick="return checkInputs(this.form);" value="Login">
-	</form>
-	<a href="/signUpPgs">Sign Up</a>
-</div>
-<script>
-
-
-function validateName(netID) { 
-	var regex = new RegExp("^[a-zA-Z0-9.-]*$");
-    return regex.test(netID);
-} 
-
-function checkInputs(form) {
-	//var pw1 = document.getElementById("pw1").value;
-	//var netID = document.getElementById("netID").value;
-	
-	return true;
-}
-</script>
+<p><%= welcome %></p>
 
 <%- include partials/footer.ejs %>

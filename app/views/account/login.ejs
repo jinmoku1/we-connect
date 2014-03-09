@@ -1,0 +1,35 @@
+<%- include ../partials/header.ejs %>
+
+<h1><%= title %></h1>
+
+<div>
+	<% if (error) { %>
+	<p class="error">
+		<%= error %>
+	</p>
+	<% } %>
+	<form method="post">
+		User ID: <input type="text" name="netID"><br>
+		Password: <input type="password" name="password">
+		<br>
+		<button type="submit">Log-in</button>
+	</form>
+	<a href="/account/register">Sign Up</a>
+</div>
+<script>
+
+
+function validateName(netID) { 
+	var regex = new RegExp("^[a-zA-Z0-9.-]*$");
+    return regex.test(netID);
+} 
+
+function checkInputs(form) {
+	//var pw1 = document.getElementById("pw1").value;
+	//var netID = document.getElementById("netID").value;
+	
+	return true;
+}
+</script>
+
+<%- include ../partials/footer.ejs %>
