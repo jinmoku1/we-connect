@@ -1,0 +1,57 @@
+<%- include ../partials/header.ejs %>
+
+<h1><%= title %></h1>
+
+<div style="height:300px; width:300px; border:1px solid #ccc; overflow:auto;">
+Text area.....................................................Text area
+Text area.....................................................Text area
+Text area.....................................................Text area
+Text area.....................................................Text area
+Text area.....................................................Text area
+Text area.....................................................Text area
+Text area.....................................................Text area
+
+Text area.....................................................Text area
+Text area.....................................................Text area
+Text area.....................................................Text area
+
+Text area.....................................................Text area
+Text area.....................................................Text area
+
+Text area.....................................................Text area
+
+Text area.....................................................Text area
+
+Text area.....................................................Text area
+
+Text area.....................................................Text area
+Text area.....................................................Text area
+</div>
+
+<form method="post" action="/signUpPgs/signupMain">
+	I agree: <input type="checkbox" id="agreement">
+	<br>
+	<select name="userType">
+		<option value="S" selected>Student</option>
+		<option value="F">Faculty</option>
+	</select>
+	<br>
+	<input type="submit" onclick="return getCheckBox(this.form);" value="Submit">
+</form>
+
+<script>
+function getCheckBox(form) {
+	var clicked = document.getElementById("agreement").checked;
+	if (clicked){
+		return true;
+	}
+	else {
+		alert("You need to agree to the Terms and Agreement");
+	}
+	return false;
+}
+</script>
+	
+
+
+<%- include ../partials/footer.ejs %>
