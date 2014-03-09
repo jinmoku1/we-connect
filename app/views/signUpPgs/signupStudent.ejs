@@ -2,8 +2,8 @@
 
 <h1><%= title %></h1>
 
-<form method="post" action="/signUpPgs/register/S">
-	NetID: <input type="text" id="netID" name="netID"><br>
+<form id="signupForm" method="post" action="/signUpPgs/register/S">
+	NetID: <input type="text" id="netId" name="netId"><br>
 	Password: <input type="password" id="pw1" name="password"><br>
 	Re-enter Password: <input type="password" id="pw2" name="pw2"><br>
 	First Name: <input type="text" id="firstName" name="firstname"><br>
@@ -30,14 +30,25 @@
 		<%
 			}
 		%>
-
+	</select><br>
 	Year in School:
 	<select id="standing" name="standing">
 		<% 
-			var yearSchool = new Array("", "Undergraduate", "Graduate", "Masters");
+			var yearSchool = new Array("", "Freshman", "Sophomore", "Junior", "Senior");
 			for (var i=0; i<yearSchool.length; i++) { 
 		%>
 				<option value="<%= yearSchool[i] %>"><%= yearSchool[i] %></option>
+		<%
+			}
+		%>
+	</select><br>
+	Degree:
+	<select id="degree" name="degree">
+		<% 
+			var degrees = new Array("", "Undergraduate", "Graduate", "Masters");
+			for (var i=0; i<degrees.length; i++) { 
+		%>
+				<option value="<%= degrees[i] %>"><%= degrees[i] %></option>
 		<%
 			}
 		%>
@@ -47,36 +58,36 @@
 
 
 <script>
-
-function validateNetID(netID) { 
+function isValidNetId(netId) { 
 	var regex = new RegExp("^[a-zA-Z0-9.]*$");
-    return regex.test(netID);
-}
+    return regex.test(netId);
+} 
 
-function validateName(netID) { 
+function isValidName(netId) { 
 	var regex = new RegExp("^[a-zA-Z0-9.-]*$");
-    return regex.test(netID);
+    return regex.test(netId);
 }
 
 function checkInputs(form) {
-	var pw1 = document.getElementById("pw1").value;
-	var pw2 = document.getElementById("pw2").value;
-	var netID = document.getElementById("netID").value;
-	var firstName = document.getElementById("firstName").value;
-	var lastName = document.getElementById("lastName").value;
-	var interest = document.getElementById("interest").value;
-	var department = document.getElementById("department").value;
-	var standing = document.getElementById("standing").value;
+	var pw1 = $("#pw1").val();
+	var pw2 = $("#pw2").val();
+	var netId = $("#netId").val();
+	var firstName = $("#firstName").val();
+	var lastName = $("#lastName").val();
+	var interest = $("#interest").val();
+	var department = $("#department").val();
+	var standing = $("#standing").val();
+	var degree = $("#degree").val();
 	
 	if (pw1=="" || pw2=="" || pw1!=pw2){
 		alert("Your passwords don't match");
 		return false;
 	}
-	if (netID=="" || !validateNetID(netID)) {
+	if (netId=="" || !isValidNetId(netId)) {
 		alert("Your netID is not valid");
 		return false;
 	}
-	if (firstName=="" || lastName=="" || !validateName(firstName) || !validateName(lastName)) {
+	if (firstName=="" || lastName=="" || !isValidName(firstName) || !isValidName(lastName)) {
 		alert("Your name is not valid");
 		return false;
 	}
@@ -92,7 +103,26 @@ function checkInputs(form) {
 		alert("Please choose your standing");
 		return false;
 	}
-	return true;
+	if (degree==""){
+		alert("Please choose your degree");
+		return false;
+	}
+	
+	//var params = "netId="+netId
+	//+ "&password="+pw1 + "&firstName="+firstName + "&lastName=" + lastName
+		//		+ "&interest=" + interest + "&department=" + department + "&standing=" + standing + "&degree=" + degree;
+	alert(params);
+	$.get("/signUpPgs/signupValidate/S", { netId : netId }, function(data) {
+        	// return 1: success, 0: failture
+            if (data == "1"){
+                $('#signupForm').submit();
+            }
+            else {
+                alert("Sign up failed due to an invalid input.")
+            }
+	});
+
+    return false;
 }
 </script>
 <%- include ../partials/footer.ejs %>

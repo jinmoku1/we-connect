@@ -22,18 +22,42 @@ exports.signupMain = function(req, res) {
 	}
 };
 
-exports.register = function(req, res) {
-	console.log(req.params.type);
+exports.signupValidate = function(req, res) {
+	console.log("DSFIDSJFOSIDFJSD");
 	var type = req.params.type;
-	var netId = req.body.netID;
+	var netId = req.body.netId;
 	var password = req.body.password;
 	var firstname = req.body.firstname;
 	var lastname = req.body.lastname;
 	var interest = req.body.interest;
 	var department = req.body.department;
 	var standing = "";
-	if (type="S"){
+	var degree = "";
+	if (type == "S"){
 		standing = req.body.standing;
+		degree = req.body.degree;
+	}
+	console.log(type);
+	console.log(netId);
+	console.log(password);
+	console.log(firstname);
+	console.log(department);
+	
+};
+
+exports.register = function(req, res) {
+	var type = req.params.type;
+	var netId = req.body.netId;
+	var password = req.body.password;
+	var firstname = req.body.firstname;
+	var lastname = req.body.lastname;
+	var interest = req.body.interest;
+	var department = req.body.department;
+	var standing = "";
+	var degree = "";
+	if (type == "S"){
+		standing = req.body.standing;
+		degree = req.body.degree;
 		// Student
 		// DB Insert
 	}
@@ -46,7 +70,7 @@ exports.register = function(req, res) {
 	if (success){
 		// Register session
 		var session = require('../session');
-		session.signUp(req, type, netId, password, firstname, lastname, interest, department, standing);
+		session.signUp(req, type, netId, password, firstname, lastname, interest, department, standing, degree);
 		if (session.isLoggedIn(req)) {
 			//res.send("User logged in.");
 			res.redirect('/userMain');

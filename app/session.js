@@ -12,7 +12,7 @@ exports.logIn = function(req, netId, password) {
 	return req.session.loggedIn;
 };
 
-exports.signUp = function(req, netId, password) {
+exports.signUp = function(req, type, netId, password, firstname, lastname, interest, department, standing, degree) {
 	// todo: db access
 	// insert sign up info
 	req.session.loggedIn = true;

@@ -3,7 +3,7 @@
 <h1><%= title %></h1>
 
 <form method="post" action="/signUpPgs/register/F">
-	NetID: <input type="text" id="netID" name="netID"><br>
+	NetID: <input type="text" id="netId" name="netId"><br>
 	Password: <input type="password" id="pw1" name="pw1"><br>
 	Re-enter Password: <input type="password" id="pw2" name="pw2"><br>
 	First Name: <input type="text" id="firstName" name="firstname"><br>
@@ -37,34 +37,35 @@
 
 <script>
 
-function validateNetID(netID) { 
+function isValidNetId(netId) {
+	alert("SDJFOISDJF");
 	var regex = new RegExp("^[a-zA-Z0-9.]*$");
-    return regex.test(netID);
-}
-
-function validateName(netID) { 
-	var regex = new RegExp("^[a-zA-Z0-9.-]*$");
-    return regex.test(netID);
+    return regex.test(netId);
 } 
 
+function isValidName(name) { 
+	var regex = new RegExp("^[a-zA-Z0-9.-]*$");
+    return regex.test(name);
+}
+
 function checkInputs(form) {
-	var pw1 = document.getElementById("pw1").value;
-	var pw2 = document.getElementById("pw2").value;
-	var netID = document.getElementById("netID").value;
-	var firstName = document.getElementById("firstName").value;
-	var lastName = document.getElementById("lastName").value;
-	var interest = document.getElementById("interest").value;
-	var department = document.getElementById("department").value;
+	var pw1 = $("#pw1").val();
+	var pw2 = $("#pw2").val();
+	var netId = $("#netId").val();
+	var firstName = $("#firstName").val();
+	var lastName = $("#lastName").val();
+	var interest = $("#interest").val();
+	var department = $("#department").val();
 	
 	if (pw1=="" || pw2=="" || pw1!=pw2){
 		alert("Your passwords don't match");
 		return false;
 	}
-	if (netID=="" || !validateNetID(netID)) {
+	if (netId=="" || !isValidNetId(netId)) {
 		alert("Your netID is not valid");
 		return false;
 	}
-	if (firstName=="" || lastName=="" || !validateName(firstName) || !validateName(lastName)) {
+	if (firstName=="" || lastName=="" || !isValidName(firstName) || !isValidName(lastName)) {
 		alert("Your name is not valid");
 		return false;
 	}

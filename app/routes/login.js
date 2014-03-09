@@ -1,7 +1,7 @@
 
 
 exports.index = function(req, res) {
-	var netId = req.body.netID;
+	var netId = req.body.netId;
 	var password = req.body.password;
 	// Register session
 	var session = require('../session');

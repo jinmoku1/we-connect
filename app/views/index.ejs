@@ -5,26 +5,29 @@
 
 <div>
 	<form method="post" action="/login">
-		User ID: <input type="text" name="netID"><br>
-		Password: <input type="password" name="password">
+		User ID: <input id="netId" type="text" name="netId"><br>
+		Password: <input id="password" type="password" name="password">
 		<br>
 		<input type="submit" onclick="return checkInputs(this.form);" value="Login">
 	</form>
 	<a href="/signUpPgs">Sign Up</a>
 </div>
 <script>
-
-
-function validateName(netID) { 
-	var regex = new RegExp("^[a-zA-Z0-9.-]*$");
-    return regex.test(netID);
+function isValidNetId(netId) { 
+	var regex = new RegExp("^[a-zA-Z0-9.]*$");
+    return regex.test(netId);
 } 
 
 function checkInputs(form) {
-	//var pw1 = document.getElementById("pw1").value;
-	//var netID = document.getElementById("netID").value;
-	
-	return true;
+	var netId = $('#netId').val();
+	var password = $('#password').val();
+	if (netId!="" && password!="" && isValidNetId(netId)){
+		return true;
+	}
+	else {
+		alert("Please enter a correct netID");
+		return false;
+	}
 }
 </script>
 

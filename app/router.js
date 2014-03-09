@@ -19,6 +19,7 @@ exports.route = function (app) {
 	// signup
 	app.get('/signUpPgs', signup.index);
 	app.post('/signUpPgs/signupMain', signup.signupMain);
+	app.post('/signUpPgs/signupValidate/:type', signup.signupValidate);
 	app.post('/signUpPgs/register/:type', signup.register);
 	
 	// login
