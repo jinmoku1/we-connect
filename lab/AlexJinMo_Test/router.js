@@ -2,14 +2,10 @@
  * New node file
  */
 var routes = require('./routes')
+	, signup = require('./routes/signup')
 	, sub = require('./routes/sub')
 	, events = require('./routes/events')
-	, mongotest = require('./routes/mongotest')
-	, api = require('./routes/api')
-	// Add variables for db
-	, mongo = require('mongodb')
-	, monk = require('monk')
-	, db = monk('localhost:27017/Seungchul_Test');
+	, api = require('./routes/api');
 
 exports.route = function (app) {
 	// view render
@@ -18,6 +14,11 @@ exports.route = function (app) {
 	app.get('/', routes.index);
 	app.get('/about', routes.about);
 	
+	// signup
+	app.get('/signUpPgs', signup.index);
+	app.get('/signUpPgs/signupStudent', signup.signupStudent);
+	app.get('/signUpPgs/signupFaculty', signup.signupFaculty);
+
 	// sub
 	app.get('/sub', sub.index);
 	app.get('/sub/some-page', sub.some_page);
@@ -25,9 +26,6 @@ exports.route = function (app) {
 	// events
 	app.get('/events', events.index);
 	app.get('/events/:id', events.detail);
-	
-	// Seungchul world
-	app.get('/mongotest', mongotest.index(db));
 	
 	// api
 	app.get('/api/sample', api.sample);
