@@ -1,14 +1,22 @@
+account = require('./db/account');
+
 exports.isLoggedIn = function(req) {
 	return req.session.loggedIn == true;
 };
 
-exports.logIn = function(req, netId, password) {
+exports.logIn = function(req, netId, password, callback) {
 	// todo: db access
 	// Check right ID and pw
-	req.session.loggedIn = true;
-	req.session.user = 1;
-	
-	return req.session.loggedIn;
+	account.isValidLogin(netId, password, function(user) {
+		if(user) {
+			req.session.loggedIn = true;
+			req.session.user = user;
+			callback(true);
+		}
+		else {
+			callback(false);
+		}
+	});
 };
 
 exports.logOut = function(req) {
