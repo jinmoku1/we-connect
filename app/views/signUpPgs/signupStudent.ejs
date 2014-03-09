@@ -2,14 +2,25 @@
 
 <h1><%= title %></h1>
 
+<<<<<<< HEAD
 <form id="signupForm" method="post" action="/signUpPgs/register/S">
 	NetID: <input type="text" id="netId" name="netId"><br>
 	Password: <input type="password" id="pw1" name="password"><br>
 	Re-enter Password: <input type="password" id="pw2" name="pw2"><br>
 	First Name: <input type="text" id="firstName" name="firstname"><br>
 	Last Name: <input type="text" id="lastName" name="lastname"><br>
+=======
+<form method="post" action="/signUpPgs/register/S">
+	<div class="form-group">
+	<div class="col-sm-3">
+	NetID: <input type="text" class="form-control" id="netID" name="netID"><br>
+	Password: <input type="password" class="form-control" id="pw1" name="password"><br>
+	Re-enter Password: <input type="password" class="form-control" id="pw2" name="pw2"><br>
+	First Name: <input type="text" class="form-control" id="firstName" name="firstname"><br>
+	Last Name: <input type="text" class="form-control" id="lastName" name="lastname"><br>
+>>>>>>> 16fea18ce9a5b1370d64e50361349ab30f97f26b
 	Field of Interest:
-	<select id="interest" name="interest">
+	<select id="interest" class="form-control" name="interest">
 		<% 
 			var interest = new Array("", "Data Mining", "Machine Learning", "darkoworld");
 			for (var i=0; i<interest.length; i++) { 
@@ -20,7 +31,7 @@
 		%>
 	</select><br>
 	Department:
-	<select id="department" name="department">
+	<select id="department" class="form-control" name="department">
 		<% 
 			// DB call to get the list of departments
 			var dept = new Array("","CS", "ECE", "ENG");
@@ -32,7 +43,7 @@
 		%>
 	</select><br>
 	Year in School:
-	<select id="standing" name="standing">
+	<select id="standing" class="form-control" name="standing">
 		<% 
 			var yearSchool = new Array("", "Freshman", "Sophomore", "Junior", "Senior");
 			for (var i=0; i<yearSchool.length; i++) { 
@@ -42,6 +53,7 @@
 			}
 		%>
 	</select><br>
+<<<<<<< HEAD
 	Degree:
 	<select id="degree" name="degree">
 		<% 
@@ -54,6 +66,11 @@
 		%>
 	</select><br>
 	<input type="submit" onclick="return checkInputs(this.form);" value="Submit">
+=======
+	<input type="submit" class="btn btn-primary" onclick="return checkInputs(this.form);" value="Submit">
+	</div>
+	</div>
+>>>>>>> 16fea18ce9a5b1370d64e50361349ab30f97f26b
 </form>
 
 
@@ -125,4 +142,3 @@ function checkInputs(form) {
     return false;
 }
 </script>
-<%- include ../partials/footer.ejs %>

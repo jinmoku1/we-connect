@@ -2,6 +2,8 @@
  * GET rendered view page.
  */
 
+var session = require('../session');
+
 exports.index = function(req, res) {
 	res.render('events/index',	{
 		events: [{id: 1, name: 'Event 1'},
@@ -14,6 +16,7 @@ exports.index = function(req, res) {
 
 exports.detail = function(req, res) {
 	res.render('events/detail',	{
+		user : session.getSessionUser(),
 		id: req.params.id
 	});
 };

@@ -1,8 +1,12 @@
 <%- include partials/header.ejs %>
+<br><br><br><br><br><br><br><br>
+<h1 align = "center" ><%= title %></h1>
 
+<<<<<<< HEAD
 <h1><%= title %></h1>
-<p><%= description %></p>
+<p><%= welcome %></p>
 
+<<<<<<< HEAD
 <div>
 	<form method="post" action="/login">
 		User ID: <input id="netId" type="text" name="netId"><br>
@@ -16,6 +20,35 @@
 function isValidNetId(netId) { 
 	var regex = new RegExp("^[a-zA-Z0-9.]*$");
     return regex.test(netId);
+=======
+<%- include partials/footer.ejs %>
+=======
+<form method="post" action="/login">
+	<div class="form-group" >
+	<div class="row" >
+		<div class="col-md-4 col-md-offset-4">
+			<input type="text" class="form-control" name="netID" placeholder="User ID" >
+		</div>
+	</div><br>
+	<div class="row" >
+		<div class="col-md-4 col-md-offset-4">
+			<input type="password" class="form-control" name="password" placeholder="password">
+		</div>
+	</div>
+	</div>
+	<div class="row" >
+		<div class="col-md-offset-6">
+			<a href="/signUpPgs">Sign Up Now</a>
+			<input type="submit" class="btn btn-primary " onclick="return checkInputs(this.form);" value="Login" >
+		</div>
+    </div>
+	
+</form>
+<script>
+function validateName(netID) { 
+	var regex = new RegExp("^[a-zA-Z0-9.-]*$");
+    return regex.test(netID);
+>>>>>>> 16fea18ce9a5b1370d64e50361349ab30f97f26b
 } 
 
 function checkInputs(form) {
@@ -30,5 +63,4 @@ function checkInputs(form) {
 	}
 }
 </script>
-
-<%- include partials/footer.ejs %>
+>>>>>>> f7791f8c5bcff7c489a86178cb75951566225788

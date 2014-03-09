@@ -3,10 +3,10 @@
  */
 var routes = require('./routes')
 	, signup = require('./routes/signup')
-	, login = require('./routes/login')
 	, sub = require('./routes/sub')
 	, events = require('./routes/events')
-	, api = require('./routes/api');
+	, api = require('./routes/api')
+	, account = require('./routes/account');
 
 exports.route = function (app) {
 	// view render
@@ -14,16 +14,25 @@ exports.route = function (app) {
 	// index
 	app.get('/', routes.index);
 	app.get('/about', routes.about);
-	app.get('/userMain', routes.userMain);
+	//app.get('/userMain', routes.userMain);
 	
+<<<<<<< HEAD
 	// signup
 	app.get('/signUpPgs', signup.index);
 	app.post('/signUpPgs/signupMain', signup.signupMain);
 	app.post('/signUpPgs/signupValidate/:type', signup.signupValidate);
 	app.post('/signUpPgs/register/:type', signup.register);
+=======
+	// account
+	app.get('/account/login', account.login);
+	app.post('/account/login', account.login);
+	app.get('/account/logout', account.logout);
+>>>>>>> 16fea18ce9a5b1370d64e50361349ab30f97f26b
 	
-	// login
-	app.post('/login', login.index);
+	// signup
+	//app.get('/signUpPgs', signup.index);
+	//app.post('/signUpPgs/signupMain', signup.signupMain);
+	//app.post('/signUpPgs/register/:type', signup.register);
 	
 	// sub
 	app.get('/sub', sub.index);

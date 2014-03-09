@@ -1,6 +1,7 @@
 /**
  * New node file
  */
+var session = require('../session');
 
 exports.index = function(req, res) {
 	res.render('sub/index',	{
