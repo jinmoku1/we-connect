@@ -15,7 +15,8 @@ describe("Mocha Ajax Tests", function(){
 		});
 	});
    
-	it("flag should be true", function(){   
+	it("flag should be true", function(){
+		console.log('i m done');
 		assert.equal(password, '1234'); 
 	});
 });
