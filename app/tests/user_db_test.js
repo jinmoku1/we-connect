@@ -1,7 +1,7 @@
 var assert = require('assert')
   , userDb = require('../db/user_db');
 
-describe("#userDb.register()", function() {
+describe("#userDb.create()", function() {
 	var registeredUser = null;
 	
 	var newUser = {
@@ -20,7 +20,7 @@ describe("#userDb.register()", function() {
 	var password = 'welovedarko';
 	
 	before(function(done) {
-		userDb.register(newUser, password, function(userDetailDoc) {
+		userDb.create(newUser, password, function(userDetailDoc) {
 			registeredUser = userDetailDoc;
 			done();
 		});

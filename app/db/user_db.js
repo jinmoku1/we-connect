@@ -1,15 +1,11 @@
-/**
- * Connection with MongoDB for signup / login pages
- * 
- * By Seungchul Lee, Changyong Choi, Seung H. Cha
- */
-
 // Collection Constants
 var USER_DETAILS	= 'userDetails';
 var USER_BRIEFS		= 'userBriefs';
 var USER_ACCOUNTS	= 'userAccounts';
 
 var connector = require('./connector');
+
+//--------------- Utility Functions --------------- //
 
 function detailToBrief(userDetail) {
 	return {
@@ -30,15 +26,9 @@ function detailToAccount(userDetail, password) {
 	};
 }
 
-/**
- * For the signup page, we need to store their information on accounts / userBriefs / userDetails collections
- * We assumed that the input user information already comes thought validation check on the client side, so it is always unique user info.
- * 
- * @param user all user information without password
- * @param password password information
- * @param callback it is just a callback function that happens when this method is done
- */
-exports.register = function(userDetail, password, callback) {
+//--------------- Common Operations --------------- //
+
+exports.create = function(userDetail, password, callback) {
 	connector.save(USER_DETAILS, userDetail, function(db, detailDoc) {
 		// update with generated _id
 		userDetail = detailDoc;
@@ -75,6 +65,16 @@ exports.remove = function(_id, callback) {
 		});
 	});
 };
+
+exports.getBriefs = function(callback) {
+	// to be implemented
+};
+
+exports.getDetail = function(_id, callback) {
+	// to be implemented
+};
+
+// --------------- Object Specific Operations --------------- //
 
 /**
  * Check user typed netId and password are matched
