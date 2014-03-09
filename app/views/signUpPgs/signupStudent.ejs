@@ -3,13 +3,15 @@
 <h1><%= title %></h1>
 
 <form method="post" action="/signUpPgs/register/S">
-	NetID: <input type="text" id="netID" name="netID"><br>
-	Password: <input type="password" id="pw1" name="password"><br>
-	Re-enter Password: <input type="password" id="pw2" name="pw2"><br>
-	First Name: <input type="text" id="firstName" name="firstname"><br>
-	Last Name: <input type="text" id="lastName" name="lastname"><br>
+	<div class="form-group">
+	<div class="col-sm-3">
+	NetID: <input type="text" class="form-control" id="netID" name="netID"><br>
+	Password: <input type="password" class="form-control" id="pw1" name="password"><br>
+	Re-enter Password: <input type="password" class="form-control" id="pw2" name="pw2"><br>
+	First Name: <input type="text" class="form-control" id="firstName" name="firstname"><br>
+	Last Name: <input type="text" class="form-control" id="lastName" name="lastname"><br>
 	Field of Interest:
-	<select id="interest" name="interest">
+	<select id="interest" class="form-control" name="interest">
 		<% 
 			var interest = new Array("", "Data Mining", "Machine Learning", "darkoworld");
 			for (var i=0; i<interest.length; i++) { 
@@ -20,7 +22,7 @@
 		%>
 	</select><br>
 	Department:
-	<select id="department" name="department">
+	<select id="department" class="form-control" name="department">
 		<% 
 			// DB call to get the list of departments
 			var dept = new Array("","CS", "ECE", "ENG");
@@ -32,7 +34,7 @@
 		%>
 
 	Year in School:
-	<select id="standing" name="standing">
+	<select id="standing" class="form-control" name="standing">
 		<% 
 			var yearSchool = new Array("", "Undergraduate", "Graduate", "Masters");
 			for (var i=0; i<yearSchool.length; i++) { 
@@ -42,7 +44,9 @@
 			}
 		%>
 	</select><br>
-	<input type="submit" onclick="return checkInputs(this.form);" value="Submit">
+	<input type="submit" class="btn btn-primary" onclick="return checkInputs(this.form);" value="Submit">
+	</div>
+	</div>
 </form>
 
 
@@ -95,4 +99,3 @@ function checkInputs(form) {
 	return true;
 }
 </script>
-<%- include ../partials/footer.ejs %>
