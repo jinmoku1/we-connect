@@ -5,9 +5,7 @@
 
 var session = require('../session');
 
-exports.index = function(req, res) {
-	session = require('../session');
-	
+exports.index = function(req, res) {	
 	if (!session.isLoggedIn(req)) {
 		res.redirect('/account/login');
 	}

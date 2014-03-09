@@ -28,15 +28,20 @@ Text area.....................................................Text area
 Text area.....................................................Text area
 </div>
 
-<form method="post" action="/signUpPgs/signupMain">
-	I agree: <input type="checkbox" id="agreement">
-	<br>
-	<select name="userType">
-		<option value="S" selected>Student</option>
-		<option value="F">Faculty</option>
-	</select>
-	<br>
-	<input type="submit" onclick="return getCheckBox(this.form);" value="Submit">
+<form method="post">
+	<div class="form-group">
+		I agree: <input type="checkbox" id="agreement"><br>
+	</div>
+	<div class="form-group">
+		<select name="userType">
+			<option value="S" selected>Student</option>
+			<option value="F">Faculty</option>
+		</select>
+		<br>
+	</div>
+	<div class="form-group">
+		<button type="submit" class="btn btn-primary" onclick="return getCheckBox(this.form);">Submit</button>
+	</div>
 </form>
 
 <script>
@@ -52,6 +57,4 @@ function getCheckBox(form) {
 }
 </script>
 	
-
-
 <%- include ../partials/footer.ejs %>

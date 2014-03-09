@@ -2,36 +2,68 @@
 
 <h1><%= title %></h1>
 
-<form method="post" action="/signUpPgs/register/F">
-	NetID: <input type="text" id="netID" name="netID"><br>
-	Password: <input type="password" id="pw1" name="pw1"><br>
-	Re-enter Password: <input type="password" id="pw2" name="pw2"><br>
-	First Name: <input type="text" id="firstName" name="firstname"><br>
-	Last Name: <input type="text" id="lastName" name="lastname"><br>
-	Field of Interest:
-	<select id="interest" name="interest">
-		<% 
-			var interest = new Array("", "Data Mining", "Machine Learning", "darkoworld");
-			for (var i=0; i<interest.length; i++) { 
-		%>
-				<option value="<%= interest[i] %>"><%= interest[i] %></option>
-		<%
-			}
-		%>
-	</select><br>
-	Department:
-	<select id="department" name="department">
-		<% 
-			// DB call to get the list of departments
-			var dept = new Array("","CS", "ECE", "ENG");
-			for (var i=0; i<dept.length; i++) { 
-		%>
-				<option value="<%= dept[i] %>"><%= dept[i] %></option>
-		<%
-			}
-		%>
-	</select><br>
-	<input type="submit" onclick="return checkInputs(this.form);" value="Submit">
+<% if (userType == "S"){ %>
+<form id="signupForm" method="post" action="/account/registerComplete/S">
+<% } else { %>
+<form id="signupForm" method="post" action="/account/registerComplete/F">
+<% } %>
+	<div class="form-group">
+		<div class="col-sm-3">
+			NetID: <input type="text" class="form-control" id="netID" name="netID"><br>
+			Password: <input type="password" class="form-control" id="pw1" name="password"><br>
+			Re-enter Password: <input type="password" class="form-control" id="pw2" name="pw2"><br>
+			First Name: <input type="text" class="form-control" id="firstName" name="firstname"><br>
+			Last Name: <input type="text" class="form-control" id="lastName" name="lastname"><br>
+			Field of Interest:
+			<select id="interest" class="form-control" name="interest">
+				<% 
+					var interest = new Array("", "Data Mining", "Machine Learning", "darkoworld");
+					for (var i=0; i<interest.length; i++) { 
+				%>
+						<option value="<%= interest[i] %>"><%= interest[i] %></option>
+				<%
+					}
+				%>
+			</select><br>
+			Department:
+			<select id="department" class="form-control" name="department">
+				<% 
+					// DB call to get the list of departments
+					var dept = new Array("","CS", "ECE", "ENG");
+					for (var i=0; i<dept.length; i++) { 
+				%>
+						<option value="<%= dept[i] %>"><%= dept[i] %></option>
+				<%
+					}
+				%>
+			</select><br>
+			<% if (userType == "S"){ %>
+			Year in School:
+			<select id="standing" class="form-control" name="standing">
+				<% 
+					var yearSchool = new Array("", "Freshman", "Sophomore", "Junior", "Senior");
+					for (var i=0; i<yearSchool.length; i++) { 
+				%>
+						<option value="<%= yearSchool[i] %>"><%= yearSchool[i] %></option>
+				<%
+					}
+				%>
+			</select><br>
+			Degree:
+			<select id="degree" class="form-control" name="degree">
+				<% 
+					var degrees = new Array("", "Undergraduate", "Graduate", "Masters");
+					for (var i=0; i<degrees.length; i++) { 
+				%>
+						<option value="<%= degrees[i] %>"><%= degrees[i] %></option>
+				<%
+					}
+				%>
+			</select><br>
+			<% } %>
+			<button type="submit" class="btn btn-primary" onclick="return checkInputs(this.form);">Submit</button>
+		</div>
+	</div>
 </form>
 
 
@@ -76,9 +108,19 @@ function checkInputs(form) {
 		alert("Please choose your department");
 		return false;
 	}
-	return true;
+	
+	$.get("/account/registerValidate", { netId : netId }, function(data) {
+        	// return 1: success, 0: failture
+            if (data == "1"){
+                $('#signupForm').submit();
+            }
+            else {
+                alert("Sign up failed due to an invalid input.")
+            }
+	});
+
+    return false;
 }
 </script>
-
 
 <%- include ../partials/footer.ejs %>

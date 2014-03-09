@@ -16,22 +16,19 @@ exports.route = function (app) {
 	app.get('/about', routes.about);
 	//app.get('/userMain', routes.userMain);
 	
-<<<<<<< HEAD
-	// signup
-	app.get('/signUpPgs', signup.index);
-	app.post('/signUpPgs/signupMain', signup.signupMain);
-	app.post('/signUpPgs/signupValidate/:type', signup.signupValidate);
-	app.post('/signUpPgs/register/:type', signup.register);
-=======
 	// account
 	app.get('/account/login', account.login);
 	app.post('/account/login', account.login);
 	app.get('/account/logout', account.logout);
->>>>>>> 16fea18ce9a5b1370d64e50361349ab30f97f26b
+	app.get('/account/register', account.register);
+	app.post('/account/register', account.register);
+	app.get('/account/registerValidate', account.registerValidate);
+	app.post('/account/registerComplete/:type', account.registerComplete);
 	
-	// signup
+	//signup
 	//app.get('/signUpPgs', signup.index);
 	//app.post('/signUpPgs/signupMain', signup.signupMain);
+	//app.post('/signUpPgs/signupValidate/:type', signup.signupValidate);
 	//app.post('/signUpPgs/register/:type', signup.register);
 	
 	// sub
