@@ -5,7 +5,8 @@
  */
 
 // Database Configuration
-var CONNECTION_STRING = 'mongodb://hay.synology.me:27017/weconnect';
+//var CONNECTION_STRING = 'mongodb://hay.synology.me:27017/weconnect';
+var CONNECTION_STRING = 'mongodb://127.0.0.1:27017/weconnect';
 
 var mongoClient = require('mongodb').MongoClient;
 
@@ -28,7 +29,7 @@ exports.connect = function(callback) {
 exports.save = function(collection, inputDoc, callback) {
 	exports.connect(function(db) {
 		var dbCollection = db.collection(collection);
-		dbCollection.save(inputDoc, {safe:true}, function(err, resultDoc) {
+		dbCollection.save(inputDoc, { safe : true }, function(err, resultDoc) {
 			if (err) {
 				console.log("[ERROR] Save on \'"+collection+"\' Failed.");
 				return;
@@ -41,12 +42,26 @@ exports.save = function(collection, inputDoc, callback) {
 exports.findOne = function(collection, conditionDoc, callback) {
 	exports.connect(function(db) {
 		var dbCollection = db.collection(collection);
-		dbCollection.findOne(conditionDoc, {safe:true}, function(err, resultDoc) {
+		dbCollection.findOne(conditionDoc, function(err, resultDoc) {
 			if (err) {
-				console.log("[ERROR] Find on \'"+collection+"\' Faield.");
+				console.log("[ERROR] Find on \'"+collection+"\' Failed.");
 				return;
 			}
 			callback(db, resultDoc);
+		});
+	});
+};
+
+exports.remove = function(collection, conditionDoc, callback) {
+	exports.connect(function(db) {
+		var dbCollection = db.collection(collection);
+		dbCollection.findAndModify(conditionDoc, null, null, { remove : true },
+		function(err, resultDoc) {
+			if (err) {
+				console.log("[ERROR] Remove on \'"+collection+"\' Failed.");
+				return;
+			}
+			callback(db, resultDoc != null);
 		});
 	});
 };
