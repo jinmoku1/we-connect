@@ -1,5 +1,7 @@
 /**
+ * make a connection to db and initialize it
  * 
+ * By Seungchul Lee, Changyong Choi, Seung. H Cha
  */
 
 // Database Configuration
@@ -7,6 +9,12 @@ var CONNECTION_STRING = 'mongodb://hay.synology.me:27017/weconnect';
 
 var mongoClient = require('mongodb').MongoClient;
 
+
+/**
+ * make a connection to db and initialize it
+ * 
+ * @param callback it is just a callback function that happens when this method is done
+ */
 exports.connect = function(callback) {
 	mongoClient.connect(CONNECTION_STRING, function(err, db) {
 		if (err) {
