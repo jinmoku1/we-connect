@@ -9,20 +9,21 @@
  * 
  */
 
-var assert = require('assert');
+var assert = require('assert')
+	,db = require('../db/account');
 
-function test(callback) {
-	setTimeout(callback(), 5000);
-}
 
-describe('Array', function() {
-	describe('#indexOf()', function() {
-		it("Should return -1 when the value is not present", function() {
-			//assert.equal(-1, [1,2,3].indexOf(5));
-			//assert.equal(-1, [1,2,3].indexOf(0));
-			//test(function() {
-				assert.equal(1, 1);
-			//});
+describe("#findById()", function(){
+	var password = null;
+	
+	beforeEach(function(done) {
+		db.getByNetId('choi', function(data) {
+			password = data['password'];
+			done();
 		});
+	});
+   
+	it("Should retrieve targetted account information", function(){   
+		assert.equal(password, '1234'); 
 	});
 });
