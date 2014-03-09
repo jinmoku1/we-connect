@@ -4,11 +4,15 @@ var connector = require('./connector');
  * 
  */
 exports.register = function(user, password, callback) {
+	console.log('before connect');
+	
 	connector.connect(function(err, db) {
 		var accounts = db.collection('accounts');
 		var userDetails = db.collection('userDetails');
 		var userBriefs = db.collection('userBriefs');
-
+		
+		console.log('before detail insert');
+		
 		userDetails.insert(user, function(err, docs) {
 			user = docs[0];
 
@@ -30,6 +34,7 @@ exports.register = function(user, password, callback) {
 
 				accounts.insert(account, function(err, docs) {
 					db.close();
+					console.log('asdf');
 					if (callback) callback(user);
 				});
 			});

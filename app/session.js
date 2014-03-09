@@ -7,7 +7,7 @@ exports.isLoggedIn = function(req) {
 exports.logIn = function(req, netId, password, callback) {
 	// todo: db access
 	// Check right ID and pw
-	account.isValidLogin(netID, password, function(user) {
+	account.isValidLogin(netId, password, function(user) {
 		if(user) {
 			req.session.loggedIn = true;
 			req.session.user = user;

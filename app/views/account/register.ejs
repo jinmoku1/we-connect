@@ -9,7 +9,7 @@
 <% } %>
 	<div class="form-group">
 		<div class="col-sm-3">
-			NetID: <input type="text" class="form-control" id="netID" name="netID"><br>
+			NetID: <input type="text" class="form-control" id="netId" name="netId"><br>
 			Password: <input type="password" class="form-control" id="pw1" name="password"><br>
 			Re-enter Password: <input type="password" class="form-control" id="pw2" name="pw2"><br>
 			First Name: <input type="text" class="form-control" id="firstName" name="firstname"><br>
@@ -109,6 +109,7 @@ function checkInputs(form) {
 		return false;
 	}
 	
+	/*
 	$.get("/account/registerValidate", { netId : netId }, function(data) {
         	// return 1: success, 0: failture
             if (data == "1"){
@@ -118,6 +119,7 @@ function checkInputs(form) {
                 alert("Sign up failed due to an invalid input.")
             }
 	});
+	*/
 
     return false;
 }
