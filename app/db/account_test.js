@@ -3,39 +3,21 @@
  * 
  */
 
-var assert = require('assert'),
-	Account = require('./account').Account;
-
-describe('Account', function() {
-	describe('#init()', function() {
-		it("Should Open Server with the given port", function() {
-			this.account = new Account('hay.synology.me', 27017, function(err, db) {
-				assert.equal(null, err);
-			});
-		});
-	});
-});
+var assert = require('assert')
+	,db = require('./account');
 
 
-describe('Account', function() {
-	var account = new Account('hay.synology.me', 27017, function(err, db) {});
+describe("#findById()", function(){
+	var password = null;
 	
-	describe('#getCollection()', function() {
-		it("Should retrieve targeted collection(accounts)", function() {
-			account.getCollection(function(err, collection) {
-				assert.equal(null, err);
-			});
+	beforeEach(function(done) {
+		db.getByNetId('choi', function(data) {
+			password = data['password'];
+			done();
 		});
 	});
-	
-	describe('#findById()', function() {
-		it("Should retrieve targetted account information", function() {
-			account.findById('choi', function(err, result) {
-				//assert.equal(null, err);
-				console.log(result);
-			});
-		});
+   
+	it("Should retrieve targetted account information", function(){   
+		assert.equal(password, '1234'); 
 	});
-	
-	account.close();
 });
