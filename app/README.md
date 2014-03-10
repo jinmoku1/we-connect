@@ -6,7 +6,15 @@
 
 ## Usage
 
+1. Install Node.js on your system.
+2. Change directory to project '/app' directory,
+3. Install all dependencies by entering 'npm install',
+4. Then enter 'node app.js', the application server will start on port 3000 as a default.
 
+## Testing
+
+1. Make sure NPM mocha is installed in global level: 'npm install -g mocha'.
+2. In '/app' directory, enter 'mocha tests/app_test.js'.
 
 ## Developing
 
