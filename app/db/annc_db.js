@@ -14,6 +14,15 @@ function detailToBrief(anncDetail) {
 
 //--------------- Common Operations --------------- //
 
+//schema for anncDetail
+function schema() {
+	var anncDetail = {
+		
+	};
+	
+	return anncDetail;
+}
+
 exports.create = function(anncDetail, callback) {
 	// to be implemented
 };

@@ -3,8 +3,29 @@ var connector = require('./connector');
 
 //--------------- Utility Functions --------------- //
 
-// schema for userDetail
-function schema(user, userType) {
+function detailToBrief(userDetail) {
+	return {
+		detailId : userDetail._id,
+		netId : userDetail.netId,
+		firstName : userDetail.firstName,
+		lastName : userDetail.lastName,
+		department : userDetail.department,
+		userType : userDetail.userType
+	};
+}
+
+function detailToAccount(userDetail, password) {
+	return {
+		detailId : userDetail['_id'],
+		netId : userDetail['netId'],
+		password : password	
+	};
+}
+
+//--------------- Common Operations --------------- //
+
+//schema for userDetail
+function schema(userType) {
 	var userDetail = {
 		_id				: null,
 		netId			: null,
@@ -52,29 +73,8 @@ function schema(user, userType) {
 	return userDetail;
 }
 
-function detailToBrief(userDetail) {
-	return {
-		detailId : userDetail._id,
-		netId : userDetail.netId,
-		firstName : userDetail.firstName,
-		lastName : userDetail.lastName,
-		department : userDetail.department,
-		userType : userDetail.userType
-	};
-}
-
-function detailToAccount(userDetail, password) {
-	return {
-		detailId : userDetail['_id'],
-		netId : userDetail['netId'],
-		password : password	
-	};
-}
-
-//--------------- Common Operations --------------- //
-
 exports.create = function(post, callback) {
-	var userDetail = schema(post, post.userType);
+	var userDetail = schema(post.userType);
 	
 	// schema build up from post data
 	userDetail.netId = post.netId;

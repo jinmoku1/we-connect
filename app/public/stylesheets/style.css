@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -8,5 +7,10 @@ a {
 }
 
 .validate-error {
-    color:#FF0000;  /* red */
+    color: #FF0000;  /* red */
+}
+
+#bodyContainer {
+	width: 1024px;
+	margin: auto;
 }

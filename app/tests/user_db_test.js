@@ -3,6 +3,7 @@ var userDb = require('../db/user_db');
 var userConst = require('../constants').user;
 
 describe("#userDb.create()", function() {
+	this.timeout(0);
 	var registeredUser = null;
 	
 	var post = {
@@ -13,8 +14,8 @@ describe("#userDb.create()", function() {
 		department		: 'CS',
 		userType		: userConst.TYPE_STUDENT,
 		interests		: [],
-		classStanding	: userConst.classStanding.JUNIOR,
-		degree			: userConst.degree.UNDERGRADUATE,
+		classStanding	: 'Junior',
+		degree			: 'Bachelor\'s',
 	};
 	
 	before(function(done) {
@@ -49,15 +50,16 @@ describe("#userDb.create()", function() {
 	});
 	
 	it("should have the right class standing as an extension", function() {
-		assert(registeredUser.extension.classStanding == userConst.classStanding.JUNIOR);
+		assert(registeredUser.extension.classStanding == 'Junior');
 	});
 	
 	it("should have the right degree as an extension", function() {
-		assert(registeredUser.extension.degree == userConst.degree.UNDERGRADUATE);
+		assert(registeredUser.extension.degree == 'Bachelor\'s');
 	});
 });
 
 describe("#userDb.netIdExists()", function() {
+	this.timeout(0);
 	var validNetIdExists = false;
 	var nonvalidNetIdExists = true;
 	
@@ -73,7 +75,7 @@ describe("#userDb.netIdExists()", function() {
 			});
 		});
 	});
-   
+	
 	it("can check if a a given net id exists in the database (valid)", function() {
 		assert(validNetIdExists == true);
 	});
@@ -84,6 +86,7 @@ describe("#userDb.netIdExists()", function() {
 });
 
 describe("#userDb.isValidLogin()", function() {
+	this.timeout(0);
 	var validUserDetail = null;
 	var nonvalidUserDetail = {};
 	
@@ -130,15 +133,16 @@ describe("#userDb.isValidLogin()", function() {
 	});
 	
 	it("should retrieve the valid class standing as an extension", function() {
-		assert(validUserDetail.extension.classStanding == userConst.classStanding.JUNIOR);
+		assert(validUserDetail.extension.classStanding == 'Junior');
 	});
 	
 	it("should retrieve the valid degree as an extension", function() {
-		assert(validUserDetail.extension.degree == userConst.degree.UNDERGRADUATE);
+		assert(validUserDetail.extension.degree == 'Bachelor\'s');
 	});
 });
 
 describe("#userDb.remove()", function() {
+	this.timeout(0);
 	var userRemoved = false;
 	
 	var netId = 'newuser1';

@@ -1,6 +1,21 @@
 <%- include partials/header.ejs %>
 
-<h1><%= title %></h1>
-<p><%= welcome %></p>
+<div id="profileContainer">
+	<div>
+		<h1><%=user.firstName%> <%=user.lastName%></h1>
+		<p>Department : <%=user.department%></p>
+		<p>Interests :</p>
+		<ul>
+		<% for (var i in user.interests) { %>
+			<li><%=user.interests[i]%></li>
+		<% } %>
+		</ul>
+		<p>User Type : <%=user.userType%></p>
+		<% if (user.userType == userConst.TYPE_STUDENT) { %>
+			<p>Degree : <%=user.extension.degree%></p>
+			<p>Class Standing : <%=user.extension.classStanding%></p>
+		<% } %>
+	</div>
+</div>
 
 <%- include partials/footer.ejs %>

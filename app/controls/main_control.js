@@ -3,6 +3,7 @@
  */
 
 var session = require('../session');
+var userConst = require('../constants').user;
 
 exports.index = function(req, res) {
 	session.initiate(req, res);
@@ -14,6 +15,7 @@ exports.index = function(req, res) {
 	
 	res.render('index', {
 		user : session.getSessionUser(),
+		userConst : userConst,
 		title : 'WeConnect : CS',
 		welcome : 'Welcome to WeConnect'
 	});

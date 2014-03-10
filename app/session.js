@@ -34,5 +34,5 @@ exports.logout = function() {
 };
 
 exports.getSessionUser = function() {
-	return session.users;
+	return session.user;
 };

@@ -15,7 +15,20 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<header>
-		<nav>
-		</nav>
-	</header>
+<header style="height:40px; line-height:40px; background:#eeeeee;">
+	<nav class="col-lg-6">
+		<a href="/" style="padding:0 .5em">WeConnect:<span style="color:red">CS</span></a>
+		<a href="/about" style="padding:0 .5em">About</a>
+		<a href="/support" style="padding:0 .5em">Support</a>
+	</nav>
+	<nav class="col-lg-6 text-right">
+	<% if (user) { %>
+		<span style="padding:0 .5em">
+			Welcome <%=user.firstName%> <%=user.lastName%>
+			(<a href="/account/logout" style="line-height:40px">Logout</a>)
+		</span>
+	<% } %>
+	</nav>
+</header>
+	
+<div id="bodyContainer">
