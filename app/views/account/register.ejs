@@ -1,80 +1,109 @@
 <%- include ../partials/header.ejs %>
 
-<h1><%= title %></h1>
+<div style="width: 560px; margin:auto;">
+	<h1><%=title%></h1>
 
-<% if (userType == "S"){ %>
-<form id="signupForm" method="post" action="/account/registerComplete/S">
-<% } else { %>
-<form id="signupForm" method="post" action="/account/registerComplete/F">
-<% } %>
-	<div class="form-group">
-		<div class="col-sm-3">
-			NetID: <input type="text" class="form-control" id="netId" name="netId" required/><br>
-			Password: <input type="password" class="form-control" id="pw1" name="password" required /><br>
-			Re-enter Password: <input type="password" class="form-control" id="pw2" name="pw2" required /><br>
-			First Name: <input type="text" class="form-control" id="firstName" name="firstname" required /><br>
-			Last Name: <input type="text" class="form-control" id="lastName" name="lastname" required /><br>
-			Field of Interest:
-			<select id="interest" class="form-control" name="interest" required>
-				<% 
-					var interest = new Array("", "Data Mining", "Machine Learning", "darkoworld");
-					for (var i=0; i<interest.length; i++) { 
-				%>
-						<option value="<%= interest[i] %>"><%= interest[i] %></option>
-				<%
-					}
-				%>
-			</select><br>
-			Department:
-			<select id="department" class="form-control" name="department" required>
-				<% 
-					// DB call to get the list of departments
-					var dept = new Array("","CS", "ECE", "ENG");
-					for (var i=0; i<dept.length; i++) { 
-				%>
-						<option value="<%= dept[i] %>"><%= dept[i] %></option>
-				<%
-					}
-				%>
-			</select><br>
-			<% if (userType == "S"){ %>
-			Year in School:
-			<select id="standing" class="form-control" name="standing" required> 
-				<% 
-					var yearSchool = new Array("", "Freshman", "Sophomore", "Junior", "Senior");
-					for (var i=0; i<yearSchool.length; i++) { 
-				%>
-						<option value="<%= yearSchool[i] %>"><%= yearSchool[i] %></option>
-				<%
-					}
-				%>
-			</select><br>
-			Degree:
-			<select id="degree" class="form-control" name="degree" required>
+	<form id="signupForm" class="form-horizontal" method="post">
+		<input type="hidden" name="userType" value="<%=userType%>" />
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="netId">Net ID</label>
+			<div class="col-sm-9">
+				<input type="text" name="netId" id="netId" placeholder="Net ID" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="password">Password</label>
+			<div class="col-sm-9">
+				<input type="password" name="password" id="password" placeholder="Password" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="confirm">Confirm</label>
+			<div class="col-sm-9">
+				<input type="password" id="confirm" placeholder="Password Confirm" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="firstName">First Name</label>
+			<div class="col-sm-9">
+				<input type="text" id="firstName" placeholder="First Name" name="firstName" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="lastName">Last Name</label>
+			<div class="col-sm-9">
+				<input type="text" id="lastName" placeholder="Last Name" name="lastName" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Interests</label>
+			<div class="col-sm-9">
+				<select id="interest" class="form-control" name="interests" required>
+					<% 
+						var interest = new Array("", "Data Mining", "Machine Learning", "darkoworld");
+						for (var i=0; i<interest.length; i++) { 
+					%>
+							<option value="<%= interest[i] %>"><%= interest[i] %></option>
+					<% } %>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Department</label>
+			<div class="col-sm-9">
+				<select id="department" class="form-control" name="department" required>
+					<% 
+						// DB call to get the list of departments
+						var dept = new Array("","CS", "ECE", "ENG");
+						for (var i=0; i<dept.length; i++) { 
+					%>
+							<option value="<%= dept[i] %>"><%= dept[i] %></option>
+					<% } %>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Degree</label>
+			<div class="col-sm-9">
+				<select id="degree" class="form-control" name="degree" required>
 				<% 
 					var degrees = new Array("", "Undergraduate", "Graduate", "Masters");
 					for (var i=0; i<degrees.length; i++) { 
 				%>
 						<option value="<%= degrees[i] %>"><%= degrees[i] %></option>
-				<%
-					}
-				%>
-			</select><br>
-			<% } %>
-			<button type="submit" class="btn btn-primary">Submit</button>
+				<% } %>
+			</select>
+			</div>
 		</div>
-	</div>
-</form>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Standing</label>
+			<div class="col-sm-9">
+				<select id="classStanding" class="form-control" name="classStanding" required>
+				<% 
+					var yearSchool = new Array("", "Freshman", "Sophomore", "Junior", "Senior");
+					for (var i=0; i<yearSchool.length; i++) { 
+				%>
+						<option value="<%= yearSchool[i] %>"><%= yearSchool[i] %></option>
+				<% } %>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-9">
+				<button type="submit" class="btn btn-primary">Sign Up</button>
+			</div>
+		</div>
+	</form>
+</div>
 
 <script>
 $('#signupForm').validate({
 	rules: {
-		pw2: {
-			equalTo: "#pw1"
+		confirm: {
+			equalTo: "#password"
 		}
 	}
 	errorClass: "validate-error",
-	
 	messages: {
 		remote: jQuery.validator.format("{0} is already taken.")
 	}

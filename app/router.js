@@ -1,40 +1,26 @@
 /**
- * New node file
+ * 
  */
-var routes = require('./routes')
-	, sub = require('./routes/sub')
-	, events = require('./routes/events')
-	, api = require('./routes/api')
-	, account = require('./routes/account');
+
+var mainControl	= require('./controls/main_control');
+var apiControl	= require('./controls/api_control');
+var userControl	= require('./controls/user_control');
 
 exports.route = function (app) {
-	// view render
+	// main
+	app.get('/', mainControl.index);
+	app.get('/about', mainControl.about);
 	
-	// index
-	app.get('/', routes.index);
-	app.get('/about', routes.about);
-	//app.get('/userMain', routes.userMain);
+	// account (user)
+	app.get('/account/login', userControl.login);
+	app.post('/account/login', userControl.loginPost);
 	
-	// account
-	app.get('/account/login', account.login);
-	app.post('/account/login', account.login);
-	app.get('/account/logout', account.logout);
-	app.get('/account/register', account.register);
-	app.post('/account/register', account.register);
-	app.get('/account/registerValidate', account.registerValidate);
-	app.post('/account/registerComplete/:type', account.registerComplete);
+	app.get('/account/logout', userControl.logout);
 	
-	// sub
-	app.get('/sub', sub.index);
-	app.get('/sub/some-page', sub.somePage);
+	app.get('/account/register', userControl.register);
+	app.get('/account/register/:type', userControl.register);
+	app.post('/account/register/:type', userControl.registerPost);
 	
-	// events
-	app.get('/events', events.index);
-	app.get('/events/:id', events.detail);
-	
-	// api
-	app.get('/api/sample', api.sample);
-	app.get('/api/log-in', api.logIn);
-	app.get('/api/log-out', api.logOut);
-	app.get('/api/is-logged-in', api.isLoggedIn);
+	// api - used for light dynamic requests
+	app.get('/api/sample', apiControl.sample);
 };

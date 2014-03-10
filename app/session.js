@@ -1,16 +1,25 @@
-account = require('./db/account');
+/**
+ * 
+ */
 
-exports.isLoggedIn = function(req) {
-	return req.session.loggedIn == true;
+var userDb = require('./db/user_db');
+var session = null;
+
+exports.initiate = function(req) {
+	if (session == null) {
+		session = req.session;
+	}
 };
 
-exports.logIn = function(req, netId, password, callback) {
-	// todo: db access
-	// Check right ID and pw
-	account.isValidLogin(netId, password, function(user) {
-		if(user) {
-			req.session.loggedIn = true;
-			req.session.user = user;
+exports.isLoggedin = function() {
+	return session.loggedin == true;
+};
+
+exports.login = function(netId, password, callback) {
+	userDb.isValidLogin(netId, password, function(userDetail) {
+		if(userDetail) {
+			session.loggedin = true;
+			session.user = userDetail;
 			callback(true);
 		}
 		else {
@@ -19,11 +28,11 @@ exports.logIn = function(req, netId, password, callback) {
 	});
 };
 
-exports.logOut = function(req) {
-	req.session.loggedIn = false;
-	req.session.user = null;
+exports.logout = function() {
+	session.loggedin = false;
+	session.user = null;
 };
 
-exports.getSessionUser = function(req) {
-	return req.session.user;
+exports.getSessionUser = function() {
+	return session.users;
 };

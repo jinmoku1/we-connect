@@ -28,19 +28,13 @@ Text area.....................................................Text area
 Text area.....................................................Text area
 </div>
 
-<form method="post">
+<form method="get">
 	<div class="form-group">
-		I agree: <input type="checkbox" id="agreement"><br>
+		<label><input type="checkbox" id="agreement"> I Agree</label>
 	</div>
 	<div class="form-group">
-		<select name="userType">
-			<option value="S" selected>Student</option>
-			<option value="F">Faculty</option>
-		</select>
-		<br>
-	</div>
-	<div class="form-group">
-		<button type="submit" class="btn btn-primary" onclick="return getCheckBox(this.form);">Submit</button>
+		<a href="/account/register/student" class="btn btn-primary">Student</a>
+		<a href="/account/register/faculty" class="btn btn-primary">Faculty</a>
 	</div>
 </form>
 

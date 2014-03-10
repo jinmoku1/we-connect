@@ -1,15 +1,5 @@
-/**
- * make a connection to db and initialize it
- * 
- * By Seungchul Lee, Changyong Choi, Seung. H Cha
- */
-
-// Database Configuration
-//var CONNECTION_STRING = 'mongodb://hay.synology.me:27017/weconnect';
-var CONNECTION_STRING = 'mongodb://127.0.0.1:27017/weconnect';
-
+var dbConst = require('../constants').db;
 var mongoClient = require('mongodb').MongoClient;
-
 
 /**
  * make a connection to db and initialize it
@@ -17,9 +7,9 @@ var mongoClient = require('mongodb').MongoClient;
  * @param callback it is just a callback function that happens when this method is done
  */
 exports.connect = function(callback) {
-	mongoClient.connect(CONNECTION_STRING, function(err, db) {
+	mongoClient.connect(dbConst.CONNECTION_STRING, function(err, db) {
 		if (err) {
-			console.log("[ERROR] Database Connection failed : " + CONNECTION_STRING);
+			console.log("[ERROR] Database Connection failed : " + dbConst.CONNECTION_STRING);
 			return;
 		}
 		callback(db);
