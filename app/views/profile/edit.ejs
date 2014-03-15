@@ -3,8 +3,7 @@
 <div style="width: 560px; margin:auto;">
 	<h1><%=title%></h1>
 
-	<form id="signupForm" class="form-horizontal" method="post">
-		<input type="hidden" name="userType" value="<%=userType%>" />
+	<form id="editForm" class="form-horizontal" method="post">
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="firstName">First Name</label>
 			<div class="col-sm-9">
@@ -33,38 +32,58 @@
 			<% for (var i in interests) { %>
 				<div class="checkbox col-sm-6">
 					<label>
-						<% if (user.interests[i] == interests[i]) { %>
+						<%
+						var exists = 0;
+						for (var j in user.interests){
+							if (user.interests[j] == interests[i]){
+								exists = 1;
+								break;
+							}
+						}
+						if (exists){ %>
 							<input type="checkbox" name="interests" value="<%=interests[i]%>" checked="checked"/>
+							<%=interests[i]%>
 						<% } else { %>
 							<input type="checkbox" name="interests" value="<%=interests[i]%>" />
+							<%=interests[i]%>
 						<% } %>
 					</label>
 				</div>
 			<% } %>
 			</div>
 		</div>
-		<% if (userType == userConst.TYPE_STUDENT) { %>
+		<% if (user.userType == userConst.TYPE_STUDENT) { %>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Degree</label>
 				<div class="col-sm-9">
-					<select id="degree" value="<%=user.degree%>" class="form-control" name="degree" required>
-					<% for (var i in degrees) { %>
+					<select id="degree" class="form-control" name="degree" required>
+					<% for (var i in degrees) { 
+						if (user.degree == degrees[i]){
+						%>
+						<option value="<%=degrees[i]%>" selected="selected"><%=degrees[i]%></option>
+						<%
+					} else{ %>
 						<option value="<%=degrees[i]%>"><%=degrees[i]%></option>
-					<% } %>
+					<% } }%>
 				</select>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Standing</label>
 				<div class="col-sm-9">
-					<select id="classStanding" value="<%=user.classStanding%>" class="form-control" name="classStanding" required>
-					<% for (var i in classStandings) { %>
+					<select id="classStanding" class="form-control" name="classStanding" required>
+					<% for (var i in classStandings) { 
+						if (user.classStanding == classStandings[i]){
+						%>
+						<option value="<%=classStandings[i]%>" selected="selected"><%=classStandings[i]%></option>
+						<%
+					} else{ %>
 						<option value="<%=classStandings[i]%>"><%=classStandings[i]%></option>
-					<% } %>
+					<% } }%>
 					</select>
 				</div>
 			</div>
-		<% } else if (userType == userConst.TYPE_FACULTY) { %>
+		<% } else if (user.userType == userConst.TYPE_FACULTY) { %>
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="websiteUrl">Website</label>
 				<div class="col-sm-9">
