@@ -1,9 +1,11 @@
 <%- include partials/header.ejs %>
 
 <div id="profileContainer">
+	<!-- 
 	<div id="ProfilePic">
 		<img alt="Profile Picture" src="C:/Users/Owner/Desktop/Academics/UIUC/2014 Spring Junior/CS429 Software Engineering II/Project/seoul.bmp">
 	</div>
+	 -->
 	<div id="PersonalInfo">
 		<h1><%=user.firstName%> <%=user.lastName%></h1>
 		<p>Department : <%=user.department%></p>
@@ -27,15 +29,17 @@
 	<div id="followList">
 		Followers:
 		<ul id="followeeList">
-		<% for (var i in user.followings) %>
-			<li><%=user.followings[i]%></li>
-		<% } %>
+		<% 
+		//for (var i in user.followings) %>
+			<li><%//=user.followings[i]%>1</li>
+		<%// } %>
 		</ul>
 		Followees:
 		<ul id="followerList">
-		<% for (var i in user.followees) %>
-			<li><%=user.followees[i]%></li>
-		<% } %>
+		<% 
+		//for (var i in user.followees) %>
+			<li><%//=user.followees[i]%>1</li>
+		<%// }%>
 		</ul>
 	</div>
 	<div>
