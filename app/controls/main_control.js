@@ -14,7 +14,7 @@ exports.index = function(req, res) {
 	}
 	
 	res.render('index', {
-		user : session.getSessionUser(),
+		user : session.getSessionUsers(),
 		userConst : userConst,
 		title : 'WeConnect : CS',
 		welcome : 'Welcome to WeConnect'
