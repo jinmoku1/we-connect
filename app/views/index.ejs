@@ -19,6 +19,8 @@
 		<% if (user.userType == userConst.TYPE_STUDENT) { %>
 			<p>Degree : <%=user.extension.degree%></p>
 			<p>Class Standing : <%=user.extension.classStanding%></p>
+		<% } else {%>
+			<p>Website Url : <%=user.extension.websiteUrl%></p>
 		<% } %>
 		
 		<form action="/profile/edit">
@@ -29,6 +31,7 @@
 	<div id="followList">
 		Followers:
 		<ul id="followeeList">
+		<%
 		//for (var i in user.followings) %>
 			<li><%//=user.followings[i]%>1</li>
 		<%// } %>
