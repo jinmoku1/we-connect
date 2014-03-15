@@ -22,6 +22,9 @@ exports.route = function (app) {
 	
 	app.get('/account/register/:userType', userControl.register);
 	app.post('/account/register/:userType', userControl.registerPost);
+
+	app.get('/profile/edit', userControl.setting);
+	app.post('/profile/edit', userControl.settingPost);
 	
 	// api - used for light dynamic requests
 	app.get('/api/sample', apiControl.sample);
