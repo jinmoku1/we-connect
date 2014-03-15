@@ -33,10 +33,11 @@
 			<% for (var i in interests) { %>
 				<div class="checkbox col-sm-6">
 					<label>
-						<% if (user.interests[i] == interests[i]) %>
+						<% if (user.interests[i] == interests[i]) { %>
 							<input type="checkbox" name="interests" value="<%=interests[i]%>" checked="checked"/>
-						<% else %>
+						<% } else { %>
 							<input type="checkbox" name="interests" value="<%=interests[i]%>" />
+						<% } %>
 					</label>
 				</div>
 			<% } %>
