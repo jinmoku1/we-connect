@@ -58,9 +58,9 @@
 				<div class="col-sm-9">
 					<select id="degree" class="form-control" name="degree" required>
 					<% for (var i in degrees) { 
-						if (user.degree == degrees[i]){
+						if (user.extension.degree == degrees[i]){
 						%>
-						<option value="<%=degrees[i]%>" selected="selected"><%=degrees[i]%></option>
+						<option value="<%=degrees[i]%>" selected><%=degrees[i]%></option>
 						<%
 					} else{ %>
 						<option value="<%=degrees[i]%>"><%=degrees[i]%></option>
@@ -73,9 +73,9 @@
 				<div class="col-sm-9">
 					<select id="classStanding" class="form-control" name="classStanding" required>
 					<% for (var i in classStandings) { 
-						if (user.classStanding == classStandings[i]){
+						if (user.extension.classStanding == classStandings[i]){
 						%>
-						<option value="<%=classStandings[i]%>" selected="selected"><%=classStandings[i]%></option>
+						<option value="<%=classStandings[i]%>" selected><%=classStandings[i]%></option>
 						<%
 					} else{ %>
 						<option value="<%=classStandings[i]%>"><%=classStandings[i]%></option>
