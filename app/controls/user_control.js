@@ -110,7 +110,6 @@ exports.registerPost = function(req, res) {
 };
 
 // Setting
-/*
 exports.setting = function(req, res) {
 	res.render('profile/edit', {
 		user : session.getSessionUser(),
@@ -125,4 +124,3 @@ exports.setting = function(req, res) {
 exports.settingPost = function(req, res) {
 	
 };
-*/
