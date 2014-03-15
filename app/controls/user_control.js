@@ -108,3 +108,21 @@ exports.registerPost = function(req, res) {
 		});
 	});
 };
+
+// Setting
+/*
+exports.setting = function(req, res) {
+	res.render('profile/edit', {
+		user : session.getSessionUser(),
+		userConst : userConst,
+		departments: constants.departments,
+		interests: constants.interests,
+		degrees : constants.degrees,
+		classStandings : constants.classStandings,
+		title: 'Edit Settings',
+	});
+};
+exports.settingPost = function(req, res) {
+	
+};
+*/

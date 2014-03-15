@@ -1,5 +1,4 @@
 <%- include partials/header.ejs %>
-
 <div id="profileContainer">
 	<div>
 		<h1><%=user.firstName%> <%=user.lastName%></h1>
@@ -17,5 +16,69 @@
 		<% } %>
 	</div>
 </div>
-
+<!-- 
+<div id="profileContainer">
+	<div id="ProfilePic">
+		<img alt="Profile Picture" src="C:/Users/Owner/Desktop/Academics/UIUC/2014 Spring Junior/CS429 Software Engineering II/Project/seoul.bmp">
+	</div>
+	<div id="PersonalInfo">
+		<h1><%=user.firstName%> <%=user.lastName%></h1>
+		<p>Department : <%=user.department%></p>
+		<p>Interests :</p>
+		<ul>
+		<% for (var i in user.interests) { %>
+			<li><%=user.interests[i]%></li>
+		<% } %>
+		</ul>
+		<p>User Type : <%=user.userType%></p>
+		<% if (user.userType == userConst.TYPE_STUDENT) { %>
+			<p>Degree : <%=user.extension.degree%></p>
+			<p>Class Standing : <%=user.extension.classStanding%></p>
+		<% } %>
+		
+		<form action="/profile/edit">
+		    <button id="settingBtn" type="submit">Setting</button> 
+		</form>
+	</div>
+	
+	<div id="followList">
+		Followers:
+		<ul id="followeeList">
+		<% for (var i in user.followings) %>
+			<li><%=user.followings[i]%></li>
+		<% } %>
+		</ul>
+		Followees:
+		<ul id="followerList">
+		<% for (var i in user.followees) %>
+			<li><%=user.followees[i]%></li>
+		<% } %>
+		</ul>
+	</div>
+	<div>
+		<div id="tabs">
+			<button id="anncBtn">Announcement</button>
+			<button id="followsBtn">Follows</button>
+			<button id="bookmarksBtn">Bookmarks</button>
+			<button id="archiveBtn">Archive</button>
+		</div>
+		<ul id="announcement">
+			<li>Announcement 1</li>
+			<li>Announcement 2</li>
+		</ul>
+		<ul id="follows">
+			<li>Announcement 1</li>
+			<li>Announcement 2</li>
+		</ul>
+		<ul id="bookmarks">
+			<li>Announcement 1</li>
+			<li>Announcement 2</li>
+		</ul>
+		<ul id="archive">
+			<li>Announcement 1</li>
+			<li>Announcement 2</li>
+		</ul>
+	</div>
+</div>
+ -->
 <%- include partials/footer.ejs %>
