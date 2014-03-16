@@ -148,7 +148,7 @@ describe("#userDb.isValidLogin()", function() {
 
 describe("#userDb.updatePassword()", function(){
 	this.timeout(0);
-	var prevPassword = "welovedarko";
+	var oldPassword = "welovedarko";
 	var mockAccount = {
 		netId : "newuser1",
 		password : "12345",
@@ -157,10 +157,10 @@ describe("#userDb.updatePassword()", function(){
 	var isValid = false;
 
 	before(function(done){
-		userDb.isValidLogin(mockAccount.netId, prevPassword, function(userDetailDoc) {
+		userDb.isValidLogin(mockAccount.netId, oldPassword, function(userDetailDoc) {
 			mockAccount.detailId = userDetailDoc._id;
 
-			userDb.updatePassword(prevPassword, mockAccount, function(result) {
+			userDb.updatePassword(mockAccount, oldPassword, function(result) {
 				isValid = result;
 				done();
 			});
@@ -184,8 +184,8 @@ describe("#userDb.updateInfo()", function(){
 		department		: "ACE",
 		userType		: userConst.TYPE_STUDENT,
 		interests		: [],
-		classStanding	: 'Junior',
-		degree			: 'Bachelor\'s',
+		classStanding	: 'Senior',
+		degree			: 'Master',
 	};
 
 	before(function(done){
@@ -195,6 +195,8 @@ describe("#userDb.updateInfo()", function(){
 			updateInfo.firstName = expectedResult.firstName;
 			updateInfo.lastName  = expectedResult.lastName;
 			updateInfo.department = expectedResult.department;
+			updateInfo.classStanding = expectedResult.classStanding;
+			updateInfo.degree = expectedResult.degree;
 			
 			userDb.updateInfo(updateInfo._id, updateInfo, function(result){
 				isValid = result;
@@ -204,12 +206,24 @@ describe("#userDb.updateInfo()", function(){
 		});
 	});
 	
-	it("should update ", function() {
+	it("should update the first name.", function() {
 		assert(changedValues.firstName == expectedResult.firstName);
 	});
 	
-	it("should update ", function(){
+	it("should update the last name.", function(){
 		assert(changedValues.lastName == expectedResult.lastName);
+	});
+	
+	it("should update the department the user belongs to.", function(){
+		assert(changedValues.department == expectedResult.department);
+	});
+	
+	it("should update the class standing.", function(){
+		assert(changedValues.classStanding == expectedResult.classStanding);
+	});
+	
+	it("should update the degree in which you are currently.", function(){
+		assert(changedValues.degree == expectedResult.degree);
 	});
 	
 	it("should return true value from the callback.", function(){
@@ -236,4 +250,23 @@ describe("#userDb.remove()", function() {
 	it("should remove the user with detail _id", function() {
 		assert(userRemoved == true);
 	});
+});
+
+
+describe("#userDb.getBrief() without condition", function(){
+	this.timeout(0);
+	var isValid = false;
+	
+	before(function(done){
+		userDb.getBriefs({}, function(flag, docs){
+			isValid = flag;
+
+			done();
+		});
+	});
+	
+	it("should return all brief information.", function(){
+		assert(isValid);
+	});
+	
 });
