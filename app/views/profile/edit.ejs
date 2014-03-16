@@ -126,19 +126,19 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="oldPassword">Old Password</label>
 					<div class="col-sm-9">
-						<input type="text" id="oldPassword" placeholder="Old Password" name="oldPassword" class="form-control" required />
+						<input type="password" id="oldPassword" placeholder="Old Password" name="oldPassword" class="form-control" required />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="newPassword">New Password</label>
 					<div class="col-sm-9">
-						<input type="text" id="newPassword" placeholder="New Password" name="newPassword" class="form-control" required />
+						<input type="password" id="newPassword" placeholder="New Password" name="newPassword" class="form-control" required />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="confirmNewPassword">Confirm New Password</label>
 					<div class="col-sm-9">
-						<input type="text" id="confirmNewPassword" placeholder="Confirm New Password" name="confirmNewPassword" class="form-control" required />
+						<input type="password" id="confirmNewPassword" placeholder="Confirm New Password" name="confirmNewPassword" class="form-control" required />
 					</div>
 				</div>
 				<div class="form-group">
@@ -189,6 +189,10 @@ $('#editForm').validate({
 
 $('#changePasswordForm').validate({
 	rules: {
+		newPassword: {
+			minlength: 8,
+			maxlength: 20
+		},
 		confirmNewPassword: {
 			equalTo: "#newPassword"
 		}
