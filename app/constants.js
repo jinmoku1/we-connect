@@ -17,7 +17,7 @@ exports.departments = [
 	'CS', 'ECE', 'EE', 'PHYS', 'MATH', 'CHEM',
 ];
 
-exports.departments = [
+exports.courses = [
 	'CS411 Database Systems', 'CS438 Communication Networks', 'CS440 Artificial Intelligence',
 	'CS428 Software Engineering', 'CS210 Ethics in Computer Science', 'CS423 Operating Systems Design',
 	'CS465 User Interface Design', 'CS241 System Programming', 'CS242 Programming Studio',
