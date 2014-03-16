@@ -89,6 +89,7 @@ exports.create = function(post, callback) {
 		userDetail.extension.classStanding = post.classStanding;
 		break;
 	case userConst.TYPE_FACULTY:
+		userDetail.extension.websiteUrl = post.websiteUrl;
 		break;
 	default: break;
 	}
