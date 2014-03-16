@@ -92,7 +92,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="websiteUrl">Website</label>
 				<div class="col-sm-9">
-					<input type="text" id="websiteUrl" value="<%=user.extension.websiteUrl%>" name="websiteUrl" class="form-control" />
+					<input type="url" id="websiteUrl" value="<%=user.extension.websiteUrl%>" name="websiteUrl" class="form-control" />
 				</div>
 			</div>
 		<% } %>
@@ -103,5 +103,40 @@
 		</div>
 	</form>
 </div>
+
+<script>
+
+jQuery.validator.addMethod("isValidNetId", 
+	function(value, element) {
+    	return /\b[a-zA-Z]+[0-9]+\b/.test(value);
+    },
+    jQuery.validator.format("Please enter a valid netID.")
+);
+
+jQuery.validator.addMethod("isValidName", 
+	function(value, element) {
+    	return /\b[a-zA-Z]+\b/.test(value);
+    },
+    jQuery.validator.format("Only alphabets are allowed for names.")
+);
+		
+$('#editForm').validate({
+	rules: {
+		firstName: {
+			isValidName: true
+		},
+		lastName: {
+			isValidName: true
+		},
+		confirm: {
+			equalTo: "#password"
+		}
+	},
+	errorClass: "validate-error",
+	messages: {
+		remote: jQuery.validator.format("{0} is already taken.")
+	}
+});
+</script>
 
 <%- include ../partials/footer.ejs %>

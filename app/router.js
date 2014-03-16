@@ -21,6 +21,7 @@ exports.route = function (app) {
 	app.post('/account/agreement', userControl.agreementPost);
 	
 	app.get('/account/register/:userType', userControl.register);
+	app.post('/account/register/validate', userControl.registerValidate);
 	app.post('/account/register/:userType', userControl.registerPost);
 
 	app.get('/profile/edit', userControl.setting);

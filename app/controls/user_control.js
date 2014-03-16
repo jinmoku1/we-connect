@@ -90,6 +90,21 @@ exports.register = function(req, res) {
 	renderRegister(userType, res, session, null);
 };
 
+exports.registerValidate = function(req, res) {
+	var netId = req.body.netId;
+	
+	userDb.netIdExists(netId, function(result) {
+		if (result){
+			res.writeHead(200, {"Content-Type": "text/plain"});
+			res.end("1");
+		}
+		else {
+			res.writeHead(200, {"Content-Type": "text/plain"});
+			res.end("0");
+		}
+	});
+};
+
 exports.registerPost = function(req, res) {
 	session.initiate(req);
 	
