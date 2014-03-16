@@ -23,15 +23,13 @@ exports.addFollowee = function(followeeID, followeeName, following) {
 			"name" : followeeName
 	};
 	// check for duplicates
-	var list = following.followees;
-	list.push(followeeInfo);
-	following.followees = list;
+	following.followees.push(followeeInfo);
 	userDb.updateInfo(following._id, following, function(result){
 		return result;
 	});
 };
 
-function addFollowing(followeeID, followeeName, following) {
+exports.addFollowing = function(followeeID, followeeName, following) {
 	var followee = null;
 	userDb.getDetail(followeeID, function(result){
 		followee = result;
@@ -44,4 +42,4 @@ function addFollowing(followeeID, followeeName, following) {
 			return result;
 		});
 	});
-}
+};
