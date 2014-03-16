@@ -99,7 +99,7 @@
 
 jQuery.validator.addMethod("isOnlyASCII", 
 		function(value, element) {
-	    	return /^[\x00-\x7F]*$/.test(value);
+	    	return value.match("/^[a-z][0-9]$/");
 	    },
 	    jQuery.validator.format("Please enter only ASCII characters for {1}")
 	);
