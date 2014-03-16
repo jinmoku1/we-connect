@@ -8,6 +8,9 @@
 	 -->
 	<div id="PersonalInfo">
 		<h1><%=user.firstName%> <%=user.lastName%></h1>
+		<% if (user.intro){ %>
+		<p>Introduction : <%=user.intro%></p>
+		<% } %>
 		<p>Department : <%=user.department%></p>
 		<p>Interests :</p>
 		<ul>
