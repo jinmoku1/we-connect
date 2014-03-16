@@ -6,13 +6,13 @@ var api = require('../controls/api_control');
 var userConst = require('../constants').user;
 
 
-describe("#follow", function() {
+describe("#adding", function() {
 	this.timeout(0);
-	var result1 = null;
-
+	var result;
+	
 	var post1 = {
-			netId			: 'newuser1',
-			password		: 'welovedarko',
+			netId			: 'followee',
+			password		: '1',
 			firstName		: 'Jessica',
 			lastName		: 'Alba',
 			department		: 'CS',
@@ -21,10 +21,10 @@ describe("#follow", function() {
 			classStanding	: 'Junior',
 			degree			: 'Bachelor\'s',
 	};
-	
+
 	var post2 = {
-			netId			: 'newuser2',
-			password		: 'welovedarko',
+			netId			: 'following',
+			password		: '1',
 			firstName		: 'Jessica',
 			lastName		: 'Alba',
 			department		: 'CS',
@@ -37,15 +37,73 @@ describe("#follow", function() {
 	before(function(done) {
 		userDb.create(post1, function(followee) {
 			userDb.create(post2, function(following) {
-				result1 = api.addFollowee(followee._id, followee.name, following);
+				result = following;
 				done();
 			});
 		});
 	});
 	
-	it("Should add followee to the following", function() {
-		assert(result1 == 1);
+	it("Adding new users", function() {
+		assert(result != null);
 	});
 });
 
+describe("#addFollowee(toggle)", function() {
+	this.timeout(0);
+	var result = false;
 
+	before(function(done) {
+		userDb.isValidLogin("followee", "1", function(followee) {
+			userDb.isValidLogin("following", "1", function(following) {
+				api.addFollowee(followee._id, following, function(success) {
+					result = success;
+					done();
+				});
+			});
+		});
+	});
+	
+	it("Should add followee to the following", function() {
+		assert(result);
+	});
+});
+
+describe("#deleteFollowee(toggle)", function() {
+	this.timeout(0);
+	var result = false;
+
+	before(function(done) {
+		userDb.isValidLogin("followee", "1", function(followee) {
+			userDb.isValidLogin("following", "1", function(following) {
+				api.addFollowee(followee._id, following, function(success) {
+					result = success;
+					done();
+				});
+			});
+		});
+	});
+	
+	it("Should delete followee from the following", function() {
+		assert(result);
+	});
+});
+
+describe("#addFollowing(toggle)", function() {
+	this.timeout(0);
+	var result = false;
+
+	before(function(done) {
+		userDb.isValidLogin("followee", "1", function(followee) {
+			userDb.isValidLogin("following", "1", function(following) {
+				api.addFollowing(followee._id, following, function(success) {
+					result = success;
+					done();
+				});
+			});
+		});
+	});
+	
+	it("Should add the following to the followee", function() {
+		assert(result);
+	});
+});

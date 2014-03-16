@@ -12,34 +12,43 @@ exports.sample = function(req, res){
 
 exports.follow = function(req, res) {
 	var followeeID = req.params.followeeID;
-	var followeeName = req.params.followeeName;
 	var user = session.getSessionUser();
-	followOperation(followeeID, followeeName, user);
-};
-
-exports.addFollowee = function(followeeID, followeeName, following) {
-	var followeeInfo = {
-			"_id" : followeeID ,
-			"name" : followeeName
-	};
-	// check for duplicates
-	following.followees.push(followeeInfo);
-	userDb.updateInfo(following._id, following, function(result){
-		return result;
+	followOperation(followeeID, user, function(result) {
+		res.send(result);
 	});
 };
 
-exports.addFollowing = function(followeeID, followeeName, following) {
-	var followee = null;
-	userDb.getDetail(followeeID, function(result){
-		followee = result;
-		var followingInfo = {
-				_id : following._id ,
-				name : following.name
-		};
-		followee.followings.push(followingInfo);
-		userDb.updateInfo(followee._id, followee, function(result){
-			return result;
+exports.addFollowee = function(followeeID, following, callback) {
+	var index = -1;
+	for (var i in following.followees) {
+		if (following.followees[i].equals(followeeID)){
+			index = i;
+			break;
+		}
+	}
+
+	if (index < 0){
+		following.followees.push(followeeID);
+	} else {
+		following.followees.splice(index, 1);
+	}
+	userDb.updateInfo(following._id, following, function(result){
+		callback(result);
+	});
+};
+
+exports.addFollowing = function(followeeID, following, callback) {
+	console.log(followeeID);
+	userDb.getDetail(followeeID, function(followee){
+		appendFollowing(followee, following, function(followee){
+			userDb.updateInfo(followee._id, followee, function(result){
+				callback(result);
+			});
 		});
 	});
 };
+
+function appendFollowing(followee, following, callback){
+	followee.followings.push(following._id);
+	callback(followee);
+}
