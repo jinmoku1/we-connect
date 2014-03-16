@@ -110,10 +110,11 @@ jQuery.validator.addMethod("isValidName",
     },
     jQuery.validator.format("Only alphabets are allowed for names.")
 );
+
 		
 $('#signupForm').validate({
 	rules: {
-		netId:{
+		netId: {
 			isValidNetId: true,
 			remote: {
 				url: "/account/register/validate",
@@ -150,7 +151,7 @@ $('#signupForm').validate({
 	
 	errorClass: "validate-error",
 	messages: {
-		
+		jQuery.validator.format("{0} is already taken.")
 	}
 });
 </script>
