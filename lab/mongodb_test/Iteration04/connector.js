@@ -59,13 +59,12 @@ exports.remove = function(collection, conditionDoc, callback) {
 exports.update = function(collection, conditionDoc, updateDoc, callback) {
 	exports.connect(function(db) {
 		var dbCollection = db.collection(collection);
-		dbCollection.findAndModify(conditionDoc, null, updateDoc,
-		function(err, resultDoc) {
+		dbCollection.findAndModify(conditionDoc, null, updateDoc, {safe:true} , function(err, resultDoc) {
 			if (err) {
 				console.log("[ERROR] Update on \'"+collection+"\' Failed.");
 				return;
 			}
-			callback(db, resultDoc != null);
+			callback(db, resultDoc);
 		});
 	});
 };

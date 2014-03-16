@@ -20,7 +20,7 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="confirm">Confirm</label>
 			<div class="col-sm-9">
-				<input type="password" id="confirm" placeholder="Password Confirm" class="form-control" required />
+				<input type="password" id="confirm" name="confirm" placeholder="Password Confirm" class="form-control" required />
 			</div>
 		</div>
 		<div class="form-group">
@@ -83,7 +83,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="websiteUrl">Website</label>
 				<div class="col-sm-9">
-					<input type="text" id="websiteUrl" name="websiteUrl" class="form-control" />
+					<input type="url" id="websiteUrl" name="websiteUrl" class="form-control" />
 				</div>
 			</div>
 		<% } %>
@@ -94,19 +94,56 @@
 		</div>
 	</form>
 </div>
+<!-- 
 
+
+ -->
 <script>
-	$('#signupForm').validate({
-		rules: {
-			confirm: {
-				equalTo: "#password"
-			}
+
+jQuery.validator.addMethod("isValidNetId", 
+	function(value, element) {
+    	return /\b[a-zA-Z]+[0-9]+\b/.test(value);
+    },
+    jQuery.validator.format("Please enter a valid netID.")
+);
+
+jQuery.validator.addMethod("isValidName", 
+	function(value, element) {
+    	return /\b[a-zA-Z]+\b/.test(value);
+    },
+    jQuery.validator.format("Only alphabets are allowed for names.")
+);
+	
+$('#signupForm').validate({
+	rules: {
+		netId: {
+			isValidNetId: true,
+			remote: {
+				url: "/account/register/validate",
+				type: "post"
+			}			
+		},
+		password: {
+			minlength: 8,
+			maxlength: 20
+		},
+		firstName: {
+			isValidName: true
+		},
+		lastName: {
+			isValidName: true
+		},
+		confirm: {
+			equalTo: "#password"
 		}
-		errorClass: "validate-error",
-		messages: {
+	},
+	errorClass: "validate-error",
+	messages: {
+		netId: {
 			remote: jQuery.validator.format("{0} is already taken.")
 		}
-	});
+	}
+});
 </script>
 
 <%- include ../partials/footer.ejs %>

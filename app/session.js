@@ -11,6 +11,10 @@ exports.initiate = function(req) {
 	}
 };
 
+exports.updateSession = function(updatedUser) {
+	session.user = updatedUser;
+};
+
 exports.isLoggedin = function() {
 	return session.loggedin == true;
 };

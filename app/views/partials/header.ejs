@@ -27,8 +27,9 @@
 	<nav class="col-lg-6 text-right">
 	<% if (user) { %>
 		<span style="padding:0 .5em">
-			Welcome <%=user.firstName%> <%=user.lastName%>
-			(<a href="/account/logout" style="line-height:40px">Logout</a>)
+			<span>Welcome <%=user.firstName%> <%=user.lastName%></span>
+			<a href="/account/setting">Setting</a> |
+			<a href="/account/logout" style="line-height:40px">Logout</a>
 		</span>
 	<% } %>
 	</nav>
