@@ -11,10 +11,12 @@
 		<p>Department : <%=user.department%></p>
 		<p>Interests :</p>
 		<ul>
-		<% for (var i in user.interests) { %>
+		<!-- need to fix interest listing when user.interests == 1 -->
+		<% for (var i = 0; i < user.interests.length; i++) { %>
 			<li><%=user.interests[i]%></li>
 		<% } %>
 		</ul>
+		<!-- this line tests interest listing <p><%=user.interests.length%></p> -->
 		<p>User Type : <%=user.userType%></p>
 		<% if (user.userType == userConst.TYPE_STUDENT) { %>
 			<p>Degree : <%=user.extension.degree%></p>
