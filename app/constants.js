@@ -3,8 +3,8 @@
  */
 
 exports.db = {
-	//CONNECTION_STRING : 'mongodb://127.0.0.1:27017/weconnect',
-	CONNECTION_STRING : 'mongodb://hay.synology.me:27017/weconnect',
+	CONNECTION_STRING : 'mongodb://127.0.0.1:27017/weconnect',
+	//CONNECTION_STRING : 'mongodb://hay.synology.me:27017/weconnect',
 };
 
 exports.interests = [

@@ -6,22 +6,28 @@ var session = require('../session');
 var userDb = require('../db/user_db');
 var ObjectID = require('mongodb').ObjectID;
 
-exports.sample = function(req, res){
-	res.send("Hello World!");
+exports.sample = function(req, res) {
+	res.send(session.getSomething());
 };
 
 exports.follow = function(req, res) {
-	var followeeID = req.params.followeeID;
+	session.initiate(req);
+	var followeeId = ObjectID.createFromHexString(req.body.id);
 	var user = session.getSessionUser();
-	followOperation(followeeID, user, function(result) {
-		res.send(result);
+	exports.addFollowee(followeeId, user, function(result) {
+		exports.addFollowing(followeeId, user, function(result) {
+			if (result) {
+				user = session.getSessionUser();
+				res.send(user);
+			}
+		});
 	});
 };
 
 exports.addFollowee = function(followeeID, following, callback) {
 	var index = -1;
 	for (var i in following.followees) {
-		if (following.followees[i].equals(followeeID)){
+		if (followeeID.equals(following.followees[i])) {
 			index = i;
 			break;
 		}

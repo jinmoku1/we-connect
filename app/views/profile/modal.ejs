@@ -1,19 +1,21 @@
-<div class="modal-dialog">
-	<div class="modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h4 class="modal-title"><%=userDetail.firstName%> <%=userDetail.lastName%></h4>
-		</div>
-		<div class="modal-body">
-			<p></p>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary" id="toggleFollow">Follow</button>
-		</div>
-	</div>
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h4 class="modal-title"><%=userDetail.firstName%> <%=userDetail.lastName%></h4>
+</div>
+<div class="modal-body">
+	<p></p>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	<button type="button" class="btn btn-primary" onclick="onToggleFollow()">Follow</button>
 </div>
 
 <script>
-	
+function onToggleFollow() {
+	$.post('/api/follow', { id : "<%=userDetail._id%>" }, function(sessionUser) {
+		$('#followeeCount').html(sessionUser.followees.length);
+		$('#<%=userDetail._id%>').fadeOut('fast');
+		$('#userProfileModal').modal('hide');
+	});
+}
 </script>

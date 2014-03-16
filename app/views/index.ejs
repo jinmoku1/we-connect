@@ -34,7 +34,7 @@
 		</p>
 		<div class="buttons">
 			<button type="button" class="btn">
-				Followees <span class="badge"><%=user.followees.length%></span>
+				Followees <span id="followeeCount" class="badge"><%=user.followees.length%></span>
 			</button>
 			<button type="button" class="btn">
 				Following <span class="badge"><%=user.followings.length%></span>
@@ -49,7 +49,7 @@
 	<div id="sideContainer" class="col-md-3">
 		<h3 class="header-side">Suggested Users</h3>
 		<% for (var i in userBriefs) { %>
-			<div class="user">
+			<div class="user" id="<%=userBriefs[i].detailId%>">
 				<div class="top row">
 					<div class="col-md-4">
 						<div class="picture">
@@ -96,28 +96,13 @@
 
 <!-- User Profile Modal -->
 <div class="modal fade" id="userProfileModal" tabindex="-1" role="dialog" aria-labelledby="userProfileName" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
 </div>
 
 <script>
-var followee = null;
-
-$('a.action-showprofile').click(function(){
-	followee = $(this).data('userbrief');
-	alert(followee);
-	var name = followee.firstName + " " + followee.lastName;
-	$('#userProfileModal .modal-title').html(name);
-	$('#userProfileModal').modal('show');
-});
-
-$('#toggleFollow').click(function() {
-	$.post('/api/follow', {
-		id : followee.detailId
-	}, function(result) {
-		if (result) {
-			$('#userProfileModal').modal('hide');
-		}
-	});
-});
 </script>
 
 <%- include partials/footer.ejs %>
