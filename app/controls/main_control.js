@@ -13,7 +13,8 @@ exports.index = function(req, res) {
 		return;
 	}
 	var userBriefList = [];
-	// DB query 
+	// DB query
+	
 	
 	res.render('index', {
 		user : session.getSessionUser(),
