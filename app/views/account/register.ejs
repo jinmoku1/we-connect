@@ -97,19 +97,21 @@
 
 <script>
 
-jQuery.validator.addMethod("isOnlyASCII", 
+jQuery.validator.addMethod("isValidNetId", 
 		function(value, element) {
-	    	return /^[\x00-\x7F]*$/.test(value);
+	    	return value.match("/[a-zA-Z]+[0-9]+/");
 	    },
-	    jQuery.validator.format("Please enter only ASCII characters for {1}")
+	    jQuery.validator.format("Please enter a valid netID.")
 	);
 		
 $('#signupForm').validate({
 	rules: {
+		netId:{
+			isValidNetId: true
+		},
 		password: {
 			minlength: 8,
 			maxlength: 20
-			isOnlyASCII: true
 		},
 		confirm: {
 			equalTo: "#password"
