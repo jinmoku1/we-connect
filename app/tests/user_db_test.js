@@ -190,9 +190,8 @@ describe("#userDb.getDetail()", function(){
 	before(function(done){
 		userDb.isValidLogin(netId, password, function(detailDoc){
 			objectId = detailDoc._id;
-			userDb.getDetail(detailDoc._id, function(result, resultDoc){
-				isValid = result;
-				actualResult = resultDoc;
+			userDb.getDetail(detailDoc._id, function(resultDoc){
+				isValid = (resultDoc != null);
 				done();
 			});
 		});
@@ -306,19 +305,18 @@ describe("#userDb.remove()", function() {
 });
 
 
-describe("#userDb.getBrief() without condition", function(){
+describe("#userDb.getBriefs() without condition", function() {
 	this.timeout(0);
 	var isValid = false;
 
 	before(function(done){
-		userDb.getBriefs({}, function(flag, docs){
-			isValid = flag;
-
+		userDb.getBriefs({}, function(docs) {
+			isValid = (docs != null);
 			done();
 		});
 	});
 
-	it("should return all brief information.", function(){
+	it("should return all brief information.", function() {
 		assert(isValid);
 	});
 

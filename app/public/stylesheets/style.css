@@ -4,7 +4,7 @@ body {
 }
 
 a {
-	color: #00B7FF;
+	cursor: pointer;
 }
 
 .validate-error {
@@ -106,12 +106,16 @@ a {
 						width: 80px;
 						height: 80px;
 						background-color: #dfdfdf;
-						border-radius: 10px;
+						border-radius: 10%;
 					}
 					
 					#sideContainer .user .top .name {
 						margin-top: .5em;
 						font-size: 120%;
+					}
+					
+					#sideContainer .user .top .name a {
+						color: purple;
 					}
 					
 					#sideContainer .user .top .side {
