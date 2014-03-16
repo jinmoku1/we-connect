@@ -153,23 +153,29 @@ exports.updateInfo = function(_id, updateDoc, callback) {
 };
 
 //update password
-exports.updatePassword = function(prevPassword, updateDoc, callback) {
-	var netId = updateDoc.netId;
-
-	connector.update(userConst.db.USER_ACCOUNTS, { netId : netId, password : prevPassword }, updateDoc, function(db, result) {
+exports.updatePassword = function(update, oldPassword, callback) {
+	connector.update(userConst.db.USER_ACCOUNTS, { netId : update.netId, password : oldPassword }, update, function(db, result) {
 		db.close();
 		callback(result != null);
 	});
 };
 
 
-exports.getBriefs = function(callback) {
+exports.getBriefs = function(selector, callback) {
 	// to be implemented
+	connector.findAll(userConst.db.USER_BRIEFS, function(db, docs){
+		db.close();
+		if(docs != null){
+			callback(true, docs);
+		} else {
+			callback(false);
+		}
+	});
 };
 
 
 exports.getDetail = function(_id, callback) {
-	// to be implemented
+//	connector.findOne(userConst.db.USER_DETAILS,)
 };
 
 //--------------- Object Specific Operations --------------- //
