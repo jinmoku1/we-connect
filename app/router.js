@@ -5,6 +5,7 @@
 var mainControl	= require('./controls/main_control');
 var apiControl	= require('./controls/api_control');
 var userControl	= require('./controls/user_control');
+var embeddedControl = require('./controls/embedded_control');
 
 exports.route = function (app) {
 	// main
@@ -28,6 +29,9 @@ exports.route = function (app) {
 	app.post('/setting/profile', userControl.settingProfile);
 	app.post('/setting/changePW', userControl.settingChangePW);
 	app.post('/setting/additionalInfo', userControl.settingAdditionalInfo);
+	
+	// embedded view - used for ajax embedded view
+	app.get('/profile/modal/:id', embeddedControl.profileModal);
 	
 	// api - used for light dynamic requests
 	app.get('/api/sample', apiControl.sample);

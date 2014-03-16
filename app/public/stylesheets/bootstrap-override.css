@@ -1,4 +1,8 @@
 span.label.label-default {
-	background-color: #ddd;
-	color: #444;
+	background-color: #eee;
+	color: #666;
+}
+
+a {
+	color: #888;
 }

@@ -4,6 +4,7 @@
 
 var session = require('../session');
 var userConst = require('../constants').user;
+var userDb = require('../db/user_db');
 
 exports.index = function(req, res) {
 	session.initiate(req, res);
@@ -12,16 +13,16 @@ exports.index = function(req, res) {
 		res.redirect('/account/login');
 		return;
 	}
-	var userBriefList = [];
-	// DB query
 	
-	
-	res.render('index', {
-		user : session.getSessionUser(),
-		userConst : userConst,
-		userBriefList: userBriefList,
-		title : 'WeConnect : CS',
-		welcome : 'Welcome to WeConnect'
+	userDb.getBriefs(null, function(userBriefs) {
+		console.log(userBriefs);
+		res.render('index', {
+			user : session.getSessionUser(),
+			userConst : userConst,
+			userBriefs : userBriefs,
+			title : 'WeConnect : CS',
+			welcome : 'Welcome to WeConnect'
+		});
 	});
 };
 

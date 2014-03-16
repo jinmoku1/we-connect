@@ -162,26 +162,17 @@ exports.updatePassword = function(update, oldPassword, callback) {
 
 
 exports.getBriefs = function(selector, callback) {
-	// to be implemented
 	connector.findAll(userConst.db.USER_BRIEFS, function(db, docs){
 		db.close();
-		if(docs != null){
-			callback(true, docs);
-		} else {
-			callback(false);
-		}
+		callback(docs);
 	});
 };
 
 
 exports.getDetail = function(_id, callback) {
 	connector.findOne(userConst.db.USER_DETAILS, {_id: _id}, function(db, resultDoc){
-		if(resultDoc){
-			db.close();
-			callback(true, resultDoc);
-		} else {
-			callback(false);
-		}
+		db.close();
+		callback(resultDoc);
 	});
 };
 
