@@ -175,7 +175,14 @@ exports.getBriefs = function(selector, callback) {
 
 
 exports.getDetail = function(_id, callback) {
-//	connector.findOne(userConst.db.USER_DETAILS,)
+	connector.findOne(userConst.db.USER_DETAILS, {_id: _id}, function(db, resultDoc){
+		if(resultDoc){
+			db.close();
+			callback(true, resultDoc);
+		} else {
+			callback(false);
+		}
+	});
 };
 
 //--------------- Object Specific Operations --------------- //
