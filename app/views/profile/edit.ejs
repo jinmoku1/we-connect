@@ -116,11 +116,93 @@
 				</div>
 			</form>
 		</div>
-		<!-- Change Password -->
+		
+		<!-- Additional Info -->
 		<div class="tab-pane" id="addtionalInfo">
-			
+			<form id="additionalInfoForm" class="form-horizontal" method="post" action="/setting/additionalInfo">
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="intro">Introduction</label>
+					<div class="col-sm-offset-3 col-sm-9">
+						<textarea rows="5" cols="50" id="intro" name="intro"><% if (user.intro){ %><%=user.intro%><% } %></textarea>
+					</div>
+				</div>
+
+				<% if (user.userType == userConst.TYPE_STUDENT) { %>
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="overallGPA">Overall GPA</label>
+					<div class="col-sm-9">
+						<input type="number" id="overallGPA" value="<%=user.extension.overallGPA%>" placeholder="overall GPA" name="overallGPA" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="technicalGPA">Technical GPA</label>
+					<div class="col-sm-9">
+						<input type="number" id="technicalGPA" value="<%=user.extension.technicalGPA%>" placeholder="technical GPA" name="technicalGPA" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Courses Taken</label>
+					<div class="col-sm-9">
+					<% for (var i in courses) { %>
+						<div class="checkbox col-sm-6">
+							<label>
+								<%
+								var exists = 0;
+								for (var j in user.extension.coursesTaken){
+									if (user.extension.coursesTaken[j] == courses[i]){
+										exists = 1;
+										break;
+									}
+								}
+								if (exists){ %>
+									<input type="checkbox" name="coursesTaken" value="<%=courses[i]%>" checked="checked"/>
+									<%=courses[i]%>
+								<% } else { %>
+									<input type="checkbox" name="coursesTaken" value="<%=courses[i]%>" />
+									<%=courses[i]%>
+								<% } %>
+							</label>
+						</div>
+					<% } %>
+					</div>
+				</div>
+				<% } else if (user.userType == userConst.TYPE_FACULTY) { %>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Courses Taught</label>
+					<div class="col-sm-9">
+					<% for (var i in courses) { %>
+						<div class="checkbox col-sm-6">
+							<label>
+								<%
+								var exists = 0;
+								for (var j in user.extension.coursesTaught){
+									if (user.extension.coursesTaught[j] == courses[i]){
+										exists = 1;
+										break;
+									}
+								}
+								if (exists){ %>
+									<input type="checkbox" name="coursesTaught" value="<%=courses[i]%>" checked="checked"/>
+									<%=courses[i]%>
+								<% } else { %>
+									<input type="checkbox" name="coursesTaught" value="<%=courses[i]%>" />
+									<%=courses[i]%>
+								<% } %>
+							</label>
+						</div>
+					<% } %>
+					</div>
+				</div>
+				<% } %>
+				<div class="form-group">
+					<div class="col-sm-offset-3 col-sm-9">
+						<button type="submit" class="btn btn-primary">Update Addtional Info</button>
+					</div>
+				</div>
+			</form>
 		</div>
 		
+		<!-- Change Password -->
 		<div class="tab-pane" id="privacy">
 			<form id="changePasswordForm" class="form-horizontal" method="post" action="/setting/changePW">
 				<div class="form-group">
