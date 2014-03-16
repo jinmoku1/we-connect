@@ -12,10 +12,13 @@ exports.index = function(req, res) {
 		res.redirect('/account/login');
 		return;
 	}
+	var userBriefList = [];
+	// DB query 
 	
 	res.render('index', {
 		user : session.getSessionUser(),
 		userConst : userConst,
+		userBriefList: userBriefList,
 		title : 'WeConnect : CS',
 		welcome : 'Welcome to WeConnect'
 	});

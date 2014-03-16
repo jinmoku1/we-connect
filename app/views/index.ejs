@@ -21,7 +21,7 @@
 			<p>Class Standing : <%=user.extension.classStanding%></p>
 		<% } else { %>
 			<p>Website : <a href="<%=user.extension.websiteUrl%>"><%=user.extension.websiteUrl%></a></p>
-		<% } else {%>
+		<% } %>
 		
 		<form action="/profile/edit">
 		    <button id="settingBtn" type="submit">Setting</button> 
@@ -42,6 +42,12 @@
 		//for (var i in user.followees) %>
 			<li><%//=user.followees[i]%>1</li>
 		<%// }%>
+		</ul>
+	</div>
+	<div>
+		Followers:
+		<ul id="followeeList">
+			<li></li>
 		</ul>
 	</div>
 	<div>
