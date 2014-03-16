@@ -65,7 +65,7 @@ exports.update = function(collection, conditionDoc, updateDoc, callback) {
 				console.log("[ERROR] Update on \'"+collection+"\' Failed.");
 				return;
 			}
-			callback(db, resultDoc != null);
+			callback(db, resultDoc);
 		});
 	});
 };

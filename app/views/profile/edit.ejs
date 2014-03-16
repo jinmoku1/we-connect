@@ -20,9 +20,14 @@
 			<label class="col-sm-3 control-label">Department</label>
 			<div class="col-sm-9">
 				<select id="department" value="<%=user.departments%>" class="form-control" name="department" required>
-				<% for (var i in departments) { %>
+				<% for (var i in departments) { 
+					if (user.department == departments[i]){
+					%>
+					<option value="<%=departments[i]%>" selected><%=departments[i]%></option>
+					<%
+				} else{ %>
 					<option value="<%=departments[i]%>"><%=departments[i]%></option>
-				<% } %>
+				<% } }%>
 				</select>
 			</div>
 		</div>

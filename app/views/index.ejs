@@ -19,8 +19,8 @@
 		<% if (user.userType == userConst.TYPE_STUDENT) { %>
 			<p>Degree : <%=user.extension.degree%></p>
 			<p>Class Standing : <%=user.extension.classStanding%></p>
-		<% } else {%>
-			<p>Website Url : <%=user.extension.websiteUrl%></p>
+		<% } else { %>
+			<p>Website : <a href="<%=user.extension.websiteUrl%>"><%=user.extension.websiteUrl%></a></p>
 		<% } %>
 		
 		<form action="/profile/edit">
@@ -45,6 +45,12 @@
 		</ul>
 	</div>
 	<div>
+		Followers:
+		<ul id="followeeList">
+			<li></li>
+		</ul>
+	</div>
+	<div>
 		<div id="tabs">
 			<button id="anncBtn">Announcement</button>
 			<button id="followsBtn">Follows</button>
@@ -55,15 +61,15 @@
 			<li>Announcement 1</li>
 			<li>Announcement 2</li>
 		</ul>
-		<ul id="follows">
+		<ul id="follows" style="display:none">
 			<li>Announcement 1</li>
 			<li>Announcement 2</li>
 		</ul>
-		<ul id="bookmarks">
+		<ul id="bookmarks" style="display:none">
 			<li>Announcement 1</li>
 			<li>Announcement 2</li>
 		</ul>
-		<ul id="archive">
+		<ul id="archive" style="display:none">
 			<li>Announcement 1</li>
 			<li>Announcement 2</li>
 		</ul>
