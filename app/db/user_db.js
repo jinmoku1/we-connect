@@ -54,7 +54,7 @@ function schema(userType) {
 	case userConst.TYPE_STUDENT:
 		userDetail.extension = {
 			canPost			: false,
-			overallGPA		: 0,
+			technicalGPA	: 0,
 			overallGPA		: 0,
 			degree			: null,
 			classStanding	: null,
