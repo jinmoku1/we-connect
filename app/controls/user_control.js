@@ -123,4 +123,12 @@ exports.setting = function(req, res) {
 };
 exports.settingPost = function(req, res) {
 	
+	//TODO
+		//call userDB.update(...)
+	
+	var netId = req.body.netId;
+	var password = req.body.password;
+	session.login(netId, password, function(success) {
+		res.redirect('/');
+	});
 };
