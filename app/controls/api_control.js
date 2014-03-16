@@ -4,7 +4,7 @@
 
 var session = require('../session');
 var userDb = require('../db/user_db');
-
+var ObjectID = require('mongodb').ObjectID;
 
 exports.sample = function(req, res){
 	res.send("Hello World!");
@@ -38,7 +38,6 @@ exports.addFollowee = function(followeeID, following, callback) {
 };
 
 exports.addFollowing = function(followeeID, following, callback) {
-	console.log(followeeID);
 	userDb.getDetail(followeeID, function(followee){
 		appendFollowing(followee, following, function(followee){
 			userDb.updateInfo(followee._id, followee, function(result){
@@ -49,6 +48,17 @@ exports.addFollowing = function(followeeID, following, callback) {
 };
 
 function appendFollowing(followee, following, callback){
-	followee.followings.push(following._id);
+	var index = -1;
+	for (var i in followee.followings) {
+		if (followee.followings[i].equals(following._id)){
+			index = i;
+			break;
+		}
+	}
+	if (index < 0){
+		followee.followings.push(following._id);
+	} else {
+		followee.followings.splice(index, 1);
+	}
 	callback(followee);
 }

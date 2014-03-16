@@ -6,7 +6,7 @@ var api = require('../controls/api_control');
 var userConst = require('../constants').user;
 
 
-describe("#adding", function() {
+describe("#addingDummies", function() {
 	this.timeout(0);
 	var result;
 	
@@ -105,5 +105,47 @@ describe("#addFollowing(toggle)", function() {
 	
 	it("Should add the following to the followee", function() {
 		assert(result);
+	});
+});
+
+describe("#deleteFollowing(toggle)", function() {
+	this.timeout(0);
+	var result = false;
+
+	before(function(done) {
+		userDb.isValidLogin("followee", "1", function(followee) {
+			userDb.isValidLogin("following", "1", function(following) {
+				api.addFollowing(followee._id, following, function(success) {
+					result = success;
+					done();
+				});
+			});
+		});
+	});
+	
+	it("Should delete the following from the followee", function() {
+		assert(result);
+	});
+});
+
+describe("#removingDummies", function() {
+	this.timeout(0);
+	var result = false;
+
+	before(function(done) {
+		userDb.isValidLogin("followee", "1", function(followee) {
+			userDb.isValidLogin("following", "1", function(following) {
+				userDb.remove(followee._id, function(removed1) {
+					userDb.remove(following._id, function(removed2) {
+						result = removed2;
+						done();
+					});
+				});
+			});
+		});
+	});
+
+	it("Removing user", function() {
+		assert(result == true);
 	});
 });
