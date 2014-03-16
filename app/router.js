@@ -30,4 +30,6 @@ exports.route = function (app) {
 	
 	// api - used for light dynamic requests
 	app.get('/api/sample', apiControl.sample);
+	
+	app.get('/api/follow/:followeeID', apiControl.follow);
 };
