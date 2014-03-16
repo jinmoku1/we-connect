@@ -177,13 +177,25 @@ describe("#userDb.updateInfo()", function(){
 	var changedValues = null;;
 	var netId = 'newuser1';
 	var password = '12345';
+	
+	var expectedResult = {
+		firstName		: "H. Seung",
+		lastName		: "Cha",
+		department		: "ACE",
+		userType		: userConst.TYPE_STUDENT,
+		interests		: [],
+		classStanding	: 'Junior',
+		degree			: 'Bachelor\'s',
+	};
 
 	before(function(done){
 		userDb.isValidLogin(netId, password, function(detailDoc){
 			var updateInfo = detailDoc;
 			
-			updateInfo.firstName = "H. Seung";
-			updateInfo.lastName  = "Cha";
+			updateInfo.firstName = expectedResult.firstName;
+			updateInfo.lastName  = expectedResult.lastName;
+			updateInfo.department = expectedResult.department;
+			
 			userDb.updateInfo(updateInfo._id, updateInfo, function(result){
 				isValid = result;
 				changedValues = updateInfo;
@@ -193,11 +205,11 @@ describe("#userDb.updateInfo()", function(){
 	});
 	
 	it("should update ", function() {
-		assert(changedValues.firstName == "H. Seung");
+		assert(changedValues.firstName == expectedResult.firstName);
 	});
 	
 	it("should update ", function(){
-		assert(changedValues.lastName == "Cha");
+		assert(changedValues.lastName == expectedResult.lastName);
 	});
 	
 	it("should return true value from the callback.", function(){
