@@ -28,6 +28,7 @@ function detailToAccount(userDetail, password) {
 function schema(userType) {
 	var userDetail = {
 		_id				: null,
+		briefId			: null,
 		netId			: null,
 		firstName		: null,
 		lastName		: null,
@@ -95,11 +96,13 @@ exports.create = function(post, callback) {
 	}
 	
 	var password = post.password;
+	var userBrief = detailToBrief(userDetail);
+	userDetail.briefId = userBrief._id;
 
 	connector.save(userConst.db.USER_DETAILS, userDetail, function(db, detailDoc) {
 		// update with generated _id
 		userDetail = detailDoc;
-		var userBrief = detailToBrief(userDetail);
+		//var userBrief = detailToBrief(userDetail);
 		var userAccount = detailToAccount(userDetail, password);
 		
 		connector.save(userConst.db.USER_BRIEFS, userBrief, function(db, briefDoc) {
@@ -135,15 +138,19 @@ exports.remove = function(_id, callback) {
 };
 
 // update profile
-exports.updateInfo = function(updateDoc, callback) {
-	var netId = updateDoc.netId;
-	
-	connector.findOne(userConst.db.USER_ACCOUNTS, {netId : netId}, function(db, userAccountDoc) {
-		// There would be more collections to be updated
-		connector.update(userConst.db.USER_ACCOUNTS, { netId : netId }, updateDoc, function(db, result) {
+exports.updateInfo = function(_id, updateDoc, callback) {
+	connector.update(userConst.db.USER_DETAILS, {_id : _id}, updateDoc, function(db, detailDoc){
+		if(detail != null){
+			var briefId = updateDoc.breifId;
+			var briefDoc = detailToBrief(updateDoc);
+			connector.update(userCons.db.USER_BRIEFS, {_id : briefId}, briefDoc, function(db, briefDoc){
+				db.close();
+				callback(briefDoc != null);
+			});
+		} else {
 			db.close();
-			callback(result);
-		});
+			callback(detailDoc != null);
+		}
 	});
 };
 
@@ -151,24 +158,10 @@ exports.updateInfo = function(updateDoc, callback) {
 exports.updatePassword = function(updateDoc, callback) {
 	var netId = updateDoc.netId;
 	var password = updateDoc.password;
-	var newPassword = updateDoc.newPassword;
-	var confirmPassword = updateDoc.confirmPassword;
 	
 	connector.update(userConst.db.USER_ACCOUNTS, { netId : netId, password : password }, updateDoc, function(db, result) {
-		if(newPassword === confirmPassword) {
-			updateDoc.password = newPassword;
-			delete updateDoc["newPassword"];
-			delete updateDoc["confirmPassword"];
-			connector.update(userConst.db.USER_ACCOUNTS, { netId : netId, password : password }, updateDoc, function(db, result) {
-				db.close();
-				callback(true);
-			});
-		}
-		else {
-			console.log("Confirmed passwrod is not matched to new password");
-			db.close();
-			callback(false);
-		}
+		db.close();
+		callback(result != null);
 	});
 };
 
