@@ -17,6 +17,14 @@ exports.departments = [
 	'CS', 'ECE', 'EE', 'PHYS', 'MATH', 'CHEM',
 ];
 
+exports.departments = [
+	'CS411 Database Systems', 'CS438 Communication Networks', 'CS440 Artificial Intelligence',
+	'CS428 Software Engineering', 'CS210 Ethics in Computer Science', 'CS423 Operating Systems Design',
+	'CS465 User Interface Design', 'CS241 System Programming', 'CS242 Programming Studio',
+	'CS431 Embedded Systems', 'CS425 Distributed System', 'ECE391 Computer Systems Engineering',
+	'PHYS214 Univ. Physics: Quantum Physics',
+];
+
 exports.degrees = [
 	'Bachelor\'s', 'Master', 'Ph.D.', 'Post Doctoral',
 ];
