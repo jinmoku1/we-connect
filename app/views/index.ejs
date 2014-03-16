@@ -1,74 +1,124 @@
 <%- include partials/header.ejs %>
 
-<div id="profileContainer">
-	<!-- 
-	<div id="ProfilePic">
-		<img alt="Profile Picture" src="C:/Users/Owner/Desktop/Academics/UIUC/2014 Spring Junior/CS429 Software Engineering II/Project/seoul.bmp">
-	</div>
-	 -->
-	<div id="PersonalInfo">
-		<h1><%=user.firstName%> <%=user.lastName%></h1>
-		<p>Department : <%=user.department%></p>
-		<p>Interests :</p>
-		<ul>
-		<!-- need to fix interest listing when user.interests == 1 -->
-		<% for (var i = 0; i < user.interests.length; i++) { %>
-			<li><%=user.interests[i]%></li>
-		<% } %>
-		</ul>
-		<!-- this line tests interest listing <p><%=user.interests.length%></p> -->
-		<p>User Type : <%=user.userType%></p>
-		<% if (user.userType == userConst.TYPE_STUDENT) { %>
-			<p>Degree : <%=user.extension.degree%></p>
-			<p>Class Standing : <%=user.extension.classStanding%></p>
-		<% } else {%>
-			<p>Website Url : <%=user.extension.websiteUrl%></p>
-		<% } %>
-		
-		<form action="/setting">
-		    <button id="settingBtn" type="submit">Setting</button> 
-		</form>
-	</div>
-	
-	<div id="followList">
-		Followers:
-		<ul id="followeeList">
-		<%
-		//for (var i in user.followings) %>
-			<li><%//=user.followings[i]%>1</li>
-		<%// } %>
-		</ul>
-		Followees:
-		<ul id="followerList">
-		<% 
-		//for (var i in user.followees) %>
-			<li><%//=user.followees[i]%>1</li>
-		<%// }%>
-		</ul>
-	</div>
-	<div>
-		<div id="tabs">
-			<button id="anncBtn">Announcement</button>
-			<button id="followsBtn">Follows</button>
-			<button id="bookmarksBtn">Bookmarks</button>
-			<button id="archiveBtn">Archive</button>
+<div id="topContainer" class="row">
+	<div class="col-md-3">
+		<div id="pictureContainer">
+			<div class="picture">
+				<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
+			</div>
 		</div>
-		<ul id="announcement">
-			<li>Announcement 1</li>
-			<li>Announcement 2</li>
-		</ul>
-		<ul id="follows">
-			<li>Announcement 1</li>
-			<li>Announcement 2</li>
-		</ul>
-		<ul id="bookmarks">
-			<li>Announcement 1</li>
-			<li>Announcement 2</li>
-		</ul>
-		<ul id="archive">
-			<li>Announcement 1</li>
-			<li>Announcement 2</li>
-		</ul>
+	</div>
+	<div id="profileContainer" class="col-md-9">
+		<h1 class="name">
+			Darko Marinov
+			<span class="email">
+				<em><a href="mailto:marino@illinois.edu">marino@illinois.edu</a></em>
+			</span>
+		</h1>
+		<p>
+			<em>Undergraduate (Freshman) in Computer Science</em>
+		</p>
+		<p class="intro">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vulputate tempor magna, eget mollis justo interdum eget. Sed in justo varius, consequat libero quis, vestibulum eros. Proin a tempor quam, at bibendum lacus
+			<a href="" data-toggle="modal" data-target="#fullIntro"><em>...more</em></a>
+		</p>
+		<p class="interests">
+			<span class="label label-default">Software Engineering</span>
+			<span class="label label-default">Data Mining</span>
+			<span class="label label-default">Comptuer Architecture</span>
+			<span class="label label-default">Database</span>
+			<span class="label label-default">Software Engineering</span>
+		</p>
+		<div class="buttons">
+			<button type="button" class="btn btn-default">
+				Following <span class="badge">17</span>
+			</button>
+			<button type="button" class="btn btn-default">
+				Followers <span class="badge">68</span>
+			</button>
+		</div>
 	</div>
 </div>
+
+<div id="bottomContainer" class="row">
+	<div id="mainContainer" class="col-md-9">
+	</div>
+	<div id="sideContainer" class="col-md-3">
+		<h3 class="header-side">Suggested Users</h3>
+		<div class="user">
+			<div class="top row">
+				<div class="col-md-4">
+					<div class="picture">
+					</div>
+				</div>
+				<div class="side col-md-8">
+					<p class="name">Jessica</br />Alba</p>
+					<div class="email">
+						<em><a href="mailto:oooalba@illinois.edu">oooalba@illinois.edu</a></em>
+					</div>
+				</div>
+			</div>
+			<div class="interests">
+				<span class="label label-info">Software Engineering</span>
+				<span class="label label-info">Data Mining</span>
+				<span class="label label-info">Computer Architecture</span>
+				<span class="label label-info">Database</span>
+			</div>
+		</div>
+		<div class="user">
+			<div class="top row">
+				<div class="col-md-4">
+					<div class="picture">
+					</div>
+				</div>
+				<div class="side col-md-8">
+					<p class="name">Samuel</br />Jackson</p>
+					<div class="email">
+						<em><a href="mailto:oooalba@illinois.edu">jackson@illinois.edu</a></em>
+					</div>
+				</div>
+			</div>
+			<div class="interests">
+				<span class="label label-info">Data Mining</span>
+				<span class="label label-info">Computer Architecture</span>
+			</div>
+		</div>
+		<div class="user">
+			<div class="top row">
+				<div class="col-md-4">
+					<div class="picture">
+					</div>
+				</div>
+				<div class="side col-md-8">
+					<p class="name">Elizabeth</br />Taylor</p>
+					<div class="email">
+						<em><a href="mailto:oooalba@illinois.edu">oooalba@illinois.edu</a></em>
+					</div>
+				</div>
+			</div>
+			<div class="interests">
+				<span class="label label-info">Computer Architecture</span>
+				<span class="label label-info">Software Engineering</span>
+				<span class="label label-info">Data Mining</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="fullIntro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vulputate tempor magna, eget mollis justo interdum eget. Sed in justo varius, consequat libero quis, vestibulum eros. Proin a tempor quam, at bibendum lacus. Morbi pulvinar libero nisi, nec rhoncus nulla gravida nec. Sed lobortis, diam nec molestie tristique, est purus blandit lectus, et dictum sapien neque sit amet arcu. Nam commodo diam libero, ut viverra ipsum tempus a. Cras sit amet odio nunc. Curabitur in est urna. Suspendisse potenti.</p> 
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <%- include partials/footer.ejs %>

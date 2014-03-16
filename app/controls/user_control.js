@@ -131,6 +131,7 @@ function renderSetting(req, res, error) {
 		user : session.getSessionUser(),
 		userConst : userConst,
 		departments: constants.departments,
+		courses : constants.courses,
 		interests: constants.interests,
 		degrees : constants.degrees,
 		classStandings : constants.classStandings,
@@ -187,6 +188,30 @@ exports.settingChangePW = function(req, res) {
 		}
 		else {
 			var error = "[ERROR] Your password is incorrect.";
+			renderSetting(req, res, error);
+		}
+	});
+};
+
+exports.settingAdditionalInfo = function(req, res) {
+	var user = session.getSessionUser();
+	user.intro = req.body.intro;
+	if (user.userType == userConst.TYPE_STUDENT){
+		user.extension.overallGPA = req.body.overallGPA;
+		user.extension.technicalGPA = req.body.technicalGPA;
+		user.extension.coursesTaken = req.body.coursesTaken;
+	}
+	else {
+		user.extension.coursesTaught = req.body.coursesTaught;
+	}
+	
+	userDb.updateInfo(user._id, user, function(success) {
+		if (success){
+			session.updateSession(user);
+			res.redirect('/');
+		}
+		else {
+			var error = "[ERROR] Please try updating again.";
 			renderSetting(req, res, error);
 		}
 	});

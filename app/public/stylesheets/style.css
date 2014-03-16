@@ -1,9 +1,10 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	overflow-y: scroll;
 }
 
 a {
-  color: #00B7FF;
+	color: #00B7FF;
 }
 
 .validate-error {
@@ -14,3 +15,136 @@ a {
 	width: 1024px;
 	margin: auto;
 }
+
+	.number-button {
+		text-align: center;
+		border-radius: 0;
+	}
+	
+		.number-button span {
+			display: block;
+		}
+		
+		.number-button span.number {
+			font-size: 140%;
+		}
+		
+		.number-button span.text {
+		}
+		
+
+	#topContainer {
+		padding: 1em 0;
+		margin-bottom: 1em;
+		border-bottom: 1px solid #dfdfdf;
+	}
+	
+		#pictureContainer {
+			height: 220px;
+		}
+		
+			#pictureContainer .picture {
+				margin: auto;
+				width: 220px;
+				height: inherit;
+				background: pink;
+				border-radius: 10%;
+			}
+			
+			#pictureContainer .picture img {
+				width: inherit;
+				height: inherit;
+				border-radius: 10%;
+			}
+			
+			#pictureContainer .buttons a,
+			#pictureContainer .buttons .badge {
+				font-size: 90%;
+			}
+		
+		#profileContainer {
+			height: 220px;
+			position: relative;
+		}
+		
+			#profileContainer .name .email {
+				font-size: .45em;
+			}
+			
+			#profileContainer .intro {
+				height: 36px;
+			}
+			
+			#profileContainer .interests .label {
+				line-height: 2.2em;
+			}
+			
+			#profileContainer .buttons {
+				position: absolute;
+				bottom: .5em;
+			}
+				
+	#bottomContainer {
+		height: 720px;
+	}
+	
+		#sideContainer {
+			height: 100%;
+		}
+		
+			#sideContainer .user {
+				margin-top: 1em;
+				border-bottom: 1px solid #ddd;
+			}
+			
+				#sideContainer .user .top {
+					height: 80px;
+					margin-bottom: .5em;
+				}
+			
+					#sideContainer .user .top .picture {
+						width: 80px;
+						height: 80px;
+						background-color: #dfdfdf;
+						border-radius: 10px;
+					}
+					
+					#sideContainer .user .top .name {
+						margin-top: .5em;
+						font-size: 120%;
+					}
+					
+					#sideContainer .user .top .side {
+						position: relative;
+						height: inherit;
+					}
+					
+					#sideContainer .user .top .side .email {
+						position: absolute;
+						bottom: 1em;
+					}
+					
+				#sideContainer .user .interests {
+					margin-bottom: 1em;
+				}
+				
+				#sideContainer .user .interests .label {
+					line-height: 2.2em;
+				}
+		
+		#mainContainer {
+			height: 100%;
+			border-right: 1px solid #dfdfdf;
+		}
+		
+		#sideContainer {
+		}
+		
+			#sideContainer .header-side {
+				padding: 0;
+				margin: 0;
+				margin-bottom: 1em;
+				font-size: 110%;
+				line-height: 140%;
+				color: gray;
+			}
