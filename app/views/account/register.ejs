@@ -94,7 +94,10 @@
 		</div>
 	</form>
 </div>
+<!-- 
 
+
+ -->
 <script>
 
 jQuery.validator.addMethod("isValidNetId", 
@@ -110,29 +113,15 @@ jQuery.validator.addMethod("isValidName",
     },
     jQuery.validator.format("Only alphabets are allowed for names.")
 );
-
-		
+	
 $('#signupForm').validate({
 	rules: {
 		netId: {
 			isValidNetId: true,
 			remote: {
 				url: "/account/register/validate",
-				type: "post",
-				data: {
-					netId: "#netId"
-				},
-				success: function(data) {
-					alert(data);
-					if (data == "1"){
-						return true;
-					}
-					else {
-						jQuery.validator.format("{0} is already taken.")
-						return false;
-					}
-				}
-			}
+				type: "post"
+			}			
 		},
 		password: {
 			minlength: 8,
@@ -148,10 +137,11 @@ $('#signupForm').validate({
 			equalTo: "#password"
 		}
 	},
-	
 	errorClass: "validate-error",
 	messages: {
-		jQuery.validator.format("{0} is already taken.")
+		netId: {
+			remote: jQuery.validator.format("{0} is already taken.")
+		}
 	}
 });
 </script>

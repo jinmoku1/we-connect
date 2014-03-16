@@ -94,14 +94,14 @@ exports.registerValidate = function(req, res) {
 	var netId = req.body.netId;
 	
 	userDb.netIdExists(netId, function(result) {
-		consolo.log("Has duplicate?="+result);
+		console.log("Has duplicate?="+result);
 		if (result){ // the duplicate ID exists
 			res.writeHead(200, {"Content-Type": "text/plain"});
-			res.end("0");
+			res.end("false");
 		}
 		else {
 			res.writeHead(200, {"Content-Type": "text/plain"});
-			res.end("1");
+			res.end("true");
 		}
 	});
 };
