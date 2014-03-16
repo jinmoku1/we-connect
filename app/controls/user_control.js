@@ -64,8 +64,8 @@ function renderRegister(userType, res, session, error) {
 	res.render('account/register', {
 		user : session.getSessionUser(),
 		userConst: userConst,
-		departments: constants.departments,
-		interests: constants.interests,
+		departments : constants.departments,
+		interests : constants.interests,
 		degrees : constants.degrees,
 		classStandings : constants.classStandings,
 		userType : userType,
@@ -126,7 +126,7 @@ exports.registerPost = function(req, res) {
 };
 
 // Setting
-exports.setting = function(req, res) {
+function renderSetting(req, res, error) {
 	res.render('profile/edit', {
 		user : session.getSessionUser(),
 		userConst : userConst,
@@ -134,17 +134,60 @@ exports.setting = function(req, res) {
 		interests: constants.interests,
 		degrees : constants.degrees,
 		classStandings : constants.classStandings,
-		title: 'Edit Settings',
+		title : 'Edit Settings',
+		error : error,
+	});
+}
+
+exports.setting = function(req, res) {
+	renderSetting(req, res, null);
+};
+
+exports.settingProfile = function(req, res) {
+	//update object in the session
+	var user = session.getSessionUser();
+	user.firstName = req.body.firstName;
+	user.lastName = req.body.firstName;
+	user.department = req.body.department;
+	user.interests = req.body.interests;
+	if (user.userType == userConst.TYPE_STUDENT){
+		user.degree = req.body.degree;
+		user.classStanding = req.body.classStanding;
+	}
+	else {
+		user.websiteUrl = req.body.websiteUrl;
+	}
+	
+	userDb.updateInfo(user._id, user, function(success) {
+		if (success){
+			session.updateSession(user);
+			res.redirect('/');
+		}
+		else {
+			var error = "[ERROR] Please try updating again.";
+			renderSetting(req, res, error);
+		}
 	});
 };
-exports.settingPost = function(req, res) {
+
+exports.settingChangePW = function(req, res) {
+	//update object in the session
+	var user = session.getSessionUser();
+	var oldPassword = req.body.oldPassword;
+	var newPassword = req.body.newPassword;
+	var accountInfo = {
+			"netId" : user.netId,
+			"password" : newPassword,
+			"detailId" : user._id
+	};
 	
-	//TODO
-		//call userDB.update(...)
-	
-	var netId = req.body.netId;
-	var password = req.body.password;
-	session.login(netId, password, function(success) {
-		res.redirect('/');
+	userDb.updatePassword(accountInfo, oldPassword, function(success) {
+		if (success){
+			res.redirect('/');
+		}
+		else {
+			var error = "[ERROR] Your password is incorrect.";
+			renderSetting(req, res, error);
+		}
 	});
 };

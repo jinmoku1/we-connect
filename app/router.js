@@ -24,8 +24,9 @@ exports.route = function (app) {
 	app.post('/account/register/validate', userControl.registerValidate);
 	app.post('/account/register/:userType', userControl.registerPost);
 
-	app.get('/profile/edit', userControl.setting);
-	app.post('/profile/edit', userControl.settingPost);
+	app.get('/setting', userControl.setting);
+	app.post('/setting/profile', userControl.settingProfile);
+	app.post('/setting/changePW', userControl.settingChangePW);
 	
 	// api - used for light dynamic requests
 	app.get('/api/sample', apiControl.sample);
