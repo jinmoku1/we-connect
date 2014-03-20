@@ -34,7 +34,9 @@
 		</p>
 		<div class="buttons">
 			<button type="button" class="btn">
-				Followees <span id="followeeCount" class="badge"><%=user.followees.length%></span>
+				<a data-toggle="modal" href="/followeeList/modal" data-target="userFolloweeListModal">
+					Followees <span id="followeeCount" class="badge"><%=user.followees.length%></span>
+				</a>
 			</button>
 			<button type="button" class="btn">
 				Following <span class="badge"><%=user.followings.length%></span>
@@ -96,6 +98,14 @@
 
 <!-- User Profile Modal -->
 <div class="modal fade" id="userProfileModal" tabindex="-1" role="dialog" aria-labelledby="userProfileName" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
+
+<!-- User Followee list modal -->
+<div class="modal fade" id="userFolloweeListModal" tabindex="-1" role="dialog" aria-labelledby="userFolloweeListModal" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 		</div>

@@ -3,22 +3,48 @@
 	<h4 class="modal-title"><%=userDetail.firstName%> <%=userDetail.lastName%></h4>
 </div>
 <div class="modal-body">
-	<p>Department : <%=userDetail.department%></p>
-	<p>Intro : <%=userDetail.intro%></p>
-	<p>Followees : <%=userDetail.followees.length%></p>
-	<p>Followings : <%=userDetail.followings.length%></p>
+	<div class="col-md-3">
+		<div id="pictureContainer">
+			<div class="picture">
+				<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
+			</div>
+		</div>
+	</div>
+	<div id="profileContainer" class="col-md-9">
+		<h1 class="name">
+			<%=userDetail.firstName%>
+			<%=userDetail.lastName%>
+			<span class="email">
+				<em><a href="mailto:<%=userDetail.netId%>@illinois.edu"><%=userDetail.netId%>@illinois.edu</a></em>
+			</span>
+		</h1>
+		<p>
+			<% if (userDetail.userType == userConst.TYPE_STUDENT) { %>
+				<em><%=userDetail.extension.degree%> (<%=userDetail.extension.classStanding%>) in <%=userDetail.department%></em>
+			<% } else {%>
+				<em>Faculty in <%=userDetail.department%></em>
+			<% } %>
+		</p>
+		<p class="intro">
+			<%=userDetail.intro%>...
+			<a data-toggle="modal" data-target="#fullIntroModal"><em>more</em></a>
+		</p>
+		<p class="interests">
+			<% for (var i in userDetail.interests) { %>
+			<span class="label label-default"><%=userDetail.interests[i]%></span>
+			<% } %>
+		</p>
+		<div class="buttons">
+			<button type="button" class="btn">
+				Followees <span id="followeeCount" class="badge"><%=userDetail.followees.length%></span>
+			</button>
+			<button type="button" class="btn">
+				Following <span class="badge"><%=userDetail.followings.length%></span>
+			</button>
+		</div>
+	</div>
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	<button type="button" class="btn btn-primary" onclick="onToggleFollow()">Follow</button>
 </div>
-
-<script>
-function onToggleFollow() {
-	$.post('/api/follow', { id : "<%=userDetail._id%>" }, function(sessionUser) {
-		$('#followeeCount').html(sessionUser.followees.length);
-		$('#<%=userDetail._id%>').fadeOut('fast');
-		$('#userProfileModal').modal('hide');
-	});
-}
-</script>

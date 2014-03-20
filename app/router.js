@@ -32,6 +32,7 @@ exports.route = function (app) {
 	
 	// embedded view - used for ajax embedded view
 	app.get('/profile/modal/:id', embeddedControl.profileModal);
+	app.get('/followeeList/modal', embeddedControl.followeeListModal);
 	
 	// api - used for light dynamic requests
 	app.get('/api/sample', apiControl.sample);
