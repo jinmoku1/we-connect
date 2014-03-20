@@ -269,6 +269,18 @@ $('#editForm').validate({
 	}
 });
 
+$('#additionalInfoForm').validate({
+	rules: {
+		overallGPA: {
+			range: [0.00, 4.00]
+		},
+		technicalGPA: {
+			range: [0.00, 4.00]
+		}
+	},
+	errorClass: "validate-error",
+});
+
 $('#changePasswordForm').validate({
 	rules: {
 		newPassword: {
