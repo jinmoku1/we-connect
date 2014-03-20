@@ -4,7 +4,8 @@
 
 exports.db = {
 	//CONNECTION_STRING : 'mongodb://127.0.0.1:27017/weconnect',
-	CONNECTION_STRING : 'mongodb://hay.synology.me:27017/weconnect',
+	//CONNECTION_STRING : 'mongodb://hay.synology.me:27017/weconnect',i
+	CONNECTION_STRING : 'mongodb://wizub.com:27017/weconnect',
 };
 
 exports.interests = [
@@ -62,12 +63,12 @@ exports.developers = [
     	pic : 'http://red967fm.com/wp-content/uploads/2014/02/profileholder-150x150.gif',
     },
     {	
-    	name: 'Troug, Alex',
+    	name: 'Truong, Alexender',
     	info: 'Front-end Enginnerer; website frame',
     	pic : 'http://red967fm.com/wp-content/uploads/2014/02/profileholder-150x150.gif',
     },
     {	
-    	name: 'Choi, Cahng Yong',
+    	name: 'Choi, Chang Yong',
     	info: 'Back-end Enginnerer; MongoDB',
     	pic : 'http://red967fm.com/wp-content/uploads/2014/02/profileholder-150x150.gif',
     },

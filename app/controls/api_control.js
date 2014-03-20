@@ -16,7 +16,7 @@ exports.follow = function(req, res) {
 	exports.addFollowee(followeeId, user, function(result) {
 		exports.addFollowing(followeeId, user, function(result) {
 			if (result) {
-				user = session.getSessionUser(req);
+				session.setSessionUser(req, user);
 				res.send(user);
 			}
 		});

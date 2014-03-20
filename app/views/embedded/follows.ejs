@@ -1,0 +1,38 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<% if (isFollowees) { %>
+		<h4 class="modal-title">My Followees</h1>
+	<% } else { %>
+		<h4 class="modal-title">My Followings</h1>
+	<% } %>
+</div>
+
+<div class="modal-body">
+	<% if (userBriefs.length > 0) { %>
+		<% for (var i in userBriefs) { %>
+			<div class="row" id="<%=userBriefs[i].detailId%>">
+				<div class="col-md-4">
+					<div class="picture">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<%=userBriefs[i].firstName%>
+					<%=userBriefs[i].lastName%>
+				</div>
+				<div class="col-md-2">
+					<% if (isFollowees) { %>
+						<a onclick="onToggleFollow('<%=userBriefs[i].detailId%>')" class="btn">
+							Unfollow
+						</a>
+					<% } %>
+				</div>
+			</div>
+		<% } %>
+	<% } else { %>
+		<% if (isFollowees) { %>
+			<p class="text-center">No Followees</p>
+		<% } else { %>
+			<p class="text-center">No Followings</p>
+		<% } %>
+	<% } %>
+</div>

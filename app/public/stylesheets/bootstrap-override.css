@@ -6,3 +6,7 @@ span.label.label-default {
 a {
 	color: #888;
 }
+
+a.btn-lgray {
+	background-color:#eee;
+}

@@ -17,7 +17,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-//using express session
+// using express session
 app.use(express.cookieParser());
 app.use(express.session({secret: '8qh)osf8!92hx*#ljbj0@#'}));
 
@@ -27,6 +27,9 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+
+// disable view cache
+app.disable('view cache');
 
 // development only
 if ('development' === app.get('env')) {
