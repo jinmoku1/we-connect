@@ -43,3 +43,37 @@ exports.user = {
 		USER_ACCOUNTS	: 'userAccounts',
 	},
 };
+
+
+exports.developers = [
+    {	
+    	name: 'Cha, Seung H.',
+    	info: 'Generalist',
+    	pic : 'http://red967fm.com/wp-content/uploads/2014/02/profileholder-150x150.gif',
+    },
+    {	
+    	name: 'Lee, Seungchul',
+    	info: 'Back-end Enginnerer; MongoDB',
+    	pic : 'http://red967fm.com/wp-content/uploads/2014/02/profileholder-150x150.gif',
+    },
+    {	
+    	name: 'Ku, Jin Mo',
+    	info: 'Front-end Enginnerer; website frame',
+    	pic : 'http://red967fm.com/wp-content/uploads/2014/02/profileholder-150x150.gif',
+    },
+    {	
+    	name: 'Troug, Alex',
+    	info: 'Front-end Enginnerer; website frame',
+    	pic : 'http://red967fm.com/wp-content/uploads/2014/02/profileholder-150x150.gif',
+    },
+    {	
+    	name: 'Choi, Cahng Yong',
+    	info: 'Back-end Enginnerer; MongoDB',
+    	pic : 'http://red967fm.com/wp-content/uploads/2014/02/profileholder-150x150.gif',
+    },
+    {	
+    	name: 'Guo, Ana',
+    	info: 'Front-end Enginnerer; BootStarp',
+    	pic : 'http://www.onerush.com/files/profile-pics/profile_female.gif',
+    },
+];
