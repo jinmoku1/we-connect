@@ -10,15 +10,5 @@
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	<button type="button" class="btn btn-primary" onclick="onToggleFollow()">Follow</button>
+	<button type="button" class="btn btn-primary" onclick="onToggleFollow('<%=userDetail._id%>')">Follow</button>
 </div>
-
-<script>
-function onToggleFollow() {
-	$.post('/api/follow', { id : "<%=userDetail._id%>" }, function(sessionUser) {
-		$('#followeeCount').html(sessionUser.followees.length);
-		$('#<%=userDetail._id%>').fadeOut('fast');
-		$('#userProfileModal').modal('hide');
-	});
-}
-</script>
