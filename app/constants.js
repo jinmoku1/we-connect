@@ -62,12 +62,12 @@ exports.developers = [
     	pic : 'http://red967fm.com/wp-content/uploads/2014/02/profileholder-150x150.gif',
     },
     {	
-    	name: 'Troug, Alex',
+    	name: 'Truong, Alexender',
     	info: 'Front-end Enginnerer; website frame',
     	pic : 'http://red967fm.com/wp-content/uploads/2014/02/profileholder-150x150.gif',
     },
     {	
-    	name: 'Choi, Cahng Yong',
+    	name: 'Choi, Chang Yong',
     	info: 'Back-end Enginnerer; MongoDB',
     	pic : 'http://red967fm.com/wp-content/uploads/2014/02/profileholder-150x150.gif',
     },
