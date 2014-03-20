@@ -7,9 +7,7 @@ var userConst = require('../constants').user;
 var userDb = require('../db/user_db');
 
 exports.index = function(req, res) {
-	session.initiate(req, res);
-	
-	if (!session.isLoggedin()) {
+	if (!session.isLoggedin(req)) {
 		res.redirect('/account/login');
 		return;
 	}
@@ -17,7 +15,7 @@ exports.index = function(req, res) {
 	userDb.getBriefs(null, function(userBriefs) {
 		console.log(userBriefs);
 		res.render('index', {
-			user : session.getSessionUser(),
+			user : session.getSessionUser(req),
 			userConst : userConst,
 			userBriefs : userBriefs,
 			title : 'WeConnect : CS',
@@ -27,10 +25,8 @@ exports.index = function(req, res) {
 };
 
 exports.about = function(req, res) {
-	session.initiate(req, res);
-	
 	res.render('about', {
-		user : null,
+		user : session.getSessionUser(req),
 		title : 'About Page',
 		welcome : 'Welcome to WeConnect About'
 	});

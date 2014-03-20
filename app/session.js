@@ -3,27 +3,20 @@
  */
 
 var userDb = require('./db/user_db');
-var session = null;
 
-exports.initiate = function(req) {
-	if (session == null) {
-		session = req.session;
-	}
+exports.updateSession = function(req, updatedUser) {
+	req.session.user = updatedUser;
 };
 
-exports.updateSession = function(updatedUser) {
-	session.user = updatedUser;
+exports.isLoggedin = function(req) {
+	return req.session.loggedin == true;
 };
 
-exports.isLoggedin = function() {
-	return session.loggedin == true;
-};
-
-exports.login = function(netId, password, callback) {
+exports.login = function(req, netId, password, callback) {
 	userDb.isValidLogin(netId, password, function(userDetail) {
 		if(userDetail) {
-			session.loggedin = true;
-			session.user = userDetail;
+			req.session.loggedin = true;
+			req.session.user = userDetail;
 			callback(true);
 		}
 		else {
@@ -32,11 +25,11 @@ exports.login = function(netId, password, callback) {
 	});
 };
 
-exports.logout = function() {
-	session.loggedin = false;
-	session.user = null;
+exports.logout = function(req) {
+	req.session.loggedin = false;
+	req.session.user = null;
 };
 
-exports.getSessionUser = function() {
-	return session.user;
+exports.getSessionUser = function(req) {
+	return req.session.user;
 };

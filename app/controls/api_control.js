@@ -7,17 +7,16 @@ var userDb = require('../db/user_db');
 var ObjectID = require('mongodb').ObjectID;
 
 exports.sample = function(req, res) {
-	res.send(session.getSomething());
+	res.send('sample');
 };
 
 exports.follow = function(req, res) {
-	session.initiate(req);
 	var followeeId = ObjectID.createFromHexString(req.body.id);
-	var user = session.getSessionUser();
+	var user = session.getSessionUser(req);
 	exports.addFollowee(followeeId, user, function(result) {
 		exports.addFollowing(followeeId, user, function(result) {
 			if (result) {
-				user = session.getSessionUser();
+				user = session.getSessionUser(req);
 				res.send(user);
 			}
 		});

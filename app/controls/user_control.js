@@ -5,9 +5,9 @@ var userDb = require('../db/user_db');
 
 var error = null;
 
-function renderLogin(res, session, error) {
+function renderLogin(req, res, error) {
 	res.render('account/login',	{
-		user : session.getSessionUser(),
+		user : session.getSessionUser(req),
 		title : 'WeConnect: Main',
 		welcome : 'Hello, ',
 		error : error
@@ -15,25 +15,22 @@ function renderLogin(res, session, error) {
 }
 
 exports.login = function(req, res) {
-	session.initiate(req);
-	if (session.isLoggedin()) {
+	if (session.isLoggedin(req)) {
 		res.redirect('/');
 		return;
 	}
 	
-	renderLogin(res, session, null);
+	renderLogin(req, res, null);
 };
 
 exports.loginPost = function(req, res) {
-	session.initiate(req);
-	
 	var netId = req.body.netId;
 	var password = req.body.password;
 	
-	session.login(netId, password, function(success) {
+	session.login(req, netId, password, function(success) {
 		if (!success) {
 			error = "[ERROR] Please check your Net ID and Password again.";
-			renderLogin(res, session, error);
+			renderLogin(req, res, error);
 			return;
 		}
 		res.redirect('/');
@@ -41,15 +38,13 @@ exports.loginPost = function(req, res) {
 };
 
 exports.logout = function(req, res) {
-	session.initiate(req);
-	session.logout();
+	session.logout(req);
 	res.redirect('/');
 };
 
 exports.agreement = function(req, res) {
-	session.initiate(req);
 	res.render('account/agreement', {
-		user : session.getSessionUser(),
+		user : session.getSessionUser(req),
 		userConst : userConst,
 		title: 'Terms and Agreements',
 	});
@@ -60,9 +55,9 @@ exports.agreementPost = function(req, res) {
 	res.redirect('/account/register/' + userType);
 };
 
-function renderRegister(userType, res, session, error) {
+function renderRegister(req, res, userType, error) {
 	res.render('account/register', {
-		user : session.getSessionUser(),
+		user : session.getSessionUser(req),
 		userConst: userConst,
 		departments : constants.departments,
 		interests : constants.interests,
@@ -75,8 +70,7 @@ function renderRegister(userType, res, session, error) {
 }
 
 exports.register = function(req, res) {
-	session.initiate(req);
-	if (session.isLoggedin()) {
+	if (session.isLoggedin(req)) {
 		res.redirect('/');
 		return;
 	}
@@ -87,7 +81,7 @@ exports.register = function(req, res) {
 		res.redirect('/');
 	}
 	
-	renderRegister(userType, res, session, null);
+	renderRegister(req, res, userType, null);
 };
 
 exports.registerValidate = function(req, res) {
@@ -107,19 +101,17 @@ exports.registerValidate = function(req, res) {
 };
 
 exports.registerPost = function(req, res) {
-	session.initiate(req);
-	
 	userDb.create(req.body, function(userDetail) {
 		if (!userDetail) {
 			var error = "[ERROR] Failed to create an account.";
 			var userType = req.body.userType;
-			renderRegister(userType, res, session, error);
+			renderRegister(req, res, userType, error);
 			return;
 		}
 		
 		var netId = req.body.netId;
 		var password = req.body.password;
-		session.login(netId, password, function(success) {
+		session.login(req, netId, password, function(success) {
 			res.redirect('/');
 		});
 	});
@@ -128,7 +120,7 @@ exports.registerPost = function(req, res) {
 // Setting
 function renderSetting(req, res, error) {
 	res.render('profile/edit', {
-		user : session.getSessionUser(),
+		user : session.getSessionUser(req),
 		userConst : userConst,
 		departments: constants.departments,
 		courses : constants.courses,
@@ -146,7 +138,7 @@ exports.setting = function(req, res) {
 
 exports.settingProfile = function(req, res) {
 	//update object in the session
-	var user = session.getSessionUser();
+	var user = session.getSessionUser(req);
 	user.firstName = req.body.firstName;
 	user.lastName = req.body.lastName;
 	user.department = req.body.department;
@@ -161,7 +153,7 @@ exports.settingProfile = function(req, res) {
 	
 	userDb.updateInfo(user._id, user, function(success) {
 		if (success){
-			session.updateSession(user);
+			session.updateSession(req, user);
 			res.redirect('/');
 		}
 		else {
@@ -173,13 +165,13 @@ exports.settingProfile = function(req, res) {
 
 exports.settingChangePW = function(req, res) {
 	//update object in the session
-	var user = session.getSessionUser();
+	var user = session.getSessionUser(req);
 	var oldPassword = req.body.oldPassword;
 	var newPassword = req.body.newPassword;
 	var accountInfo = {
-			"netId" : user.netId,
-			"password" : newPassword,
-			"detailId" : user._id
+		"netId" : user.netId,
+		"password" : newPassword,
+		"detailId" : user._id
 	};
 	
 	userDb.updatePassword(accountInfo, oldPassword, function(success) {
@@ -194,7 +186,7 @@ exports.settingChangePW = function(req, res) {
 };
 
 exports.settingAdditionalInfo = function(req, res) {
-	var user = session.getSessionUser();
+	var user = session.getSessionUser(req);
 	user.intro = req.body.intro;
 	if (user.userType == userConst.TYPE_STUDENT){
 		user.extension.overallGPA = req.body.overallGPA;
@@ -207,7 +199,7 @@ exports.settingAdditionalInfo = function(req, res) {
 	
 	userDb.updateInfo(user._id, user, function(success) {
 		if (success){
-			session.updateSession(user);
+			session.updateSession(req, user);
 			res.redirect('/');
 		}
 		else {
