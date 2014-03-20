@@ -3,7 +3,10 @@
 	<h4 class="modal-title"><%=userDetail.firstName%> <%=userDetail.lastName%></h4>
 </div>
 <div class="modal-body">
-	<p></p>
+	<p>Department : <%=userDetail.department%></p>
+	<p>Intro : <%=userDetail.intro%></p>
+	<p>Followees : <%=userDetail.followees.length%></p>
+	<p>Followings : <%=userDetail.followings.length%></p>
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -37,7 +37,8 @@ exports.addFollowee = function(followeeID, following, callback) {
 	} else {
 		following.followees.splice(index, 1);
 	}
-	userDb.updateInfo(following._id, following, function(result){
+	
+	userDb.updateInfo(following._id, following, function(result) {
 		callback(result);
 	});
 };

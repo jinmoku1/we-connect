@@ -144,7 +144,6 @@ exports.updateInfo = function(_id, updateDoc, callback) {
 	connector.update(userConst.db.USER_DETAILS, {_id : _id}, updateDoc, function(db, detailDoc){
 		var briefId = detailDoc.briefId;
 		var briefDoc = detailToBrief(detailDoc);
-		
 		connector.update(userConst.db.USER_BRIEFS, {_id : briefId}, briefDoc, function(db, resultBrief){
 			db.close();
 			callback(briefDoc != null);
