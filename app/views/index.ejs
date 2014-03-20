@@ -33,12 +33,12 @@
 			<% } %>
 		</p>
 		<div class="buttons">
-			<button type="button" class="btn">
+			<a class="btn btn-lgray" data-toggle="modal" href="/embedded/followees" data-target="#followeesModal">
 				Followees <span id="followeeCount" class="badge"><%=user.followees.length%></span>
-			</button>
-			<button type="button" class="btn">
-				Following <span class="badge"><%=user.followings.length%></span>
-			</button>
+			</a>
+			<a class="btn btn-lgray" data-toggle="modal" href="/embedded/followings" data-target="#followingsModal">
+				Followings <span class="badge"><%=user.followings.length%></span>
+			</a>
 		</div>
 	</div>
 </div>
@@ -57,7 +57,7 @@
 					</div>
 					<div class="side col-md-8">
 						<p class="name">
-							<a data-toggle="modal" href="/profile/modal/<%=userBriefs[i].detailId%>" data-target="#userProfileModal">
+							<a data-toggle="modal" href="/embedded/profile/<%=userBriefs[i].detailId%>" data-target="#userProfileModal">
 								<%=userBriefs[i].firstName%></br /><%=userBriefs[i].lastName%>
 							</a>
 						</p>
@@ -80,7 +80,7 @@
 </div>
 
 <!-- Full Intro Modal -->
-<div class="modal fade" id="fullIntroModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="fullIntroModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -95,7 +95,23 @@
 </div>
 
 <!-- User Profile Modal -->
-<div class="modal fade" id="userProfileModal" tabindex="-1" role="dialog" aria-labelledby="userProfileName" aria-hidden="true">
+<div class="modal fade" id="userProfileModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
+
+<!-- Followees Modal -->
+<div class="modal fade" id="followeesModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
+
+<!-- Followings Modal -->
+<div class="modal fade" id="followingsModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 		</div>
@@ -103,6 +119,23 @@
 </div>
 
 <script>
+function onToggleFollow(targetId) {
+	$.post('/api/follow', { id : targetId }, function(sessionUser) {
+		$('#followeeCount').html(sessionUser.followees.length);
+		$('#' + targetId).fadeOut('fast');
+		$('.modal').modal('hide');
+	});
+}
+
+$('a[data-toggle=modal]').click(function(event) {
+	event.preventDefault();
+	var url = $(this).attr('href');
+	var target = $(this).data('target');
+	// load the url and show modal on success
+	$(target + ' .modal-content').load(url, function() { 
+		$(target).modal('show');
+	});
+});
 </script>
 
 <%- include partials/footer.ejs %>
