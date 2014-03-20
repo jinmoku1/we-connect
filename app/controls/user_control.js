@@ -153,7 +153,7 @@ exports.settingProfile = function(req, res) {
 	
 	userDb.updateInfo(user._id, user, function(success) {
 		if (success){
-			session.updateSession(req, user);
+			session.setSessionUser(req, user);
 			res.redirect('/');
 		}
 		else {
@@ -199,7 +199,7 @@ exports.settingAdditionalInfo = function(req, res) {
 	
 	userDb.updateInfo(user._id, user, function(success) {
 		if (success){
-			session.updateSession(req, user);
+			session.setSessionUser(req, user);
 			res.redirect('/');
 		}
 		else {
