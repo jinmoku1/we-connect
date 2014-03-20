@@ -148,7 +148,7 @@ exports.settingProfile = function(req, res) {
 	//update object in the session
 	var user = session.getSessionUser();
 	user.firstName = req.body.firstName;
-	user.lastName = req.body.firstName;
+	user.lastName = req.body.lastName;
 	user.department = req.body.department;
 	user.interests = req.body.interests;
 	if (user.userType == userConst.TYPE_STUDENT){
