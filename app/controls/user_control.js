@@ -39,7 +39,7 @@ exports.loginPost = function(req, res) {
 
 exports.logout = function(req, res) {
 	session.logout(req);
-	res.redirect('/');
+	res.redirect('/account/login');
 };
 
 exports.agreement = function(req, res) {
