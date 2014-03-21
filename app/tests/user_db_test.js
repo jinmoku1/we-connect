@@ -176,7 +176,6 @@ describe("#userDb.getDetail()", function(){
 	var isValid = false;
 
 	var netId = 'newuser1', password = '12345';
-	var objectId = null;
 	var actualResult = null;
 	var expectedResult = {
 			firstName		: 'Jessica',
@@ -192,6 +191,7 @@ describe("#userDb.getDetail()", function(){
 			objectId = detailDoc._id;
 			userDb.getDetail(detailDoc._id, function(resultDoc){
 				isValid = (resultDoc != null);
+				actualResult = resultDoc;
 				done();
 			});
 		});

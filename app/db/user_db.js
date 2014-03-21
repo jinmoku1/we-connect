@@ -10,7 +10,8 @@ function detailToBrief(userDetail) {
 		firstName : userDetail.firstName,
 		lastName : userDetail.lastName,
 		department : userDetail.department,
-		userType : userDetail.userType
+		userType : userDetail.userType,
+		interests : userDetail.interests
 	};
 }
 
