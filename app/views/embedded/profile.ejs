@@ -1,46 +1,40 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	<h4 class="modal-title"><%=userDetail.firstName%> <%=userDetail.lastName%></h4>
+	<span class="email">
+		<em><a href="mailto:<%=userDetail.netId%>@illinois.edu"><%=userDetail.netId%>@illinois.edu</a></em>
+	</span>
 </div>
 <div class="modal-body">
-	<div class="col-md-3">
-		<div id="pictureContainer">
-			<div class="picture">
-				<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
-			</div>
+	<div class="row">
+		<div id="modalPicture" class="col-md-5">
+			<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
 		</div>
-	</div>
-	<div id="profileContainer" class="col-md-9">
-		<h1 class="name">
-			<%=userDetail.firstName%>
-			<%=userDetail.lastName%>
-			<span class="email">
-				<em><a href="mailto:<%=userDetail.netId%>@illinois.edu"><%=userDetail.netId%>@illinois.edu</a></em>
-			</span>
-		</h1>
-		<p>
-			<% if (userDetail.userType == userConst.TYPE_STUDENT) { %>
-				<em><%=userDetail.extension.degree%> (<%=userDetail.extension.classStanding%>) in <%=userDetail.department%></em>
-			<% } else {%>
-				<em>Faculty in <%=userDetail.department%></em>
-			<% } %>
-		</p>
-		<p class="intro">
-			<%=userDetail.intro%>...
-			<a data-toggle="modal" data-target="#fullIntroModal"><em>more</em></a>
-		</p>
-		<p class="interests">
-			<% for (var i in userDetail.interests) { %>
-			<span class="label label-default"><%=userDetail.interests[i]%></span>
-			<% } %>
-		</p>
-		<div class="buttons">
-			<button type="button" class="btn">
-				Followees <span id="followeeCount" class="badge"><%=userDetail.followees.length%></span>
-			</button>
-			<button type="button" class="btn">
-				Following <span class="badge"><%=userDetail.followings.length%></span>
-			</button>
+		<div id="modalProfile">
+			<p>
+				<% if (userDetail.userType == userConst.TYPE_STUDENT) { %>
+					<em><%=userDetail.extension.degree%> (<%=userDetail.extension.classStanding%>) in <%=userDetail.department%></em>
+				<% } else {%>
+					<em>Faculty in <%=userDetail.department%></em>
+				<% } %>
+			</p>
+			<p class="intro">
+				<%=userDetail.intro%>...
+				<a data-toggle="modal" data-target="#fullIntroModal"><em>more</em></a>
+			</p>
+			<p class="interests">
+				<% for (var i in userDetail.interests) { %>
+				<span class="label label-info"><%=userDetail.interests[i]%></span>
+				<% } %>
+			</p>
+			<div class="buttons">
+				<button type="button" class="btn">
+					Followees <span id="followeeCount" class="badge"><%=userDetail.followees.length%></span>
+				</button>
+				<button type="button" class="btn">
+					Following <span class="badge"><%=userDetail.followings.length%></span>
+				</button>
+			</div>
 		</div>
 	</div>
 </div>

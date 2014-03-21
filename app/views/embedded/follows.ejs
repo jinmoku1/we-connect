@@ -10,21 +10,38 @@
 <div class="modal-body">
 	<% if (userBriefs.length > 0) { %>
 		<% for (var i in userBriefs) { %>
-			<div class="row" id="<%=userBriefs[i].detailId%>">
-				<div class="col-md-4">
-					<div class="picture">
+			<div class="user" id="<%=userBriefs[i].detailId%>">
+				<div class="top row">
+					<div class="col-md-3">
+						<div class="picture">
+							<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
+						</div>
 					</div>
-				</div>
-				<div class="col-md-6">
-					<%=userBriefs[i].firstName%>
-					<%=userBriefs[i].lastName%>
-				</div>
-				<div class="col-md-2">
-					<% if (isFollowees) { %>
-						<a onclick="onToggleFollow('<%=userBriefs[i].detailId%>')" class="btn">
-							Unfollow
-						</a>
-					<% } %>
+					<div class="col-md-7">
+						<p class="name">
+							<a data-toggle="modal" href="/embedded/profile/<%=userBriefs[i].detailId%>" data-target="#userProfileModal">
+								<%=userBriefs[i].firstName%> <%=userBriefs[i].lastName%>
+							</a>
+						</p>
+						<div class="email">
+							<a href="mailto:<%=userBriefs[i].netId%>@illinois.edu">
+								<em><%=userBriefs[i].netId%>@illinois.edu</a>
+							</em>
+						</div>
+						<div class="interests">
+							<span class="label label-info">Software Engineering</span>
+							<span class="label label-info">Data Mining</span>
+							<span class="label label-info">Computer Architecture</span>
+							<span class="label label-info">Database</span>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<% if (isFollowees) { %>
+							<button type="button" class="btn btn-warning" onclick="onToggleFollow('<%=userBriefs[i].detailId%>')">
+								Unfollow
+							</button>
+						<% } %>
+					</div>
 				</div>
 			</div>
 		<% } %>

@@ -152,3 +152,18 @@ a {
 				line-height: 140%;
 				color: gray;
 			}
+
+#modalPicture img {
+	width: 100%;
+	border-radius: 10%;
+}
+
+.modal-body .picture img {
+	width: 100%;
+	border-radius: 10%;
+}
+.modal-body .row {
+	padding: 10px 0px 10px 0px;
+	margin: 0px 40px 0 40px;
+	border-bottom: 1px solid lightgray;
+}

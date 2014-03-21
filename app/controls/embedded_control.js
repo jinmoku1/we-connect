@@ -11,6 +11,7 @@ exports.profile = function(req, res) {
 	var _id = ObjectID.createFromHexString(req.params.id);
 	userDb.getDetail(_id, function(userDetail) {
 		res.render('embedded/profile', {
+			userConst : userConst,
 			userDetail : userDetail
 		});
 	});
