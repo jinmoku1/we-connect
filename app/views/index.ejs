@@ -45,7 +45,52 @@
 
 <div id="bottomContainer" class="row">
 	<div id="mainContainer" class="col-md-9">
-		
+		<ul class="nav nav-tabs ">
+			<li class="active"><a href="" data-toggle="tab">Announcements</a></li>
+			<li><a href="" data-toggle="tab">Followings</a></li>
+			<li><a href="" data-toggle="tab">Archive</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="anncRecList">
+				<ul class="anncList">
+					<li class="row">
+						<div class="col-md-2">
+							<div id="anncPictureContainer">
+								<div class="picture">
+									<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-10">
+							<h1 class="title">
+								title
+								<span class="author">
+									<em>author name</em>
+								</span>
+							</h1>
+							<p class="contentBrief">
+								THIS IS A CONTENT BRIEF....
+								<span class="timeStamp">
+									<em>2014/01/01 22:10:09</em>
+								</span>
+							</p>
+							<p class="anncTypes">
+								<% 
+								for (var i in anncTypes) { %>
+								<span class="label label-default"><%=anncTypes[i]%></span>
+								<% } %>
+							</p>
+						</div>
+					</li>
+					<li>
+					</li>
+				</ul>
+			</div>
+			<div class="tab-pane" id="anncFollowingList">
+			</div>
+			<div class="tab-pane" id="archive">
+			</div>
+		</div>
 	</div>
 	<div id="sideContainer" class="col-md-3">
 		<h3 class="header-side">Suggested Users</h3>
