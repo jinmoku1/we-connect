@@ -45,6 +45,9 @@ exports.user = {
 	},
 };
 
+exports.announcemnt = [
+    'research', 'part-time', 'events'
+];
 
 exports.developers = [
     {	
