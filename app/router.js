@@ -6,6 +6,7 @@ var mainControl	= require('./controls/main_control');
 var apiControl	= require('./controls/api_control');
 var userControl	= require('./controls/user_control');
 var embeddedControl = require('./controls/embedded_control');
+var anncControl = require('./controls/annc_control');
 
 exports.route = function (app) {
 	// main
@@ -39,4 +40,7 @@ exports.route = function (app) {
 	app.get('/api/sample', apiControl.sample);
 	
 	app.post('/api/follow', apiControl.follow);
+	
+	//announcement
+	app.get('/announcement/create', anncControl.create);
 };
