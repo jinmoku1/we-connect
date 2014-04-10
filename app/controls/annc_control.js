@@ -5,7 +5,7 @@
 var session = require('../session');
 var userDb = require('../db/user_db');
 var ObjectID = require('mongodb').ObjectID;
-
+var constants = require('../constants');
 
 exports.detail = function(req, res) {
 	var anncId = req.params.id;
@@ -19,6 +19,12 @@ exports.detail = function(req, res) {
 exports.create = function(req, res) {
 	res.render('announcement/create', {
 		user : session.getSessionUser(req),
+		departments : constants.departments,
+		interests : constants.interests,
+		degrees : constants.degrees,
+		classStandings : constants.classStandings,
+		anncTypes : constants.anncTypes,
+		courses : constants.courses,
 		title : 'Create Announcement',
 	});
 };

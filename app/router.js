@@ -45,5 +45,4 @@ exports.route = function (app) {
 	app.get('/announcement/:id', anncControl.detail);
 	app.get('/announcement/create', anncControl.create);
 	app.post('/announcement/create', anncControl.createPost);
-	
 };
