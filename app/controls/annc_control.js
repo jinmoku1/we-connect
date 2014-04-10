@@ -7,7 +7,7 @@ var userDb = require('../db/user_db');
 var ObjectID = require('mongodb').ObjectID;
 
 
-exports.view = function(req, res) {
+exports.detail = function(req, res) {
 	var anncId = req.params.id;
 	res.render('announcement/detail', {
 		user : session.getSessionUser(req),
@@ -21,4 +21,19 @@ exports.create = function(req, res) {
 		user : session.getSessionUser(req),
 		title : 'Create Announcement',
 	});
+};
+
+exports.createPost = function(req, res) {
+	var title = req.body.title;
+	var content = req.body.content;
+	var anncType = req.body.anncType;
+	var interests = req.body.interests;
+	var courses = req.body.courses;
+	var degree = req.body.degree;
+	var classStanding = req.body.classStanding;
+	var overallGPA = req.body.overallGPA;
+	var technicalGPA = req.body.technicalGPA;
+	var resumeRequired = req.body.resumeRequired;
+	
+	res.redirect('/');
 };

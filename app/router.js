@@ -42,8 +42,8 @@ exports.route = function (app) {
 	app.post('/api/follow', apiControl.follow);
 	
 	//announcement
-	app.get('/announcement/:id', anncControl.view);
+	app.get('/announcement/:id', anncControl.detail);
 	app.get('/announcement/create', anncControl.create);
-	
+	app.post('/announcement/create', anncControl.createPost);
 	
 };
