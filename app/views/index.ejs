@@ -52,39 +52,33 @@
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active" id="anncRecList">
-				<ul class="anncList">
-					<li class="row">
+				<div class="anncList">
+					<div class="row">
 						<div class="col-md-2">
-							<div id="anncPictureContainer">
-								<div class="picture">
-									<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
-								</div>
-							</div>
+							<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
 						</div>
-						<div class="col-md-10">
+						<div class="col-md-7">
 							<h1 class="title">
-								title
+								<a><%="title"%></a>
 								<span class="author">
-									<em>author name</em>
+									<em><%="author name"%></em>
 								</span>
 							</h1>
 							<p class="contentBrief">
-								THIS IS A CONTENT BRIEF....
+								<%="THIS IS A CONTENT BRIEF...."%>...
 								<span class="timeStamp">
-									<em>2014/01/01 22:10:09</em>
+									<em><%="2014/01/01 22:10:09"%></em>
 								</span>
 							</p>
 							<p class="anncTypes">
-								<% 
+								<%
 								for (var i in anncTypes) { %>
 								<span class="label label-default"><%=anncTypes[i]%></span>
 								<% } %>
 							</p>
 						</div>
-					</li>
-					<li>
-					</li>
-				</ul>
+					</div>
+				</div>
 			</div>
 			<div class="tab-pane" id="anncFollowingList">
 			</div>

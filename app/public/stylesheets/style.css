@@ -88,6 +88,39 @@ a {
 		height: 720px;
 	}
 	
+		#mainContainer {
+			
+		}
+			
+			#anncRecList {
+			
+			}
+			
+				#anncRecList .anncList .row {
+					padding-top:20px;
+					padding-bottom:20px;
+					border-bottom: 1px solid #ddd;
+					margin-left:20px;
+					margin-right:20px;
+				}
+				
+					#anncRecList .anncList .row img {
+						margin-top: 1em;
+						border-bottom: 1px solid #ddd;
+						width: 100px;
+						height: 100px;
+						background-color: #dfdfdf;
+						border-radius: 10%;
+					}
+					
+					#anncRecList .anncList .row .title {
+						font-size: 2em;
+					}
+					
+					#anncRecList .anncList .row .author {
+						font-size: 0.8em;
+					}
+	
 		#sideContainer {
 			height: 100%;
 		}
@@ -167,3 +200,4 @@ a {
 	margin: 0px 40px 0 40px;
 	border-bottom: 1px solid lightgray;
 }
+

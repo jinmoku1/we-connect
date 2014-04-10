@@ -4,6 +4,7 @@
 
 var session = require('../session');
 var userConst = require('../constants').user;
+var anncTypes = require('../constants').anncTypes;
 var userConstDev = require('../constants').developers;
 var userDb = require('../db/user_db');
 
@@ -18,6 +19,7 @@ exports.index = function(req, res) {
 			user : session.getSessionUser(req),
 			userConst : userConst,
 			userBriefs : userBriefs,
+			anncTypes : anncTypes,
 			title : 'WeConnect : CS',
 			welcome : 'Welcome to WeConnect'
 		});

@@ -45,7 +45,7 @@ exports.user = {
 	},
 };
 
-exports.announcemnt = [
+exports.anncTypes = [
     'research', 'part-time', 'events'
 ];
 
