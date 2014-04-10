@@ -53,13 +53,16 @@
 		<div class="tab-content">
 			<div class="tab-pane active" id="anncRecList">
 				<div class="anncList">
+				<%  
+				var id;
+				for (id=1; id<4; id++) { %>
 					<div class="row">
 						<div class="col-md-2">
 							<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
 						</div>
 						<div class="col-md-7">
 							<h1 class="title">
-								<a><%="title"%></a>
+								<a href="announcement/<%=id%>"><%="title"%></a>
 								<span class="author">
 									<em><%="author name"%></em>
 								</span>
@@ -78,6 +81,7 @@
 							</p>
 						</div>
 					</div>
+				<% } %>
 				</div>
 			</div>
 			<div class="tab-pane" id="anncFollowingList">

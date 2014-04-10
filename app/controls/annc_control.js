@@ -7,6 +7,14 @@ var userDb = require('../db/user_db');
 var ObjectID = require('mongodb').ObjectID;
 
 
+exports.view = function(req, res) {
+	var anncId = req.params.id;
+	res.render('announcement/detail', {
+		user : session.getSessionUser(req),
+		title : 'Announcement',
+		anncId: anncId
+	});
+};
 
 exports.create = function(req, res) {
 	res.render('announcement/create', {
