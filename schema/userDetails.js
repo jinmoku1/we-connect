@@ -34,7 +34,7 @@
     	// , ...
     ]
 
-    bookmarkedAnnc	: [
+    bookmarkedAnncs	: [
     	{
     		userBrief : userBriefObject, // of Annc
     	}
