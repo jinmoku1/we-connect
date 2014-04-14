@@ -106,9 +106,14 @@
 							if (annc.author._id.equals(user._id)) {%>
 							<a href="/announcement/edit/<%=annc._id%>" class="btn btn-warning">Edit</a>
 							<button id="deleteAnnc" class="btn btn-danger" data-annc-Id="<%=annc._id%>">Delete</button>
-							<%} else {%>
+							<%} else {
+							if (isBookmarked) {%>
+							<button id="bookmark" class="btn btn-danger" data-annc-Id="<%=annc._id%>" style="display:none">Bookmark</button>
+							<button id="unbookmark" class="btn btn-danger" data-annc-Id="<%=annc._id%>">Unbookmark</button>
+							<% } else { %>
 							<button id="bookmark" class="btn btn-danger" data-annc-Id="<%=annc._id%>">Bookmark</button>
 							<button id="unbookmark" class="btn btn-danger" data-annc-Id="<%=annc._id%>" style="display:none">Unbookmark</button>
+							<% } %>
 							<a id="apply" class="btn btn-success" data-toggle="modal" data-target="#applyModal">Apply</a>
 							<a id="applied" class="btn btn-success" style="display:none" disabled>Applied</a>
 							<% } %>
@@ -212,7 +217,15 @@ $('#unbookmark').click(function(){
 });
 
 $('#deleteAnnc').click(function(){
-	$.post( "announcement/deletePost", {id: $(this).data('anncId')} );
+	$.ajax({
+		url: "/announcement/delete",
+		type: 'POST',
+		data: {id: $(this).data('anncId')},
+		success: function(data, textStatus, xhr) {
+			if (data=="true")
+				window.location.replace("/");
+		}
+	});
 });
 
 $('#anncApply').click(function(){

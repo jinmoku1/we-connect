@@ -63,46 +63,78 @@
 				<div class="anncList">
 					<%  
 					for (var i in anncBriefs) { %>
-						<div class="row">
-							<div class="col-md-2">
-								<img src="<%=anncBriefs[i].author.profilePic%>" />
-							</div>
-							<div class="col-md-7">
-								<h1 class="title">
-									<a href="announcement/<%=anncBriefs[i].detailId%>"><%=anncBriefs[i].title%></a>
-									<span class="author">
-										<em><%=anncBriefs[i].author.name%></em>
-									</span>
-								</h1>
-								<p class="contentBrief">
-									<%=anncBriefs[i].contentBrief%>...
-									<span class="timeStamp">
-										<em>
-										<% var date = anncBriefs[i].timeStamp; %>
-										<%=""+date.getDate()+"/"
-											+(date.getMonth()+1)+"/"
-											+date.getFullYear()+" @ "
-											+date.getHours()+":"
-											+date.getMinutes()+":" 
-											+date.getSeconds()
-										%>
-										</em>
-									</span>
-								</p>
-								<p class="anncTypes">
-									<%
-									for (var j in anncBriefs[i].anncTypes) { %>
-									<span class="label label-default"><%=anncBriefs[i].anncTypes[j]%></span>
-									<% } %>
-								</p>
-							</div>
+					<div class="row">
+						<div class="col-md-2">
+							<img src="<%=anncBriefs[i].author.profilePic%>" />
 						</div>
-					<% } %>
+						<div class="col-md-7">
+							<h1 class="title">
+								<a href="announcement/<%=anncBriefs[i].detailId%>"><%=anncBriefs[i].title%></a>
+								<span class="author">
+									<em><%=anncBriefs[i].author.name%></em>
+								</span>
+							</h1>
+							<p class="contentBrief">
+								<%=anncBriefs[i].contentBrief%>...
+								<span class="timeStamp">
+									<em>
+									<% var date = anncBriefs[i].timeStamp; %>
+									<%=""+date.getDate()+"/"
+										+(date.getMonth()+1)+"/"
+										+date.getFullYear()+" @ "
+										+date.getHours()+":"
+										+date.getMinutes()+":" 
+										+date.getSeconds()
+									%>
+									</em>
+								</span>
+							</p>
+							<p class="anncTypes">
+								<%
+								for (var j in anncBriefs[i].anncTypes) { %>
+								<span class="label label-default"><%=anncBriefs[i].anncTypes[j]%></span>
+								<% } %>
+							</p>
+						</div>
 					</div>
+					<% } %>
+				</div>
 			</div>
 			<div class="tab-pane" id="anncMyList">
 			</div>
 			<div class="tab-pane" id="anncBookmarked">
+				<div class="anncList">
+					<%  
+					for (var i in user.bookmarkedAnncs) { %>
+					<div class="row">
+						<div class="col-md-2">
+							<img src="<%=user.bookmarkedAnncs[i].author.profilePic%>" />
+						</div>
+						<div class="col-md-7">
+							<h1 class="title">
+								<a href="announcement/<%=user.bookmarkedAnncs[i].detailId%>"><%=user.bookmarkedAnncs[i].title%></a>
+								<span class="author">
+									<em><%=user.bookmarkedAnncs[i].author.name%></em>
+								</span>
+							</h1>
+							<p class="contentBrief">
+								<%=user.bookmarkedAnncs[i].contentBrief%>...
+								<span class="timeStamp">
+									<em>
+									<%=user.bookmarkedAnncs[i].timeStamp %>
+									</em>
+								</span>
+							</p>
+							<p class="anncTypes">
+								<%
+								for (var j in user.bookmarkedAnncs[i].anncTypes) { %>
+								<span class="label label-default"><%=user.bookmarkedAnncs[i].anncTypes[j]%></span>
+								<% } %>
+							</p>
+						</div>
+					</div>
+					<% } %>
+				</div>
 			</div>
 		</div>
 	</div>

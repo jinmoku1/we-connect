@@ -9,21 +9,32 @@ var ObjectID = require('mongodb').ObjectID;
 var constants = require('../constants');
 
 exports.detail = function(req, res) {
+	var user = session.getSessionUser(req);
 	var anncId = req.params.id;
-	
 	var id = ObjectID.createFromHexString(anncId);
+	
 	anncDb.getDetail(id, function(announcement){
-		res.render('announcement/detail', {
-			user : session.getSessionUser(req),
-			annc : announcement,
-			departments : constants.departments,
-			interests : constants.interests,
-			degrees : constants.degrees,
-			classStandings : constants.classStandings,
-			anncTypes : constants.anncTypes,
-			courses : constants.courses,
-			title : 'Announcement'
-		});
+		if (announcement){
+			var isBookmarked = false;
+			for (var i in user.bookmarkedAnncs){
+				if (announcement.briefId.equals(user.bookmarkedAnncs[i]._id)){
+					isBookmarked = true;
+					break;
+				}
+			}
+			res.render('announcement/detail', {
+				user : user,
+				annc : announcement,
+				isBookmarked : isBookmarked,
+				departments : constants.departments,
+				interests : constants.interests,
+				degrees : constants.degrees,
+				classStandings : constants.classStandings,
+				anncTypes : constants.anncTypes,
+				courses : constants.courses,
+				title : 'Announcement'
+			});
+		}
 	});
 	
 };
@@ -66,7 +77,9 @@ exports.createPost = function(req, res) {
 	};
 	
 	anncDb.create(post, function(result) {
-		res.redirect('/');
+		if (result){
+			res.redirect('/');
+		}
 	});
 };
 
@@ -74,17 +87,19 @@ exports.edit = function(req, res) {
 	var anncId = req.params.id;
 	var id = ObjectID.createFromHexString(anncId);
 	anncDb.getDetail(id, function(announcement){
-		res.render('announcement/edit', {
-			user : session.getSessionUser(req),
-			annc : announcement,
-			departments : constants.departments,
-			interests : constants.interests,
-			degrees : constants.degrees,
-			classStandings : constants.classStandings,
-			anncTypes : constants.anncTypes,
-			courses : constants.courses,
-			title : 'Announcement',
-		});
+		if (announcement){
+			res.render('announcement/edit', {
+				user : session.getSessionUser(req),
+				annc : announcement,
+				departments : constants.departments,
+				interests : constants.interests,
+				degrees : constants.degrees,
+				classStandings : constants.classStandings,
+				anncTypes : constants.anncTypes,
+				courses : constants.courses,
+				title : 'Announcement',
+			});
+		}
 	});
 };
 
@@ -116,45 +131,69 @@ exports.editPost = function(req, res) {
 	};
 	
 	anncDb.updateInfo(id, post, function(result) {
-		res.redirect('/announcement/'+anncId);
+		if (result){
+			res.redirect('/announcement/'+anncId);
+		}
 	});
 };
 
 exports.deletePost = function(req, res) {
 	var anncId = req.body.id;
-	// db access using anncId
+	var id = ObjectID.createFromHexString(anncId);
 	
-	res.redirect('/');
+	anncDb.remove(id, function(result) {
+		if (result){
+			res.writeHead(200, {"Content-Type": "text/plain"});
+			res.end("true");
+		}
+	});
 };
 
 exports.bookmark = function(req, res) {
+	var user = session.getSessionUser(req);
 	var anncId = req.body.id;
-	// db access using anncId
+	var id = ObjectID.createFromHexString(anncId);
 	
-	var successful = true;
-	if (successful){
-		res.writeHead(200, {"Content-Type": "text/plain"});
-		res.end("true");
-	}
-	else {
-		res.writeHead(200, {"Content-Type": "text/plain"});
-		res.end("false");
-	}
+	anncDb.getBrief(id, function(anncBrief) {
+		user.bookmarkedAnncs = user.bookmarkedAnncs.concat(anncBrief);
+		userDb.updateInfo(user._id, user, function(success) {
+			if (success){
+				session.setSessionUser(req, user);
+				res.writeHead(200, {"Content-Type": "text/plain"});
+				res.end("true");
+			}
+			else {
+				res.writeHead(200, {"Content-Type": "text/plain"});
+				res.end("false");
+			}
+		});
+	});
 };
 
 exports.unbookmark = function(req, res) {
+	var user = session.getSessionUser(req);
 	var anncId = req.body.id;
-	// db access using anncId
+	var id = ObjectID.createFromHexString(anncId);
 	
-	var successful = true;
-	if (successful){
-		res.writeHead(200, {"Content-Type": "text/plain"});
-		res.end("true");
-	}
-	else {
-		res.writeHead(200, {"Content-Type": "text/plain"});
-		res.end("false");
-	}
+	anncDb.getBrief(id, function(anncBrief) {
+		for (var i in user.bookmarkedAnncs){
+			if (anncBrief._id.equals(user.bookmarkedAnncs[i]._id)){
+				user.bookmarkedAnncs.splice(i, 1);
+				break;
+			}
+		}
+		userDb.updateInfo(user._id, user, function(success) {
+			if (success){
+				session.setSessionUser(req, user);
+				res.writeHead(200, {"Content-Type": "text/plain"});
+				res.end("true");
+			}
+			else {
+				res.writeHead(200, {"Content-Type": "text/plain"});
+				res.end("false");
+			}
+		});
+	});
 };
 
 exports.applyPost = function(req, res) {
