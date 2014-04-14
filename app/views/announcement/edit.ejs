@@ -8,13 +8,15 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="title">Title</label>
 			<div class="col-sm-10">
-				<input type="text" name="title" id="title" placeholder="Announcement Title" class="form-control" required />
+				<input type="text" name="title" id="title" value="<%=annc.title%>" placeholder="Announcement Title" class="form-control" required />
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="content">Content</label>
 			<div class="col-sm-10">
-				<textarea name="content" id="content" placeholder="Content" class="form-control" rows="10" required></textarea>
+				<textarea name="content" id="content" placeholder="Content" class="form-control" rows="10" required>
+					<%=annc.content%>
+				</textarea>
 			</div>
 		</div>
 		<div class="form-group">
@@ -24,20 +26,42 @@
 				<% for (var i in anncTypes) { %>
 					<option value="<%=anncTypes[i]%>"><%=anncTypes[i]%></option>
 				<% } %>
+				
+				<% for (var i in anncTypes) { 
+					if (annc.anncType == anncTypes[i]){
+					%>
+					<option value="<%=anncTypes[i]%>" selected><%=anncTypes[i]%></option>
+					<%
+				} else{ %>
+					<option value="<%=anncTypes[i]%>"><%=anncTypes[i]%></option>
+				<% } }%>
 				</select>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Interests</label>
 			<div class="col-sm-10">
-			<% for (var i in interests) { %>
-				<div class="checkbox col-sm-6">
-					<label>
-						<input type="checkbox" name="interests" value="<%=interests[i]%>" />
-						<%=interests[i]%>
-					</label>
-				</div>
-			<% } %>
+				<% for (var i in interests) { %>
+					<div class="checkbox col-sm-6">
+						<label>
+							<%
+							var exists = 0;
+							for (var j in annc.interests){
+								if (annc.interests[j] == interests[i]){
+									exists = 1;
+									break;
+								}
+							}
+							if (exists){ %>
+								<input type="checkbox" name="interests" value="<%=interests[i]%>" checked="checked"/>
+								<%=interests[i]%>
+							<% } else { %>
+								<input type="checkbox" name="interests" value="<%=interests[i]%>" />
+								<%=interests[i]%>
+							<% } %>
+						</label>
+					</div>
+				<% } %>
 			</div>
 		</div>
 		<div class="form-group">
@@ -46,8 +70,21 @@
 			<% for (var i in courses) { %>
 				<div class="checkbox col-sm-6">
 					<label>
-						<input type="checkbox" name="courses" value="<%=courses[i]%>" />
-						<%=courses[i]%>
+						<%
+						var exists = 0;
+						for (var j in annc.coursesTaken){
+							if (annc.coursesTaken[j] == courses[i]){
+								exists = 1;
+								break;
+							}
+						}
+						if (exists){ %>
+							<input type="checkbox" name="coursesTaken" value="<%=courses[i]%>" checked="checked"/>
+							<%=courses[i]%>
+						<% } else { %>
+							<input type="checkbox" name="coursesTaken" value="<%=courses[i]%>" />
+							<%=courses[i]%>
+						<% } %>
 					</label>
 				</div>
 			<% } %>
@@ -57,9 +94,14 @@
 			<label class="col-sm-2 control-label">Minimum Degree</label>
 			<div class="col-sm-10">
 				<select id="degree" class="form-control" name="degree" required>
-				<% for (var i in degrees) { %>
+				<% for (var i in degrees) { 
+					if (annc.degree == degrees[i]){
+					%>
+					<option value="<%=degrees[i]%>" selected><%=degrees[i]%></option>
+					<%
+				} else{ %>
 					<option value="<%=degrees[i]%>"><%=degrees[i]%></option>
-				<% } %>
+				<% } }%>
 			</select>
 			</div>
 		</div>
@@ -67,22 +109,27 @@
 			<label class="col-sm-2 control-label">Standing</label>
 			<div class="col-sm-10">
 				<select id="classStanding" class="form-control" name="classStanding" required>
-				<% for (var i in classStandings) { %>
+				<% for (var i in classStandings) { 
+					if (annc.classStanding == classStandings[i]){
+					%>
+					<option value="<%=classStandings[i]%>" selected><%=classStandings[i]%></option>
+					<%
+				} else{ %>
 					<option value="<%=classStandings[i]%>"><%=classStandings[i]%></option>
-				<% } %>
+				<% } }%>
 				</select>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="overallGPA">Minimum Overall GPA</label>
 			<div class="col-sm-10">
-				<input type="text" name="overallGPA" id="overallGPA" placeholder="Overall GPA" class="form-control"/>
+				<input type="text" name="overallGPA" id="overallGPA" value="<%=annc.overallGPA%>" placeholder="Overall GPA" class="form-control"/>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="technicalGPA">Minimum Technical GPA</label>
 			<div class="col-sm-10">
-				<input type="text" name="technicalGPA" id="technicalGPA" placeholder="Technical GPA" class="form-control"/>
+				<input type="text" name="technicalGPA" id="technicalGPA" value="<%=annc.technicalGPA%>" placeholder="Technical GPA" class="form-control"/>
 			</div>
 		</div>
 		<div class="form-group">
@@ -90,7 +137,8 @@
 			<div class="col-sm-10">
 				<div class="checkbox col-sm-6">
 					<label>
-						<input type="checkbox" name="resumeRequired" value="resumeRequired" />
+						<input type="checkbox" name="resumeRequired" value="resumeRequired" 
+						<% if (annc.resumeRequired){ %> checked="checked" <% } %></>
 					</label>
 				</div>
 			</div>

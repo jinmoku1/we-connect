@@ -5,8 +5,8 @@
 exports.db = {
 	//CONNECTION_STRING : 'mongodb://127.0.0.1:27017/weconnect',
 	//CONNECTION_STRING : 'mongodb://hay.synology.me:27017/weconnect',
-	CONNECTION_STRING : 'mongodb://wizub.com:27017/weconnect',
-	//CONNECTION_STRING : 'mongodb://localhost:27017/weconnect',
+	//CONNECTION_STRING : 'mongodb://wizub.com:27017/weconnect',
+	CONNECTION_STRING : 'mongodb://localhost:27017/weconnect',
 };
 
 exports.interests = [
@@ -49,7 +49,7 @@ exports.user = {
 exports.annc = {
 	db: {
 		ANNC_DETAILS	: 'anncDetails',
-		ANNC_BRIEFS		: 'anncBrief',
+		ANNC_BRIEFS		: 'anncBriefs',
 	}
 };
 

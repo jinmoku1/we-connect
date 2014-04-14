@@ -144,7 +144,7 @@ exports.settingProfile = function(req, res) {
 	user.firstName = req.body.firstName;
 	user.lastName = req.body.lastName;
 	user.department = req.body.department;
-	user.interests = req.body.interests;
+	user.interests = [].concat(req.body.interests);
 	if (user.userType == userConst.TYPE_STUDENT){
 		user.degree = req.body.degree;
 		user.classStanding = req.body.classStanding;

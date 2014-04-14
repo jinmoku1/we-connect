@@ -10,22 +10,22 @@ var constants = require('../constants');
 
 exports.detail = function(req, res) {
 	var anncId = req.params.id;
-	// db access using anncId
-	var announcement;
-	announcement = {_id:null};
-	announcement._id = anncId;
 	
-	res.render('announcement/detail', {
-		user : session.getSessionUser(req),
-		annc : announcement,
-		departments : constants.departments,
-		interests : constants.interests,
-		degrees : constants.degrees,
-		classStandings : constants.classStandings,
-		anncTypes : constants.anncTypes,
-		courses : constants.courses,
-		title : 'Announcement',
+	var id = ObjectID.createFromHexString(anncId);
+	anncDb.getDetail(id, function(announcement){
+		res.render('announcement/detail', {
+			user : session.getSessionUser(req),
+			annc : announcement,
+			departments : constants.departments,
+			interests : constants.interests,
+			degrees : constants.degrees,
+			classStandings : constants.classStandings,
+			anncTypes : constants.anncTypes,
+			courses : constants.courses,
+			title : 'Announcement'
+		});
 	});
+	
 };
 
 exports.create = function(req, res) {
@@ -42,28 +42,49 @@ exports.create = function(req, res) {
 };
 
 exports.createPost = function(req, res) {
-	anncDb.create(req.body, function(result) {
+	var user = session.getSessionUser(req);
+	var curtime = new Date();
+	
+	var post = {
+		author : {
+			_id : user._id,
+			name : user.firstName + " " + user.lastName,
+			netId : user.netId,
+			profilePic : user.profilePicUrl
+		},
+		title : req.body.title,
+		content : req.body.content,
+		anncType : req.body.anncType,
+		interests : req.body.interests,
+		coursesTaken : req.body.coursesTaken,
+		degree : req.body.degree,
+		classStanding : req.body.classStanding,
+		overallGPA : req.body.overallGPA,
+		technicalGPA : req.body.technicalGPA,
+		resumeRequired : req.body.resumeRequired,
+		timeStamp : curtime
+	};
+	
+	anncDb.create(post, function(result) {
 		res.redirect('/');
 	});
 };
 
 exports.edit = function(req, res) {
 	var anncId = req.params.id;
-	// db access using anncId
-	var announcement;
-	announcement = {_id:null};
-	announcement._id = anncId;
-	
-	res.render('announcement/edit', {
-		user : session.getSessionUser(req),
-		annc : announcement,
-		departments : constants.departments,
-		interests : constants.interests,
-		degrees : constants.degrees,
-		classStandings : constants.classStandings,
-		anncTypes : constants.anncTypes,
-		courses : constants.courses,
-		title : 'Announcement',
+	var id = ObjectID.createFromHexString(anncId);
+	anncDb.getDetail(id, function(announcement){
+		res.render('announcement/edit', {
+			user : session.getSessionUser(req),
+			annc : announcement,
+			departments : constants.departments,
+			interests : constants.interests,
+			degrees : constants.degrees,
+			classStandings : constants.classStandings,
+			anncTypes : constants.anncTypes,
+			courses : constants.courses,
+			title : 'Announcement',
+		});
 	});
 };
 
@@ -79,6 +100,29 @@ exports.editPost = function(req, res) {
 	var overallGPA = req.body.overallGPA;
 	var technicalGPA = req.body.technicalGPA;
 	var resumeRequired = req.body.resumeRequired;
+
+	var user = session.getSessionUser(req);
+	var curtime = new Date();
+	
+	var post = {
+		author : {
+			_id : user._id,
+			name : user.firstName + " " + user.lastName,
+			netId : user.netId,
+			profilePic : user.profilePicUrl
+		},
+		title : req.body.title,
+		content : req.body.content,
+		anncType : req.body.anncType,
+		interests : req.body.interests,
+		coursesTaken : req.body.coursesTaken,
+		degree : req.body.degree,
+		classStanding : req.body.classStanding,
+		overallGPA : req.body.overallGPA,
+		technicalGPA : req.body.technicalGPA,
+		resumeRequired : req.body.resumeRequired,
+		timeStamp : curtime
+	};
 	
 	res.redirect('/announcement/'+anncId);
 };

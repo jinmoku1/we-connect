@@ -29,10 +29,25 @@
 						</td>
 					</tr>
 					<tr class="row">
+						<td class="col-sm-3 control-label" for="content">Content:</td>
+						<td class="col-sm-9">
+							<em>
+								<% var date = annc.timeStamp; %>
+								<%=""+date.getDate()+"/"
+									+(date.getMonth()+1)+"/"
+									+date.getFullYear()+" @ "
+									+date.getHours()+":"
+									+date.getMinutes()+":" 
+									+date.getSeconds()
+								%>
+							</em>
+						</td>
+					</tr>
+					<tr class="row">
 						<td class="col-sm-3 control-label">Announcement Type:</td>
 						<td class="col-sm-9">
 							<div class="label label-default">
-							<%="Research"%>
+							<%=annc.anncType%>
 							</div>
 						</td>
 					</tr>
@@ -40,9 +55,8 @@
 						<td class="col-sm-3 control-label">Interests:</td>
 						<td class="col-sm-9">
 							<%
-							var interests = ['Data Mining','Database'];
-							for (var i in interests) { %>
-							<span class="label label-info"><%=interests[i]%></span>
+							for (var i in annc.interests) { %>
+							<span class="label label-info"><%=annc.interests[i]%></span>
 							<% } %>
 						</td>
 					</tr>
@@ -50,40 +64,39 @@
 						<td class="col-sm-3 control-label">Required Courses:</td>
 						<td class="col-sm-9">
 							<%
-							var courses = ['CS 412 Data Mining','CS438 Networking'];
-							for (var i in courses) { %>
-							<div class="label label-warning"><%=courses[i]%></div>
+							for (var i in annc.coursesTaken) { %>
+							<div class="label label-warning"><%=annc.coursesTaken[i]%></div>
 							<% } %>
 						</td>
 					</tr>
 					<tr class="row">
 						<td class="col-sm-3 control-label">Minimum Degree:</td>
 						<td class="col-sm-9">
-							<p><%="Bachelor's"%><p>
+							<p><%=annc.degree%><p>
 						</td>
 					</tr>
 					<tr class="row">
 						<td class="col-sm-3 control-label">Standing:</td>
 						<td class="col-sm-9">
-							<p><%="Junior"%><p>
+							<p><%=annc.classStanding%><p>
 						</td>
 					</tr>
 					<tr class="row">
 						<td class="col-sm-3 control-label" for="overallGPA">Minimum Overall GPA:</td>
 						<td class="col-sm-9">
-							<p><%="3.4"%><p>
+							<p><%=annc.overallGPA%><p>
 						</td>
 					</tr>
 					<tr class="row">
 						<td class="col-sm-3 control-label" for="technicalGPA">Minimum Technical GPA:</td>
 						<td class="col-sm-9">
-							<p><%="3.6"%><p>
+							<p><%=annc.technicalGPA%><p>
 						</td>
 					</tr>
 					<tr class="row">
 						<td class="col-sm-3 control-label" for="resumeRequired">Resume Required:</td>
 						<td class="col-sm-9">
-							<p><%="YES"%><p>
+							<p><% if (annc.resumeRequired) { %><%="YES"%><% } else { %><%="NO"%><% } %><p>
 						</td>
 					</tr>
 					<tr class="row">
