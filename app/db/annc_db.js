@@ -136,5 +136,24 @@ exports.getDetail = function(_id, callback) {
 	});
 };
 
+
+/**
+ * update announcement(detail/brief) db
+ * 
+ * @param {Object} _id: detailed _id
+ *  @param {Object} updateDoc: updated Document
+ * @param {Object} callback
+ * @return {boolean} task_feedback
+ */
+exports.updateInfo = function(_id, updateDoc, callback) {
+	connector.update(anncConst.db.ANNC_DETAILS, {_id : _id}, updateDoc, function(db, detailDoc){
+		var briefId = detailDoc.briefId;
+		var briefDoc = detailToBrief(detailDoc);
+		connector.update(anncConst.db.ANNC_BRIEFS, {_id : briefId}, briefDoc, function(db, resultBrief){
+			db.close();
+			callback(briefDoc != null);
+		});
+	});
+};
 // --------------- Object Specific Operations --------------- //
 
