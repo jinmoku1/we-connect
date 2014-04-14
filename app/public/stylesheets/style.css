@@ -202,19 +202,17 @@ a {
 }
 
 /* Announcement Page*/
-.AnncPageTitle {
-	text-align:center;
-	font-size:2em;
+.createAnncTitle {
+	text-align:right;
 	margin-bottom:30px;
 }
-	
-#anncAuthor {
-	border: 1px solid black;
-	border-radius:20px;
-	padding-left:30px;
-	padding-right:30px;
-	padding-bottom:30px;
+
+.AnncPageTitle {
+	text-align:center;
+	font-size:3em;
+	margin-bottom:30px;
 }
+
 
 	#anncAuthor .picture img{
 		width: 200px;
@@ -225,7 +223,7 @@ a {
 	}
 	
 	#anncAuthor span em{
-		font-size:15;
+		font-size:20;
 		font-weight:bold;
 	}
 	

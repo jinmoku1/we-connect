@@ -2,99 +2,107 @@
 <h1 class="AnncPageTitle"><%=title%></h1>
 <div class="row">
 	<div id="anncAuthor" class="col-md-3">
-		<h2>Author:</h2>
-		<div class="picture">
-			<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
-		</div>
-		<span>
-			<em><%="author name"%></em><br>
-			<%="author netid"%>
-		</span>
-	</div>
-	<div id="anncDetail" class="col-md-9">
-		<div class="row">
-			<label class="col-sm-3 control-label" for="title">Title:</label>
-			<p class="col-sm-9">
-				<%="THIS IS THE TITLE"%>
-			</p>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 control-label" for="content">Content:</label>
-			<p class="col-sm-9">
-				<%="THIS IS THE CONTENT"%>
-			</p>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 control-label">Announcement Type:</label>
-			<div class="col-sm-9">
-				<span class="label label-default">
-				<%="Research"%>
+		<div class="panel panel-warning">
+			<div class="panel-heading"><h2 class="panel-title">Author:</h2></div>
+			<div class="panel-body">
+				<div class="picture">
+					<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
+				</div>
+			</div>
+			<div class="panel-footer">
+				<span>
+					<h3><%="author name"%></h3>
+					<em><%="author netid"%></em>
 				</span>
 			</div>
 		</div>
-		<div class="row">
-			<label class="col-sm-3 control-label">Interests:</label>
-			<div class="col-sm-9">
-				<%
-				var interests = ['Data Mining','Database'];
-				for (var i in interests) { %>
-				<span class="label label-info"><%=interests[i]%></span>
-				<% } %>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 control-label">Required Courses:</label>
-			<div class="col-sm-9">
-				<%
-				var courses = ['CS 412 Data Mining','CS438 Networking'];
-				for (var i in courses) { %>
-				<span class="label label-warning"><%=courses[i]%></span>
-				<% } %>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 control-label">Minimum Degree:</label>
-			<div class="col-sm-9">
-				<p><%="Bachelor's"%><p>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 control-label">Standing:</label>
-			<div class="col-sm-9">
-				<p><%="Junior"%><p>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 control-label" for="overallGPA">Minimum Overall GPA:</label>
-			<div class="col-sm-9">
-				<p><%="3.4"%><p>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 control-label" for="technicalGPA">Minimum Technical GPA:</label>
-			<div class="col-sm-9">
-				<p><%="3.6"%><p>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 control-label" for="resumeRequired">Resume Required:</label>
-			<div class="col-sm-9">
-				<p><%="YES"%><p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-offset-3 col-sm-9">
-				<% 
-				var isAuthor = false;
-				if (isAuthor) {%>
-				<a href="/announcement/edit/<%=annc._id%>" class="btn btn-warning">Edit</a>
-				<button id="deleteAnnc" class="btn btn-danger" data-annc-Id="<%=annc._id%>">Delete</button>
-				<%} else {%>
-				<button id="bookmark" class="btn btn-danger" data-annc-Id="<%=annc._id%>">Bookmark</button>
-				<button id="unbookmark" class="btn btn-danger" data-annc-Id="<%=annc._id%>" style="display:none">Unbookmark</button>
-				<a id="apply" class="btn btn-success" data-toggle="modal" data-target="#applyModal">Apply</a>
-				<a id="applied" class="btn btn-success" style="display:none" disabled>Applied</a>
-				<% } %>
+	</div>
+	<div id="anncDetail" class="col-md-9">
+			<div class="panel panel-warning">
+			<div class="panel-heading"><h2 class="panel-title"><%="THIS IS THE TITLE"%></h2></div>
+			<div class="panel-body">
+				<table class="table">
+					<tr class="row">
+						<td class="col-sm-3 control-label" for="content">Content:</td>
+						<td class="col-sm-9">
+							<%="THIS IS THE CONTENT"%>
+						</td>
+					</tr>
+					<tr class="row">
+						<td class="col-sm-3 control-label">Announcement Type:</td>
+						<td class="col-sm-9">
+							<div class="label label-default">
+							<%="Research"%>
+							</div>
+						</td>
+					</tr>
+					<tr class="row">
+						<td class="col-sm-3 control-label">Interests:</td>
+						<td class="col-sm-9">
+							<%
+							var interests = ['Data Mining','Database'];
+							for (var i in interests) { %>
+							<span class="label label-info"><%=interests[i]%></span>
+							<% } %>
+						</td>
+					</tr>
+					<tr class="row">
+						<td class="col-sm-3 control-label">Required Courses:</td>
+						<td class="col-sm-9">
+							<%
+							var courses = ['CS 412 Data Mining','CS438 Networking'];
+							for (var i in courses) { %>
+							<div class="label label-warning"><%=courses[i]%></div>
+							<% } %>
+						</td>
+					</tr>
+					<tr class="row">
+						<td class="col-sm-3 control-label">Minimum Degree:</td>
+						<td class="col-sm-9">
+							<p><%="Bachelor's"%><p>
+						</td>
+					</tr>
+					<tr class="row">
+						<td class="col-sm-3 control-label">Standing:</td>
+						<td class="col-sm-9">
+							<p><%="Junior"%><p>
+						</td>
+					</tr>
+					<tr class="row">
+						<td class="col-sm-3 control-label" for="overallGPA">Minimum Overall GPA:</td>
+						<td class="col-sm-9">
+							<p><%="3.4"%><p>
+						</td>
+					</tr>
+					<tr class="row">
+						<td class="col-sm-3 control-label" for="technicalGPA">Minimum Technical GPA:</td>
+						<td class="col-sm-9">
+							<p><%="3.6"%><p>
+						</td>
+					</tr>
+					<tr class="row">
+						<td class="col-sm-3 control-label" for="resumeRequired">Resume Required:</td>
+						<td class="col-sm-9">
+							<p><%="YES"%><p>
+						</td>
+					</tr>
+					<tr class="row">
+						<td class="col-sm-3"></td>
+						<td class="col-sm-9">
+							<% 
+							var isAuthor = true;
+							if (isAuthor) {%>
+							<a href="/announcement/edit/<%=annc._id%>" class="btn btn-warning">Edit</a>
+							<button id="deleteAnnc" class="btn btn-danger" data-annc-Id="<%=annc._id%>">Delete</button>
+							<%} else {%>
+							<button id="bookmark" class="btn btn-danger" data-annc-Id="<%=annc._id%>">Bookmark</button>
+							<button id="unbookmark" class="btn btn-danger" data-annc-Id="<%=annc._id%>" style="display:none">Unbookmark</button>
+							<a id="apply" class="btn btn-success" data-toggle="modal" data-target="#applyModal">Apply</a>
+							<a id="applied" class="btn btn-success" style="display:none" disabled>Applied</a>
+							<% } %>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
