@@ -142,6 +142,12 @@ a {
 						border-radius: 10%;
 					}
 					
+					#sideContainer .user .top .picture img {
+						width: 80px;
+						height: 80px;
+						border-radius: 10%;
+					}
+					
 					#sideContainer .user .top .name {
 						margin-top: .5em;
 						font-size: 120%;
@@ -201,3 +207,25 @@ a {
 	border-bottom: 1px solid lightgray;
 }
 
+/* profile edit */
+
+div.tab-pane {
+	padding-top: 1em;
+}
+
+#editForm {
+}
+
+	#editForm .picture {
+		width: 160px;
+		height: 160px;
+		border-radius: 10%;
+		background-color: #dfdfdf;
+		margin-bottom: .5em;
+	}
+	
+	#editForm .picture img {
+		width: 160px;
+		height: 160px;
+		border-radius: 10%;
+	}

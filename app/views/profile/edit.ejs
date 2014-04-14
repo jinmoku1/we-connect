@@ -16,7 +16,20 @@
 		</p>
 		<% } %>
 		<div class="tab-pane active" id="profile">
-			<form id="editForm" class="form-horizontal" method="post" action="/setting/profile">
+			<form id="editForm" class="form-horizontal" method="post" action="/setting/profile" enctype="multipart/form-data">
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="profilePic">Profile Picture</label>
+					<div class="col-sm-9">
+						<div class="picture">
+							<% if (user.profilePicUrl) { %>
+								<img src="<%=user.profilePicUrl%>" />
+							<% } else { %>
+							<% } %>
+						</div>
+						<p><small>Select an image file to upload/change your profile picture</small></p>
+						<input type="file" id="profilePic" name="profilePic" />
+					</div>
+				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="firstName">First Name</label>
 					<div class="col-sm-9">
@@ -119,15 +132,25 @@
 		
 		<!-- Additional Info -->
 		<div class="tab-pane" id="addtionalInfo">
-			<form id="additionalInfoForm" class="form-horizontal" method="post" action="/setting/additionalInfo">
+			<form id="additionalInfoForm" class="form-horizontal" method="post" action="/setting/additionalInfo" enctype="multipart/form-data">
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="intro">Introduction</label>
-					<div class="col-sm-offset-3 col-sm-9">
-						<textarea rows="5" cols="50" id="intro" name="intro"><% if (user.intro){ %><%=user.intro%><% } %></textarea>
+					<div class="col-sm-9">
+						<textarea rows="5" cols="50" id="intro" name="intro" class="form-control"><% if (user.intro){ %><%=user.intro%><% } %></textarea>
 					</div>
 				</div>
-
 				<% if (user.userType == userConst.TYPE_STUDENT) { %>
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="resume">Resume</label>
+					<div class="col-sm-9">
+						<% if (user.extension.resumeUrl) { %>
+							<p>Current Resume: <a href="<%=user.extension.resumeUrl%>" target="_blank">View</a></p>
+						<% } else { %>
+						<% } %>
+						<p><small>Select an file to upload/change your resume</small></p>
+						<input type="file" id="resume" name="resume" />
+					</div>
+				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="overallGPA">Overall GPA</label>
 					<div class="col-sm-9">

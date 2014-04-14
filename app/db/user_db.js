@@ -11,7 +11,8 @@ function detailToBrief(userDetail) {
 		lastName : userDetail.lastName,
 		department : userDetail.department,
 		userType : userDetail.userType,
-		interests : userDetail.interests
+		interests : userDetail.interests,
+		profilePicUrl : userDetail.profilePicUrl,
 	};
 }
 
@@ -62,6 +63,7 @@ function schema(userType) {
 			courseTaken		: [],
 			resumeUrl		: null,
 			anncPrefenreces	: [],
+			resumeUrl		: null,
 	};
 		break;
 	case userConst.TYPE_FACULTY:
