@@ -92,7 +92,8 @@
 				<%} else {%>
 				<button id="bookmark" class="btn btn-danger" data-annc-Id="<%=annc._id%>">Bookmark</button>
 				<button id="unbookmark" class="btn btn-danger" data-annc-Id="<%=annc._id%>" style="display:none">Unbookmark</button>
-				<a class="btn btn-success" data-toggle="modal" data-target="#applyModal">Apply</a>
+				<a id="apply" class="btn btn-success" data-toggle="modal" data-target="#applyModal">Apply</a>
+				<a id="applied" class="btn btn-success" style="display:none" disabled>Applied</a>
 				<% } %>
 			</div>
 		</div>
@@ -111,7 +112,7 @@
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="intro">Message</label>
 						<div class="col-sm-offset-3 col-sm-9">
-							<textarea rows="5" cols="50" id="msg" name="msg"></textarea>
+							<textarea id="applyMsg" rows="5" cols="50" id="msg" name="msg"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
@@ -128,7 +129,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-9">
-							<button id="anncApply" type="button" class="btn btn-primary">Submit</button>
+							<button id="anncApply" type="button" class="btn btn-primary" data-dismiss="modal" data-annc-Id="<%=annc._id%>">Submit</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 						</div>
 					</div>
@@ -184,7 +185,7 @@ $('#unbookmark').click(function(){
 			else {
 				var $msgContainer = $('#unbookmark').parent();
 				$msgContainer.addClass("validate-error");
-				$msgContainer.append( "<p id=\"errorMsg\">Failed to unbookmark.</p>" );
+				$msgContainer.append( "<p id=\"errorMsg\">Failed to unbookmark. Please try again.</p>" );
 			}
 		}
 	});
@@ -192,6 +193,31 @@ $('#unbookmark').click(function(){
 
 $('#deleteAnnc').click(function(){
 	$.post( "announcement/deletePost", {id: $(this).data('anncId')} );
+});
+
+$('#anncApply').click(function(){
+	$.ajax({
+		url: "/announcement/apply",
+		type: 'POST',
+		data: {id: $(this).data('anncId'), message: $("#applyMsg").val()},
+		success: function(data, textStatus, xhr) {
+			if (data == "true"){
+				alert("SDFKSDFSD");
+				var $apply = $('#apply');
+				$apply.parent().removeClass("validate-error");
+				$apply.css("display","none");
+				$("#applied").css("display","inline");
+				var $errorMsg = $("errorMsg");
+				if ($errorMsg!=null)
+					$errorMsg.remove();
+			}
+			else {
+				var $msgContainer = $('#unbookmark').parent();
+				$msgContainer.addClass("validate-error");
+				$msgContainer.append( "<p id=\"errorMsg\">Failed to apply. Please try again.</p>" );
+			}
+		}
+	});
 });
 
 </script>

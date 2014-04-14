@@ -50,7 +50,6 @@ exports.route = function (app) {
 	app.get('/announcement/edit/:id', anncControl.edit);
 	app.post('/announcement/edit/:id', anncControl.editPost);
 	app.post('/announcement/delete', anncControl.deletePost);
-	app.get('/announcement/apply/:id', anncControl.apply);
-	app.post('/announcement/apply/:id', anncControl.applyPost);
+	app.post('/announcement/apply', anncControl.applyPost);
 
 };
