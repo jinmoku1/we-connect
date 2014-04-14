@@ -119,11 +119,11 @@ describe("#anncDb.create()", function(){
 	});
 	
 	it("should return a correct author name.", function(){
-		assert(acutalAnnc.author.name == "Dunn, Pakurthe");
+		assert(acutalAnnc.author.name == DUMMY_LAST + ", " + DUMMY_FIRST);
 	});
 	
 	it("should return a correct author netid.", function(){
-		assert(acutalAnnc.author.netId == "dummyFaculty");
+		assert(acutalAnnc.author.netId == DUMMY_NETID);
 	});
 	
 	it("should return a correct url address of the author.", function(){
@@ -158,36 +158,36 @@ describe("#anncDb.create()", function(){
 	
 	it("should return a correct degree that is at least requirement of the announcement.", function(){
 //		degree : 1
-		assert(acutalAnnc.degree == 1);
+		assert(acutalAnnc.degree == DUMMY_ANNC_DEGREE);
 	});
 	
 	it("should return a correct minimum overall GPA of the announcement.", function(){
-		assert(acutalAnnc.overallGPA == 3.5);
+		assert(acutalAnnc.overallGPA == DUMMY_ANNC_OVERALLGPA);
 	});
 	
 	it("should return a correct minimum technical GPA of the announcement.", function(){
 //		technicalGPA : 3.75,
-		assert(acutalAnnc.technicalGPA == 3.75);
+		assert(acutalAnnc.technicalGPA == DUMMY_ANNC_TECHGPA);
 	});
 	
 	it("should return a correct minimum standing required to apply to the announcement.", function(){
 //		classStanding : 4,
-		assert(acutalAnnc.classStanding == 4);
+		assert(acutalAnnc.classStanding == DUMMY_ANNC_CLASSSTANDING);
 	});
 	
 	it("should return a correct boolean value of resumeRequired.", function(){
 //		resumeRequired : true,		
-		assert(acutalAnnc.resumeRequired == true);
+		assert(acutalAnnc.resumeRequired == DUMMY_ANNC_RESUME);
 	});
 
 	it("should return a correct content of the announcement.", function(){
 //		content : "Hello, world!"
-		assert(acutalAnnc.content == "Hello, world!"); 
+		assert(acutalAnnc.content == DUMMY_ANNC_CONTENT); 
 	});
 
 	it("should return a correct status of the announcement.", function(){
 //		status : 1
-		assert(acutalAnnc.status == 1);
+		assert(acutalAnnc.status == DUMMY_ANNC_STATUS);
 	});
 });
 
