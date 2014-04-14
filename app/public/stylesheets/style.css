@@ -207,6 +207,41 @@ a {
 	border-bottom: 1px solid lightgray;
 }
 
+/* Announcement Page*/
+.AnncPageTitle {
+	text-align:center;
+	font-size:2em;
+	margin-bottom:30px;
+}
+	
+#anncAuthor {
+	border: 1px solid black;
+	border-radius:20px;
+	padding-left:30px;
+	padding-right:30px;
+	padding-bottom:30px;
+}
+
+	#anncAuthor .picture img{
+		width: 200px;
+		height: auto;
+		background: pink;
+		border-radius: 10%;
+		margin-bottom:10px;
+	}
+	
+	#anncAuthor span em{
+		font-size:15;
+		font-weight:bold;
+	}
+	
+#anncDetail {
+	padding-left: 30px;
+}
+	
+	#anncDetail .row {
+		margin-bottom:10px;
+	}	
 /* profile edit */
 
 div.tab-pane {

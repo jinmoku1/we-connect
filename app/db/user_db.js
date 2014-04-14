@@ -85,7 +85,7 @@ exports.create = function(post, callback) {
 	userDetail.netId = post.netId;
 	userDetail.firstName = post.firstName;
 	userDetail.lastName = post.lastName;
-	userDetail.interests = post.interests;
+	userDetail.interests = [].concat(post.interests);
 	userDetail.department = post.department;
 
 	switch (post.userType) {

@@ -9,10 +9,21 @@ var constants = require('../constants');
 
 exports.detail = function(req, res) {
 	var anncId = req.params.id;
+	// db access using anncId
+	var announcement;
+	announcement = {_id:null};
+	announcement._id = anncId;
+	
 	res.render('announcement/detail', {
 		user : session.getSessionUser(req),
+		annc : announcement,
+		departments : constants.departments,
+		interests : constants.interests,
+		degrees : constants.degrees,
+		classStandings : constants.classStandings,
+		anncTypes : constants.anncTypes,
+		courses : constants.courses,
 		title : 'Announcement',
-		anncId: anncId
 	});
 };
 
@@ -42,4 +53,94 @@ exports.createPost = function(req, res) {
 	var resumeRequired = req.body.resumeRequired;
 	
 	res.redirect('/');
+};
+
+exports.edit = function(req, res) {
+	var anncId = req.params.id;
+	// db access using anncId
+	var announcement;
+	announcement = {_id:null};
+	announcement._id = anncId;
+	
+	res.render('announcement/edit', {
+		user : session.getSessionUser(req),
+		annc : announcement,
+		departments : constants.departments,
+		interests : constants.interests,
+		degrees : constants.degrees,
+		classStandings : constants.classStandings,
+		anncTypes : constants.anncTypes,
+		courses : constants.courses,
+		title : 'Announcement',
+	});
+};
+
+exports.editPost = function(req, res) {
+	var anncId = req.params.id;
+	var title = req.body.title;
+	var content = req.body.content;
+	var anncType = req.body.anncType;
+	var interests = req.body.interests;
+	var courses = req.body.courses;
+	var degree = req.body.degree;
+	var classStanding = req.body.classStanding;
+	var overallGPA = req.body.overallGPA;
+	var technicalGPA = req.body.technicalGPA;
+	var resumeRequired = req.body.resumeRequired;
+	
+	res.redirect('/announcement/'+anncId);
+};
+
+exports.deletePost = function(req, res) {
+	var anncId = req.body.id;
+	// db access using anncId
+	
+	res.redirect('/');
+};
+
+exports.bookmark = function(req, res) {
+	var anncId = req.body.id;
+	// db access using anncId
+	
+	var successful = true;
+	if (successful){
+		res.writeHead(200, {"Content-Type": "text/plain"});
+		res.end("true");
+	}
+	else {
+		res.writeHead(200, {"Content-Type": "text/plain"});
+		res.end("false");
+	}
+};
+
+exports.unbookmark = function(req, res) {
+	var anncId = req.body.id;
+	// db access using anncId
+	
+	var successful = true;
+	if (successful){
+		res.writeHead(200, {"Content-Type": "text/plain"});
+		res.end("true");
+	}
+	else {
+		res.writeHead(200, {"Content-Type": "text/plain"});
+		res.end("false");
+	}
+};
+
+exports.applyPost = function(req, res) {
+	var anncId = req.body.id;
+	var message = req.body.message;
+	// db access for sending a resume
+
+	var successful = true;
+	if (successful){
+		res.writeHead(200, {"Content-Type": "text/plain"});
+		res.end("true");
+	}
+	else {
+		res.writeHead(200, {"Content-Type": "text/plain"});
+		res.end("false");
+	}
+	
 };
