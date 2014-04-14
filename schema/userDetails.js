@@ -36,9 +36,7 @@
 
     bookmarkedAnnc	: [
     	{
-    		_id			: Object(), // of Annc
-    		title		: "title", // of _id
-    		authorName	: "First Last" // of _id
+    		userBrief : userBriefObject, // of Annc
     	}
     	// , ...
     ]
