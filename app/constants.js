@@ -49,7 +49,7 @@ exports.user = {
 exports.annc = {
 	db: {
 		ANNC_DETAILS	: 'anncDetails',
-		ANNC_BRIEFS		: 'anncBrief',
+		ANNC_BRIEFS		: 'anncBriefs',
 	}
 };
 

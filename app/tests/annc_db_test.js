@@ -2,9 +2,9 @@
 var assert = require('assert'),
 	anncDb = require('../db/annc_db'),
 	userDb = require('../db/user_db'),
-	userConst = require('../constants').user;
+	connector = require('../db/connector');
 
-var dummyFaculty = null;
+var	GLOBALCONST = require('../constants');
 
 describe("#anncDb.createDummyFaculty()", function() {
 	this.timeout(0);
@@ -16,11 +16,11 @@ describe("#anncDb.createDummyFaculty()", function() {
 			firstName		: 'Pakurthe',
 			lastName		: 'Dunn',
 			department		: 'CS',
-			userType		: userConst.TYPE_FACULTY,
+			userType		: GLOBALCONST.user.TYPE_FACULTY,
 			interests		: [],
-			classStanding	: 'Junior',
-			degree			: 'Bachelor\'s',
 	};
+	
+	var dummyFaculty = null;
 	
 	before(function(done) {
 		userDb.create(post, function(userDetailDoc) {
@@ -28,17 +28,65 @@ describe("#anncDb.createDummyFaculty()", function() {
 			done();
 		});
 	});
+	
 	it("should create dummy faculty member for posting announcement page.", function() {
 		assert(dummyFaculty != null);
-		//console.log(dummyFaculty);
+		
 	});
 });
 
 
+// Announcement is created or not.
+describe("#anncDb.create()", function(){
+	// Timeout inf.
+	this.timeout(0);
 
-
-
-
+	var post = {
+		author : null,
+		title : "Dummy Title 01",
+		timeStamp : null,
+		anncTypes : [GLOBALCONST.anncTypes[0], GLOBALCONST.anncTypes[2]],
+		interests : [GLOBALCONST.interests[0], GLOBALCONST.interests[3]],
+		coursesTaken : [GLOBALCONST.courses[0], GLOBALCONST.courses[1]],
+		degree : 1,
+		overallGPA : 3.5,
+		technicalGPA : 3.75,
+		classStanding : 4,
+		resumeRequired : true,
+		content : "Hello, world!",
+		status : 1
+	};
+	
+	var expectedAnnc = null;
+	
+	before(function(done){
+		var author = {
+			_id : null,
+			name : null,
+			netId : null,
+			profilePic : null
+		};
+		
+		connector.findOne(GLOBALCONST.user.db.USER_DETAILS, {netId: 'dummyFaculty'}, function(db, resultDoc){
+			db.close();
+			if(resultDoc != null){
+				author._id = resultDoc._id;
+				author.name = resultDoc.lastName + ", " + resultDoc.firstName;
+				author.netId = resultDoc.netId;
+				author.profilePic = resultDoc.profilePicUrl;
+				post.author = author;
+				anncDb.create(post, function(anncDetail){
+					expectedAnnc = anncDetail;
+					done();
+				});
+			}
+		});
+	});
+	
+	it("should remove the dummy user.", function() {
+		assert(expectedAnnc != null);
+	});
+});
 
 describe("#anncDb.removeDummyFaculty()", function() {
 	// Timeout inf.
