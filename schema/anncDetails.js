@@ -12,11 +12,7 @@
     timeStamp   : "13232342342",
 
     // filtering properties
-    anncTypes : [
-        0 // research, part-time, events...
-        // , ...
-    ],
-
+    anncTypes : 0, // research, part-time, events...
     interests  : [
         {
            _id : Object(), // interest
