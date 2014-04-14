@@ -133,8 +133,7 @@ exports.remove = function(_id, callback) {
 				callback(briefRemoved);
 				return;
 			}
-
-			connector.remove(userConst.db.USER_DETAILS, _id, function(db, detailRemoved) {
+			connector.remove(userConst.db.USER_DETAILS, {_id : _id}, function(db, detailRemoved) {
 				db.close();
 				callback(detailRemoved);
 			});
