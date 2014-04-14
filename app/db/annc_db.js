@@ -128,6 +128,17 @@ exports.getBriefs = function(callback) {
 	});
 };
 
+/**
+ * @param {Object} _id: brief Id
+ * @param {Object} callback
+ * @return {boolean} brief doc
+ */
+exports.getBrief = function(detailed_id, callback) {
+	connector.findOne(anncConst.db.ANNC_BRIEFS, {detailId: detailed_id}, function(db, resultDoc){
+		db.close();
+		callback(resultDoc);
+	});
+};
 
 exports.getDetail = function(_id, callback) {
 	connector.findOne(anncConst.db.ANNC_DETAILS, {_id: _id}, function(db, resultDoc){
