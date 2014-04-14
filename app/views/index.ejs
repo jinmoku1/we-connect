@@ -54,41 +54,40 @@
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active" id="anncRecList">
-				<div class="anncList">
-				<%  
-				var id;
-				for (id=1; id<4; id++) { %>
-					<div class="row">
-						<div class="col-md-2">
-							<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
-						</div>
-						<div class="col-md-7">
-							<h1 class="title">
-								<a href="announcement/<%=id%>"><%="title"%></a>
-								<span class="author">
-									<em><%="author name"%></em>
-								</span>
-							</h1>
-							<p class="contentBrief">
-								<%="THIS IS A CONTENT BRIEF...."%>...
-								<span class="timeStamp">
-									<em><%="2014/01/01 22:10:09"%></em>
-								</span>
-							</p>
-							<p class="anncTypes">
-								<%
-								for (var i in anncTypes) { %>
-								<span class="label label-default"><%=anncTypes[i]%></span>
-								<% } %>
-							</p>
-						</div>
-					</div>
-				<% } %>
-				</div>
 			</div>
 			<div class="tab-pane" id="anncFollowingList">
 			</div>
 			<div class="tab-pane" id="archive">
+				<div class="anncList">
+					<%  
+					for (var anncBrief in anncBriefs) { %>
+						<div class="row">
+							<div class="col-md-2">
+								<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
+							</div>
+							<div class="col-md-7">
+								<h1 class="title">
+									<a href="announcement/<%=id%>"><%=anncBrief.title%></a>
+									<span class="author">
+										<em><%=anncBrief.author%></em>
+									</span>
+								</h1>
+								<p class="contentBrief">
+									<%=anncBrief.contentBrief%>...
+									<span class="timeStamp">
+										<em><%="anncBrief.timestamp"%></em>
+									</span>
+								</p>
+								<p class="anncTypes">
+									<%
+									for (var i in anncTypes) { %>
+									<span class="label label-default"><%=anncTypes[i]%></span>
+									<% } %>
+								</p>
+							</div>
+						</div>
+					<% } %>
+					</div>
 			</div>
 			<div class="tab-pane" id="anncMyList">
 			</div>

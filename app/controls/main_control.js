@@ -7,6 +7,7 @@ var userConst = require('../constants').user;
 var anncTypes = require('../constants').anncTypes;
 var userConstDev = require('../constants').developers;
 var userDb = require('../db/user_db');
+var anncDb = require('../db/annc_db');
 
 exports.index = function(req, res) {
 	if (!session.isLoggedin(req)) {
@@ -15,14 +16,15 @@ exports.index = function(req, res) {
 	}
 	
 	userDb.getBriefs(null, function(userBriefs) {
-		console.log(session.getSessionUser(req));
-		res.render('index', {
-			user : session.getSessionUser(req),
-			userConst : userConst,
-			userBriefs : userBriefs,
-			anncTypes : anncTypes,
-			title : 'WeConnect : CS',
-			welcome : 'Welcome to WeConnect'
+		anncDb.getBriefs(function(anncBriefs) {
+			res.render('index', {
+				user : session.getSessionUser(req),
+				userConst : userConst,
+				userBriefs : userBriefs,
+				anncBriefs : anncBriefs,
+				title : 'WeConnect : CS',
+				welcome : 'Welcome to WeConnect'
+			});
 		});
 	});
 };
