@@ -2,6 +2,8 @@ var constants = require('../constants');
 var userConst = constants.user;
 var session = require('../session');
 var userDb = require('../db/user_db');
+var fs = require('fs');
+var easyimg = require('easyimage');
 
 var error = null;
 
@@ -151,10 +153,39 @@ exports.settingProfile = function(req, res) {
 		user.websiteUrl = req.body.websiteUrl;
 	}
 	
+	var userDir = '/media/' + user._id;
+	var pictureDir = userDir + '/picture';
+	var profilePic = req.files.profilePic;
+	if (profilePic != null) {
+		user.profilePicUrl = pictureDir + '/' + profilePic.name;
+	}
+	
 	userDb.updateInfo(user._id, user, function(success) {
 		if (success){
 			session.setSessionUser(req, user);
-			res.redirect('/');
+			
+			if (profilePic != null) {
+				// create directory
+				var userDirPath = "public" + userDir;
+				if (!fs.existsSync(userDirPath)) {
+					fs.mkdirSync(userDirPath);
+				}
+				var pictureDirPath = "public" + pictureDir;
+				if (!fs.existsSync(pictureDirPath)) {
+					fs.mkdirSync(pictureDirPath);
+				}
+				
+				var mediaPath = pictureDirPath + "/" + profilePic.name;
+				if (!fs.existsSync(mediaPath)) {
+					fs.unlink(mediaPath);
+				}
+				easyimg.thumbnail({
+					src: profilePic.path, dst: mediaPath,
+					width:160, height:160,
+				}, function(err, image) {
+					res.redirect('/');
+				});
+			}
 		}
 		else {
 			var error = "[ERROR] Please try updating again.";
@@ -188,10 +219,18 @@ exports.settingChangePW = function(req, res) {
 exports.settingAdditionalInfo = function(req, res) {
 	var user = session.getSessionUser(req);
 	user.intro = req.body.intro;
+	
+	var userDir = '/media/' + user._id;
+	var resumeDir = userDir + '/resume';
+	var resume = req.files.resume;
 	if (user.userType == userConst.TYPE_STUDENT){
 		user.extension.overallGPA = req.body.overallGPA;
 		user.extension.technicalGPA = req.body.technicalGPA;
 		user.extension.coursesTaken = req.body.coursesTaken;
+		
+		if (resume != null) {
+			user.extension.resumeUrl = resumeDir + '/' + resume.name;
+		}
 	}
 	else {
 		user.extension.coursesTaught = req.body.coursesTaught;
@@ -200,6 +239,32 @@ exports.settingAdditionalInfo = function(req, res) {
 	userDb.updateInfo(user._id, user, function(success) {
 		if (success){
 			session.setSessionUser(req, user);
+			
+			if (resume != null) {
+				fileData = fs.readFileSync(resume.path);
+				if (fileData == null) {
+					var error = "[ERROR] Failed to read file.";
+					renderSetting(req, res, error);
+					return;
+				}
+				
+				// create directory
+				var userDirPath = "public" + userDir;
+				if (!fs.existsSync(userDirPath)) {
+					fs.mkdirSync(userDirPath);
+				}
+				var resumeDirPath = "public" + resumeDir;
+				if (!fs.existsSync(resumeDirPath)) {
+					fs.mkdirSync(resumeDirPath);
+				}
+				
+				var mediaPath = resumeDirPath + "/" + resume.name;
+				if (!fs.existsSync(mediaPath)) {
+					fs.unlink(mediaPath);
+				}
+				fs.writeFileSync(mediaPath, fileData);
+			}
+			
 			res.redirect('/');
 		}
 		else {

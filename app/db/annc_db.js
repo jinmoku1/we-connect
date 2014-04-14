@@ -35,6 +35,7 @@ function schema() {
 			_id : null,
 			name : null,
 			netId : null,
+			profilePic : null,
 		},
 		title : null,
 		timeStamp : null,
