@@ -1,0 +1,35 @@
+<%- include ../partials/header.ejs %>
+
+<div style="width: 560px; margin:auto;">
+	<h1><%=title%></h1>
+	<p>This paragraph is a test of the application page</p>
+	<form id="applyForm" class="form-horizontal" method="post">
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="intro">Message</label>
+			<div class="col-sm-offset-3 col-sm-9">
+				<textarea rows="5" cols="50" id="msg" name="msg"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="resumeRequired">Resume Required</label>
+			<div class="col-sm-9">
+				<div class="checkbox col-sm-6">
+					<label>
+						<input type="checkbox" name="resumeRequired" value="resumeRequired" />
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-9">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="submit" class="btn btn-primary">Cancel</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+</script>
+
+<%- include ../partials/footer.ejs %>
