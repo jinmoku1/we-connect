@@ -4,6 +4,7 @@
     detailID    : Object(),
 
     author  : "First Last",
+    profilePic	: "www.haha.com",
     title       : "Title of Announcement",
     timeStamp   : "13232342342",
 

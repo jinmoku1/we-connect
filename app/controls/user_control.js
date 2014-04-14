@@ -176,7 +176,7 @@ exports.settingProfile = function(req, res) {
 				}
 				
 				var mediaPath = pictureDirPath + "/" + profilePic.name;
-				if (!fs.existsSync(mediaPath)) {
+				if (fs.existsSync(mediaPath)) {
 					fs.unlink(mediaPath);
 				}
 				easyimg.thumbnail({

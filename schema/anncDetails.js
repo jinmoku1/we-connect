@@ -5,6 +5,7 @@
         _id     : Object(),
         name    : "First Last", // of _id
         netId   : "netId", // of _id
+        profilePic	: "www.haha.com",
     },
 
     title       : "Title of Announcement",
