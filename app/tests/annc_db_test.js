@@ -37,9 +37,6 @@ var DUMMY_ANNC_UPDATED_TITLE = '10 eltiT ymmuD',
 	DUMMY_ANNC_UPDATED_CONTENT = 'Hello, seniors!',
 	DUMMY_ANNC_UPDATED_STATUS = 0;
 
-
-var 
-
 describe("#anncDb.createDummyFaculty()", function() {
 	this.timeout(0);
 	
@@ -91,7 +88,7 @@ describe("#anncDb.create()", function(){
 		status : DUMMY_ANNC_STATUS
 	};
 	
-	var expectedAnnc = null;
+	var acutalAnnc = null;
 	
 	before(function(done){
 		var author = {
@@ -110,7 +107,7 @@ describe("#anncDb.create()", function(){
 				author.profilePic = resultDoc.profilePicUrl;
 				post.author = author;
 				anncDb.create(post, function(anncDetail){
-					expectedAnnc = anncDetail;
+					acutalAnnc = anncDetail;
 					done();
 				});
 			}
@@ -118,79 +115,79 @@ describe("#anncDb.create()", function(){
 	});
 	
 	it("should create Announcement information from a raw data.", function() {
-		assert(expectedAnnc != null);
+		assert(acutalAnnc != null);
 	});
 	
 	it("should return a correct author name.", function(){
-		assert(expectedAnnc.author.name == "Dunn, Pakurthe");
+		assert(acutalAnnc.author.name == DUMMY_LAST + ", " + DUMMY_FIRST);
 	});
 	
 	it("should return a correct author netid.", function(){
-		assert(expectedAnnc.author.netId == "dummyFaculty");
+		assert(acutalAnnc.author.netId == DUMMY_NETID);
 	});
 	
 	it("should return a correct url address of the author.", function(){
-		assert(expectedAnnc.author.profilePic == null);
+		assert(acutalAnnc.author.profilePic == null);
 	});
 	
 	it("should return a correct title of the announcement.", function(){
-		assert(expectedAnnc.title == DUMMY_ANNC_TITLE);
+		assert(acutalAnnc.title == DUMMY_ANNC_TITLE);
 	});
 	
 	it("should return a correct timestamp of the announcement.", function(){
-		assert(expectedAnnc.timeStamp == null);
+		assert(acutalAnnc.timeStamp == null);
 	});
 	
 	it("should return a correct array of the announcement types.", function(){
 		//anncTypes : [GLOBALCONST.anncTypes[0], GLOBALCONST.anncTypes[2]],
-		assert(expectedAnnc.anncTypes[0] == GLOBALCONST.anncTypes[0]);
-		assert(expectedAnnc.anncTypes[1] == GLOBALCONST.anncTypes[2]);
+		assert(acutalAnnc.anncTypes[0] == GLOBALCONST.anncTypes[0]);
+		assert(acutalAnnc.anncTypes[1] == GLOBALCONST.anncTypes[2]);
 	});
 
 	it("should return a correct array of the announcement interests.", function(){
 //		interests : [GLOBALCONST.interests[0], GLOBALCONST.interests[3]]
-		assert(expectedAnnc.interests[0] == GLOBALCONST.interests[0]);
-		assert(expectedAnnc.interests[1] == GLOBALCONST.interests[3]);
+		assert(acutalAnnc.interests[0] == GLOBALCONST.interests[0]);
+		assert(acutalAnnc.interests[1] == GLOBALCONST.interests[3]);
 	});
 	
 	it("should return a correct array of the announcement courses.", function(){
 //		coursesTaken : [GLOBALCONST.courses[0], GLOBALCONST.courses[1]]
-		assert(expectedAnnc.coursesTaken[0] == GLOBALCONST.courses[0]);
-		assert(expectedAnnc.coursesTaken[1] == GLOBALCONST.courses[1]);
+		assert(acutalAnnc.coursesTaken[0] == GLOBALCONST.courses[0]);
+		assert(acutalAnnc.coursesTaken[1] == GLOBALCONST.courses[1]);
 	});
 	
 	it("should return a correct degree that is at least requirement of the announcement.", function(){
 //		degree : 1
-		assert(expectedAnnc.degree == 1);
+		assert(acutalAnnc.degree == DUMMY_ANNC_DEGREE);
 	});
 	
 	it("should return a correct minimum overall GPA of the announcement.", function(){
-		assert(expectedAnnc.overallGPA == 3.5);
+		assert(acutalAnnc.overallGPA == DUMMY_ANNC_OVERALLGPA);
 	});
 	
 	it("should return a correct minimum technical GPA of the announcement.", function(){
 //		technicalGPA : 3.75,
-		assert(expectedAnnc.technicalGPA == 3.75);
+		assert(acutalAnnc.technicalGPA == DUMMY_ANNC_TECHGPA);
 	});
 	
 	it("should return a correct minimum standing required to apply to the announcement.", function(){
 //		classStanding : 4,
-		assert(expectedAnnc.classStanding == 4);
+		assert(acutalAnnc.classStanding == DUMMY_ANNC_CLASSSTANDING);
 	});
 	
 	it("should return a correct boolean value of resumeRequired.", function(){
 //		resumeRequired : true,		
-		assert(expectedAnnc.resumeRequired == true);
+		assert(acutalAnnc.resumeRequired == DUMMY_ANNC_RESUME);
 	});
 
 	it("should return a correct content of the announcement.", function(){
 //		content : "Hello, world!"
-		assert(expectedAnnc.content == "Hello, world!"); 
+		assert(acutalAnnc.content == DUMMY_ANNC_CONTENT); 
 	});
 
 	it("should return a correct status of the announcement.", function(){
 //		status : 1
-		assert(expectedAnnc.status == 1);
+		assert(acutalAnnc.status == DUMMY_ANNC_STATUS);
 	});
 });
 
@@ -233,17 +230,19 @@ describe("#anncDb.updateInfo()", function(){
 				newInfo.author = author;
 				connector.findOne(GLOBALCONST.annc.db.ANNC_DETAILS, {title: DUMMY_ANNC_TITLE}, function(db, resultDoc){
 					db.close();
-					if(resultDoc != null)
-					{
-						// Actual Updation
-						anncDb.updateInfo(resultDoc._id, newInfo, function(anncDetail){
-							actualAnnc = anncDetail;
-							done();
+					
+					if(resultDoc != null){
+						var targetAnncId = resultDoc._id;
+						// Actual Update 
+						anncDb.updateInfo(resultDoc._id, newInfo, function(successful){
+							connector.findOne(GLOBALCONST.annc.db.ANNC_DETAILS, {_id : targetAnncId}, function(db, resultDoc){
+								actualAnnc = resultDoc;
+								done();
+							});
 						});
 					}
 				});
 			}
-			
 		});
 	});
 	
@@ -253,55 +252,53 @@ describe("#anncDb.updateInfo()", function(){
 	
 	it("should return a correct array of the updated announcement types.", function(){
 //		DUMMY_ANNC_UPDATED_TYPES = [GLOBALCONST.anncTypes[1]],
-		assert(expectedAnnc.anncTypes[0] == GLOBALCONST.anncTypes[0]);
-		assert(expectedAnnc.anncTypes[1] == GLOBALCONST.anncTypes[2]);
+		assert(actualAnnc.anncTypes[0] == GLOBALCONST.anncTypes[1]);
 	});
 
 	it("should return a correct array of the updated announcement interests.", function(){
 //		DUMMY_ANNC_UPDATED_INTERESTS = [GLOBALCONST.interests[2], GLOBALCONST.interests[4]],
-//		DUMMY_ANNC_UPDATED_COURSES = [GLOBALCONST.courses[1], GLOBALCONST.courses[3]],
-		assert(expectedAnnc.interests[0] == GLOBALCONST.interests[0]);
-		assert(expectedAnnc.interests[1] == GLOBALCONST.interests[3]);
+		assert(actualAnnc.interests[0] == GLOBALCONST.interests[2]);
+		assert(actualAnnc.interests[1] == GLOBALCONST.interests[4]);
 	});
 	
 	it("should return a correct array of the updated announcement courses.", function(){
-//		coursesTaken : [GLOBALCONST.courses[0], GLOBALCONST.courses[1]]
-		assert(expectedAnnc.coursesTaken[0] == GLOBALCONST.courses[0]);
-		assert(expectedAnnc.coursesTaken[1] == GLOBALCONST.courses[1]);
+//		DUMMY_ANNC_UPDATED_COURSES = [GLOBALCONST.courses[1], GLOBALCONST.courses[3]],
+		assert(actualAnnc.coursesTaken[0] == GLOBALCONST.courses[1]);
+		assert(actualAnnc.coursesTaken[1] == GLOBALCONST.courses[3]);
 	});
 	
-	it("should return a correct degree that is at least requirement of the announcement.", function(){
-//		degree : 1
-		assert(expectedAnnc.degree == 1);
+	it("should return a correct degree that is at least requirement of the updated announcement.", function(){
+//		DUMMY_ANNC_UPDATED_DEGREE = 1,
+		assert(actualAnnc.degree == DUMMY_ANNC_UPDATED_DEGREE);
 	});
 	
-	it("should return a correct minimum overall GPA of the announcement.", function(){
-		assert(expectedAnnc.overallGPA == 3.5);
+	it("should return a correct minimum overall GPA of the updated announcement.", function(){
+//		DUMMY_ANNC_UPDATED_OVERALLGPA = 3,
+		assert(actualAnnc.overallGPA == DUMMY_ANNC_UPDATED_OVERALLGPA);
 	});
 	
-	it("should return a correct minimum technical GPA of the announcement.", function(){
-//		technicalGPA : 3.75,
-		assert(expectedAnnc.technicalGPA == 3.75);
+	it("should return a correct minimum technical GPA of the updated announcement.", function(){
+//		DUMMY_ANNC_UPDATED_TECHGPA = 3.5,
+		assert(actualAnnc.technicalGPA == DUMMY_ANNC_UPDATED_TECHGPA);
 	});
 	
-	it("should return a correct minimum standing required to apply to the announcement.", function(){
-//		classStanding : 4,
-		assert(expectedAnnc.classStanding == 4);
+	it("should return a correct minimum standing required to apply to the updated announcement.", function(){
+//		DUMMY_ANNC_UPDATED_CLASSSTANDING  3,
+		assert(actualAnnc.classStanding == DUMMY_ANNC_UPDATED_CLASSSTANDING);
 	});
-	
-	it("should return a correct boolean value of resumeRequired.", function(){
-//		resumeRequired : true,		
-		assert(expectedAnnc.resumeRequired == true);
+	it("should return a correct boolean value of updated resumeRequired.", function(){
+//		DUMMY_ANNC_UPDATED_RESUME = false,
+		assert(actualAnnc.resumeRequired == DUMMY_ANNC_UPDATED_RESUME);
 	});
 
-	it("should return a correct content of the announcement.", function(){
-//		content : "Hello, world!"
-		assert(expectedAnnc.content == "Hello, world!"); 
+	it("should return a correct content of the updated announcement.", function(){
+//		DUMMY_ANNC_UPDATED_CONTENT = 'Hello, seniors!',
+		assert(actualAnnc.content == DUMMY_ANNC_UPDATED_CONTENT); 
 	});
 
-	it("should return a correct status of the announcement.", function(){
-//		status : 1
-		assert(expectedAnnc.status == 1);
+	it("should return a correct status of the updated announcement.", function(){
+//		DUMMY_ANNC_UPDATED_STATUS = 0;
+		assert(actualAnnc.status == DUMMY_ANNC_UPDATED_STATUS);
 	});
 });
 

@@ -13,7 +13,7 @@ function detailToBrief(anncDetail) {
 		timeStamp : anncDetail['timeStamp'],
 
 		// filtering properties
-		anncType : anncDetail['anncType'],
+		anncTypes : anncDetail['anncTypes'],
 		canApply : true,
 
 		// content
@@ -41,7 +41,7 @@ function schema() {
 		timeStamp : null,
 
 		// filtering properties
-		anncType : null,
+		anncTypes : null,
 		interests : [],
 		coursesTaken : [],
 		degree : 0, // undergraduate, graduate, ...
@@ -74,7 +74,7 @@ exports.create = function(post, callback) {
 	anncDetail.author = post.author;
 	anncDetail.title = post.title;
 	anncDetail.timeStamp = post.timeStamp;
-	anncDetail.anncType = post.anncType;
+	anncDetail.anncTypes = post.anncTypes;
 	anncDetail.interests = post.interests;
 	anncDetail.coursesTaken = post.coursesTaken;
 	anncDetail.degree = post.degree;
