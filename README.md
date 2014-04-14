@@ -7,9 +7,10 @@
 ## Usage
 
 1. Install Node.js on your system.
-2. Change directory to project '/app' directory,
-3. Install all dependencies by entering 'npm install',
-4. Then enter 'node app.js', the application server will start on port 3000 as a default.
+2. Install Imagemagick on your system.
+3. Change directory to project '/app' directory,
+4. Install all dependencies by entering 'npm install',
+5. Then enter 'node app.js', the application server will start on port 3000 as a default.
 
 ## Testing
 
