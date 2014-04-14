@@ -90,8 +90,7 @@
 				<%} else {%>
 				<button id="bookmark" class="btn btn-danger" data-annc-Id="<%=annc._id%>">Bookmark</button>
 				<button id="unbookmark" class="btn btn-danger" data-annc-Id="<%=annc._id%>" style="display:none">Unbookmark</button>
-				<button id="apply" class="btn btn-success">Apply</button>
-				<% } %>
+				<a href="/announcement/apply/<%=annc._id%>" button id="apply" class="btn btn-success">Apply</button>
 			</div>
 		</div>
 	</div>

@@ -127,3 +127,33 @@ exports.unbookmark = function(req, res) {
 		res.end("false");
 	}
 };
+
+exports.apply = function(req, res) {
+	var anncId = req.params.id;
+	// db access using anncId
+	var application;
+	var announcement;
+	announcement = {_id:null};
+	announcement._id = anncId;
+	
+	res.render('announcement/apply', {
+		user : session.getSessionUser(req),
+		title : 'Application',
+	});
+};
+
+exports.applyPost = function(req, res) {
+	var anncId = req.params.id;
+	var title = req.body.title;
+	var content = req.body.content;
+	var anncType = req.body.anncType;
+	var interests = req.body.interests;
+	var courses = req.body.courses;
+	var degree = req.body.degree;
+	var classStanding = req.body.classStanding;
+	var overallGPA = req.body.overallGPA;
+	var technicalGPA = req.body.technicalGPA;
+	var resumeRequired = req.body.resumeRequired;
+	
+	res.redirect('/announcement/'+anncId);
+};
