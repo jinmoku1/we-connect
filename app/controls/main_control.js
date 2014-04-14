@@ -15,6 +15,7 @@ exports.index = function(req, res) {
 	}
 	
 	userDb.getBriefs(null, function(userBriefs) {
+		console.log(session.getSessionUser(req));
 		res.render('index', {
 			user : session.getSessionUser(req),
 			userConst : userConst,
