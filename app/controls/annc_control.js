@@ -91,6 +91,13 @@ exports.editPost = function(req, res) {
 	res.redirect('/announcement/'+anncId);
 };
 
+exports.deletePost = function(req, res) {
+	var anncId = req.body.id;
+	// db access using anncId
+	
+	res.redirect('/');
+};
+
 exports.bookmark = function(req, res) {
 	var anncId = req.body.id;
 	// db access using anncId
