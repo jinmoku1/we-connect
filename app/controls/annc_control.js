@@ -90,17 +90,8 @@ exports.edit = function(req, res) {
 
 exports.editPost = function(req, res) {
 	var anncId = req.params.id;
-	var title = req.body.title;
-	var content = req.body.content;
-	var anncType = req.body.anncType;
-	var interests = req.body.interests;
-	var courses = req.body.courses;
-	var degree = req.body.degree;
-	var classStanding = req.body.classStanding;
-	var overallGPA = req.body.overallGPA;
-	var technicalGPA = req.body.technicalGPA;
-	var resumeRequired = req.body.resumeRequired;
-
+	var id = ObjectID.createFromHexString(anncId);
+	
 	var user = session.getSessionUser(req);
 	var curtime = new Date();
 	
@@ -124,7 +115,9 @@ exports.editPost = function(req, res) {
 		timeStamp : curtime
 	};
 	
-	res.redirect('/announcement/'+anncId);
+	anncDb.updateInfo(id, post, function(result) {
+		res.redirect('/announcement/'+anncId);
+	});
 };
 
 exports.deletePost = function(req, res) {
