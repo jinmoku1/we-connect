@@ -49,4 +49,6 @@ exports.route = function (app) {
 	app.post('/announcement/unbookmark', anncControl.unbookmark);
 	app.get('/announcement/edit/:id', anncControl.edit);
 	app.post('/announcement/edit/:id', anncControl.editPost);
+	app.get('/announcement/apply/:id', anncControl.apply);
+	app.post('/announcement/apply/:id', anncControl.applyPost);
 };
