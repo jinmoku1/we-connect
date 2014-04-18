@@ -1,8 +1,8 @@
+# We-Connect
 
+## Overview
 
-# app
-
-
+We-connect is a virtual job-board website that supports connection between students and faculty/staff in the university.
 
 ## Usage
 
