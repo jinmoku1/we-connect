@@ -1,36 +1,29 @@
 <%- include ../partials/header.ejs %>
+<div class="col-sm-4 col-sm-offset-4 tall">
+	<div class="vcenter-login">
+		<h1><%= title %></h1>
+		<% if (error) { %>
+		<p class="error">
+			<%= error %>
+		</p>
+		<% } %>
 
-<br><br><br><br><br><br><br><br>
-
-<div class="col-md-4 col-md-offset-4">
-	<h1><%= title %></h1>
+		<form id="loginForm" class="form-horizontal" method="post">
+			<div class="form-group">
+					<input type="text" class="form-control" name="netId" placeholder="Net ID" required />
+			</div>
+			<div class="form-group" >
+					<input type="password" class="form-control" name="password" placeholder="Password" required />
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-7 col-sm-5">
+					<a href="/account/agreement" class="btn btn-default">Sign Up</a>
+					<button type="submit" class="btn btn-primary">Log-in</button>
+				</div>
+	    	</div>
+		</form>
+	</div>
 </div>
-
-<% if (error) { %>
-<p class="error">
-	<%= error %>
-</p>
-<% } %>
-<form id="loginForm" method="post">
-	<div class="form-group" >
-	<div class="row" >
-		<div class="col-md-4 col-md-offset-4">
-			<input type="text" class="form-control" name="netId" placeholder="Net ID" required />
-		</div>
-	</div>
-	<div class="row" >
-		<div class="col-md-4 col-md-offset-4">
-			<input type="password" class="form-control" name="password" placeholder="Password" required />
-		</div>
-	</div>
-	</div>
-	<div class="row" >
-		<div class="col-md-offset-6">
-			<a href="/account/agreement" class="btn btn-default">Sign Up Now</a>
-			<button type="submit" class="btn btn-primary">Log-in</button>
-		</div>
-    </div>
-</form>
 
 <script>
 $('#loginForm').validate();
