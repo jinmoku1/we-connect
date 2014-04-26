@@ -84,7 +84,7 @@ exports.create = function(post, callback) {
 	anncDetail.classStanding = post.classStanding;
 	anncDetail.resumeRequired = post.resumeRequired;
 	anncDetail.content = post.content;
-	anncDetail.stauts = (post.status == null ? 0 : post.status );
+	anncDetail.status = (post.status == null ? 0 : post.status );
 
 	connector.save(anncConst.db.ANNC_DETAILS, anncDetail, function(db, detailDoc) {
 		anncDetail = detailDoc;
@@ -169,3 +169,24 @@ exports.updateInfo = function(_id, updateDoc, callback) {
 };
 // --------------- Object Specific Operations --------------- //
 
+/**
+ * @param {Object} callback
+ * @return {boolean} brief doc
+ */
+exports.getAnncBriefByStatus = function(status, callback) {
+	connector.findAll(anncConst.db.ANNC_BRIEFS, { status: status }, function(db, resultDoc){
+		db.close();
+		callback(resultDoc);
+	});
+};
+
+/**
+ * @param {Object} callback
+ * @return {boolean} brief doc
+ */
+exports.getAnncDetailByStatus = function(status, callback) {
+	connector.findAll(anncConst.db.ANNC_DETAILS, { status: status }, function(db, resultDoc){
+		db.close();
+		callback(resultDoc);
+	});
+};
