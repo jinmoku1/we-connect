@@ -1,3 +1,4 @@
+
 span.label.label-default {
 	background-color: #eee;
 	color: #666;
@@ -9,4 +10,19 @@ a {
 
 a.btn-lgray {
 	background-color:#eee;
+}
+
+@font-face {
+    font-family: 'Archive';
+    src: url("../fonts/Archive.otf") format("opentype");
+}
+
+@font-face {
+    font-family: 'Nexa_Bold';
+    src: url("../fonts/Nexa_Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: 'Nexa_Light';
+    src: url("../fonts/Nexa_Light.otf") format("opentype");
 }
