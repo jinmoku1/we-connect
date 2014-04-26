@@ -1,6 +1,10 @@
 body {
-	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	font: 14px 'Nexa_Light', Helvetica, Arial, sans-serif;
 	overflow-y: scroll;
+}
+
+h1 {
+	font-family: 'Nexa_Bold', Arial, sans-serif;
 }
 
 a {
