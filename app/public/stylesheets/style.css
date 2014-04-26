@@ -295,3 +295,39 @@ div.tab-pane {
 		height: 160px;
 		border-radius: 10%;
 	}
+
+#interestList {
+	
+}
+
+	#interestList .interest{
+		padding:7px;
+		margin-right:5px;
+	}
+	
+	#interestList .badge{
+		margin-left:10px;
+	}
+	
+	#interestList .badge:hover{
+		margin-left:10px;
+		cursor: pointer;
+	}
+	
+#courseList {
+	
+}
+
+	#courseList .course{
+		padding:7px;
+		margin-right:5px;
+	}
+	
+	#courseList .badge{
+		margin-left:10px;
+	}
+	
+	#courseList .badge:hover{
+		margin-left:10px;
+		cursor: pointer;
+	}

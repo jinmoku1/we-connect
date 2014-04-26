@@ -30,27 +30,23 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Interests</label>
 			<div class="col-sm-10">
-			<% for (var i in interests) { %>
-				<div class="checkbox col-sm-6">
-					<label>
-						<input type="checkbox" name="interests" value="<%=interests[i]%>" />
-						<%=interests[i]%>
-					</label>
+				<div class="ui-widget">
+					<input id="interests" class="form-control" data-interests="<%=interests%>">
 				</div>
-			<% } %>
+				<br>
+				<div id="interestList">					
+				</div>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Required Courses</label>
 			<div class="col-sm-10">
-			<% for (var i in courses) { %>
-				<div class="checkbox col-sm-6">
-					<label>
-						<input type="checkbox" name="coursesTaken" value="<%=courses[i]%>" />
-						<%=courses[i]%>
-					</label>
+				<div class="ui-widget">
+					<input id="courses" class="form-control" data-courses="<%=courses%>">
 				</div>
-			<% } %>
+				<br>
+				<div id="courseList">					
+				</div>
 			</div>
 		</div>
 		<div class="form-group">
@@ -106,6 +102,79 @@
 
 
 <script>
+$(function() {
+    var availableTags = $("#interests").data("interests").split(",");
+    $("#interests").autocomplete({
+		source: availableTags
+	});
+});
+
+var count = 1;
+var interestsAdded = [];
+$("#interests").keypress(function(e) {
+    if(e.which == 13) {
+    	event.preventDefault();
+    	var input = $("#interests").val();
+    	if ( $("#interests").data("interests").split(",").indexOf(input) < 0 || 
+    			(interestsAdded.length > 0 && interestsAdded.indexOf(input) >= 0) ){
+    	}
+    	else {
+    		if (interestsAdded.length!=0 && interestsAdded.length%3==0){
+    			$("<br><br>").appendTo("#interestList");
+    		}
+    		
+    		interestsAdded.push(input);
+    		var innerHtml = "<span id=\"interestSelected"+count+"\" class=\"label label-default interest\" >"+
+    		input+"<span id=\"interestDelete"+count+"\" class=\"badge\">X</span></span>";
+
+    		$(innerHtml).appendTo("#interestList");
+    		
+    		$("#interestDelete"+count).data("count", count);
+    		$("#interestDelete"+count).click(function(){
+    			var c = $(this).data("count");
+    			$("#interestSelected"+c).remove();
+    		});
+    		count++;
+    	}
+    }
+});
+
+$(function() {
+    var availableTags = $("#courses").data("courses").split(",");
+    $("#courses").autocomplete({
+		source: availableTags
+	});
+});
+
+var count2 = 1;
+var coursesAdded = [];
+$("#courses").keypress(function(e) {
+    if(e.which == 13) {
+    	event.preventDefault();
+    	var input = $("#courses").val();
+    	if ( $("#courses").data("courses").split(",").indexOf(input) < 0 || 
+    			(coursesAdded.length > 0 && coursesAdded.indexOf(input) >= 0) ){
+    	}
+    	else {
+    		if (coursesAdded.length!=0 && coursesAdded.length%3==0){
+    			$("<br><br>").appendTo("#courseList");
+    		}
+    		
+    		coursesAdded.push($("#courses").val());
+    		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+
+    		input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
+
+    		$(innerHtml).appendTo("#courseList");
+    		
+    		$("#courseDelete"+count).data("count", count2);
+    		$("#courseDelete"+count).click(function(){
+    			var c = $(this).data("count");
+    			$("#courseSelected"+c).remove();
+    		});
+    		count++;
+    	}
+    }
+});
 </script>
 
 <%- include ../partials/footer.ejs %>

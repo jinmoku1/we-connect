@@ -84,7 +84,7 @@ exports.create = function(post, callback) {
 	anncDetail.classStanding = post.classStanding;
 	anncDetail.resumeRequired = post.resumeRequired;
 	anncDetail.content = post.content;
-	anncDetail.stauts = (post.status == null ? 0 : post.status );
+	anncDetail.status = (post.status == null ? 0 : post.status );
 
 	connector.save(anncConst.db.ANNC_DETAILS, anncDetail, function(db, detailDoc) {
 		anncDetail = detailDoc;
@@ -129,25 +129,6 @@ exports.getBriefs = function(callback) {
 	});
 };
 
-/**
- * @param {Object} _id: brief Id
- * @param {Object} callback
- * @return {boolean} brief doc
- */
-exports.getBrief = function(detailed_id, callback) {
-	connector.findOne(anncConst.db.ANNC_BRIEFS, {detailId: detailed_id}, function(db, resultDoc){
-		db.close();
-		callback(resultDoc);
-	});
-};
-
-exports.getDetail = function(_id, callback) {
-	connector.findOne(anncConst.db.ANNC_DETAILS, {_id: _id}, function(db, resultDoc){
-		db.close();
-		callback(resultDoc);
-	});
-};
-
 
 /**
  * update announcement(detail/brief) db
@@ -169,3 +150,48 @@ exports.updateInfo = function(_id, updateDoc, callback) {
 };
 // --------------- Object Specific Operations --------------- //
 
+/**
+ * @param {Object} callback
+ * @return {boolean} brief doc
+ */
+exports.getAnncBriefByStatus = function(status, order, callback) {
+	connector.findAll(anncConst.db.ANNC_BRIEFS, { status: status }, { timeStamp : -1 }, function(db, resultDoc){
+		db.close();
+		callback(resultDoc);
+	});
+};
+
+/**
+ * @param {Object} _id: brief Id
+ * @param {Object} callback
+ * @return {boolean} brief doc
+ */
+exports.getBrief = function(detailed_id, callback) {
+	connector.findOne(anncConst.db.ANNC_BRIEFS, {detailId: detailed_id}, function(db, resultDoc){
+		db.close();
+		callback(resultDoc);
+	});
+};
+
+/**
+ * @param {Object} callback
+ * @return {boolean} brief doc
+ */
+exports.getAnncDetailByStatus = function(status, order, callback) {
+	connector.findAll(anncConst.db.ANNC_DETAILS, { status: status }, { timeStamp : -1 }, function(db, resultDoc){
+		db.close();
+		callback(resultDoc);
+	});
+};
+
+/**
+ * @param {Object} _id: brief Id
+ * @param {Object} callback
+ * @return {boolean} brief doc
+ */
+exports.getDetail = function(_id, callback) {
+	connector.findOne(anncConst.db.ANNC_DETAILS, {_id: _id}, function(db, resultDoc){
+		db.close();
+		callback(resultDoc);
+	});
+};
