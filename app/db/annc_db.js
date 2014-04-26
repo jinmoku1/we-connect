@@ -11,6 +11,7 @@ function detailToBrief(anncDetail) {
 		author : anncDetail['author'],
 		title : anncDetail['title'],
 		timeStamp : anncDetail['timeStamp'],
+		status : anncDeatil['status'],
 
 		// filtering properties
 		anncTypes : anncDetail['anncTypes'],
