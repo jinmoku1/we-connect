@@ -11,7 +11,7 @@ function detailToBrief(anncDetail) {
 		author : anncDetail['author'],
 		title : anncDetail['title'],
 		timeStamp : anncDetail['timeStamp'],
-		status : anncDeatil['status'],
+		status : anncDetail['status'],
 
 		// filtering properties
 		anncTypes : anncDetail['anncTypes'],
@@ -84,7 +84,7 @@ exports.create = function(post, callback) {
 	anncDetail.classStanding = post.classStanding;
 	anncDetail.resumeRequired = post.resumeRequired;
 	anncDetail.content = post.content;
-	anncDetail.status = post.status;
+	anncDetail.stauts = (post.status == null ? 0 : post.status );
 
 	connector.save(anncConst.db.ANNC_DETAILS, anncDetail, function(db, detailDoc) {
 		anncDetail = detailDoc;
