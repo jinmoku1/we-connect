@@ -94,3 +94,16 @@ exports.findAll = function(collection, conditionDoc, callback) {
 		});
 	});
 };
+
+exports.findAll = function(collection, conditionDoc, sortedDoc, callback) {
+	exports.connect(function(db){
+		var dbCollection = db.collection(collection);
+		dbCollection.find(conditionDoc).sort(sortedDoc).toArray(function(err, docs) {
+			if(err){
+				console.log("[ERROR] Find on \'" + collection +"\' Failed.");
+				return;
+			}
+			callback(db, docs);
+		});
+	});
+};

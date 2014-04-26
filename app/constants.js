@@ -49,6 +49,9 @@ exports.user = {
 exports.annc = {
 	PENDING				: 0,
 	ACCEPTED			: 1,
+	DECREASING			: -1,
+	INCREASING			: 1,
+	
 	db: {
 		ANNC_DETAILS	: 'anncDetails',
 		ANNC_BRIEFS		: 'anncBriefs',
