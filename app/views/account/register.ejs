@@ -46,7 +46,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-3 control-label">Interests</label>
+			<label class="col-sm-3 control-label">Interests (you can select more than one)</label>
 			<div class="col-sm-9">
 				<div class="ui-widget">
 					<input id="interests" class="form-control" data-interests="<%=interests%>">
@@ -55,6 +55,7 @@
 				<div id="interestList">					
 				</div>
 			</div>
+			<input type="hidden" name="interests">
 		</div>
 		<% if (userType == userConst.TYPE_STUDENT) { %>
 			<div class="form-group">
