@@ -121,7 +121,6 @@ exports.registerPost = function(req, res) {
 
 // Setting
 function renderSetting(req, res, error) {
-	console.log(session.getSessionUser(req));
 	res.render('profile/edit', {
 		user : session.getSessionUser(req),
 		userConst : userConst,
@@ -220,6 +219,7 @@ exports.settingChangePW = function(req, res) {
 exports.settingAdditionalInfo = function(req, res) {
 	var user = session.getSessionUser(req);
 	user.intro = req.body.intro;
+	console.log(req.body);
 	
 	var userDir = '/media/' + user._id;
 	var resumeDir = userDir + '/resume';
@@ -242,7 +242,7 @@ exports.settingAdditionalInfo = function(req, res) {
 		if (success){
 			session.setSessionUser(req, user);
 			
-			if (resume.size > 0) {
+			if (resume != null && resume.size > 0) {
 				fileData = fs.readFileSync(resume.path);
 				if (fileData == null) {
 					var error = "[ERROR] Failed to read file.";

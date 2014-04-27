@@ -40,7 +40,7 @@
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Interests</label>
-			<div class="col-sm-9">
+			<div class="col-sm-10">
 				<div class="ui-widget">
 				<input id="interests" class="form-control" data-interests="<%=interests%>" data-my-interests="<%=annc.interests%>">
 					</div>
@@ -54,7 +54,7 @@
 			<label class="col-sm-2 control-label">Required Courses</label>
 			<div class="col-sm-10">
 				<div class="ui-widget">
-					<input id="courses" class="form-control" data-courses="<%=courses%>" data-my-courses="<%=annc.coursesTaught%>">
+					<input id="courses" class="form-control" data-courses="<%=courses%>" data-my-courses="<%=annc.coursesTaken%>">
 				</div>
 				<br>
 				<div id="courseList">					
@@ -109,7 +109,7 @@
 				<div class="checkbox col-sm-6">
 					<label>
 						<input type="checkbox" name="resumeRequired" value="resumeRequired" 
-						<% if (annc.resumeRequired){ %> checked="checked" <% } %></>
+							<% if (annc.resumeRequired){ %> checked="checked" <% } %></>
 					</label>
 				</div>
 			</div>
@@ -212,18 +212,26 @@ $(function() {
     }
     
     var myCourses = $("#courses").data("myCourses").split(",");
+    var myType = $("#courses").data("myType");
+    var naming;
+    if (myType="student"){
+    	naming = "coursesTaken";
+    }
+    else {
+    	naming = "coursesTaught";
+    }
     
     for (var i in myCourses){
     	var input = myCourses[i];
     	if (coursesAdded.length!=0 && coursesAdded.length%2==0){
 			$("<br><br>").appendTo("#courseList");
 		}
-		
+    	
 		coursesAdded.push($("#courses").val());
 		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+
 			input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
 
-		innerHtml += "<input type=\"checkbox\" name=\"coursesTaken\" id=\"courseHidden"+count2+"\""+
+		innerHtml += "<input type=\"checkbox\" name=\""+naming+"\" id=\"courseHidden"+count2+"\""+
 					" checked value=\""+input+"\" style=\"display:none;\" >";
 		
 		$(innerHtml).appendTo("#courseList");
