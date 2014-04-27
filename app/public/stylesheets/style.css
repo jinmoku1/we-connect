@@ -191,6 +191,7 @@ a {
 					#sideContainer .user .top .name {
 						margin-top: .5em;
 						font-size: 120%;
+						margin-left:5px;
 					}
 					
 					#sideContainer .user .top .name a {
@@ -205,6 +206,7 @@ a {
 					#sideContainer .user .top .side .email {
 						position: absolute;
 						bottom: 1em;
+						margin-left:5px;
 					}
 					
 				#sideContainer .user .interests {
