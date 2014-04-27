@@ -56,3 +56,13 @@ exports.followings = function(req, res) {
 		});
 	});
 };
+
+exports.suggestedUsers = function(req, res) {
+	userDb.getBriefs(null, function(userBriefs) {
+		res.render('embedded/suggestedusers', {
+			userBriefs : userBriefs
+		});
+	});
+	//var user = session.getSessionUser(req);
+	//res.send(user);
+}

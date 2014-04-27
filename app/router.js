@@ -36,6 +36,7 @@ exports.route = function (app) {
 	app.get('/embedded/profile/:id', embeddedControl.profile);
 	app.get('/embedded/followings', embeddedControl.followings);
 	app.get('/embedded/followees', embeddedControl.followees);
+	app.get('/embedded/suggestedusers', embeddedControl.suggestedUsers);
 	
 	// api - used for light dynamic requests
 	app.get('/api/sample', apiControl.sample);
