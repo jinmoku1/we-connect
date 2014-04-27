@@ -155,7 +155,7 @@ exports.updateInfo = function(_id, updateDoc, callback) {
  * @return {boolean} brief doc
  */
 exports.getAnncBriefByStatus = function(status, order, callback) {
-	connector.findAll(anncConst.db.ANNC_BRIEFS, { status: status }, { timeStamp : -1 }, function(db, resultDoc){
+	connector.findAllwithConditionByOrder(anncConst.db.ANNC_BRIEFS, { status: status }, { timeStamp : -1 }, function(db, resultDoc){
 		db.close();
 		callback(resultDoc);
 	});
@@ -178,7 +178,7 @@ exports.getBrief = function(detailed_id, callback) {
  * @return {boolean} brief doc
  */
 exports.getAnncDetailByStatus = function(status, order, callback) {
-	connector.findAll(anncConst.db.ANNC_DETAILS, { status: status }, { timeStamp : -1 }, function(db, resultDoc){
+	connector.findAllwithConditionByOrder(anncConst.db.ANNC_DETAILS, { status: status }, { timeStamp : -1 }, function(db, resultDoc){
 		db.close();
 		callback(resultDoc);
 	});
