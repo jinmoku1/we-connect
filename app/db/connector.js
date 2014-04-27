@@ -113,7 +113,8 @@ exports.aggreate = function(collection, aggreCondition, callback) {
 		var dbCollection = db.collection(collection);
 		dbCollection.aggregate(aggreCondition, function(err, result) {
 			if(err) {
-				console.log("[ERROR] Aggregate on \'" + collection + "\' Failed.");
+				console.log("[ERROR] Aggregate on \'" + collection + "\' Failed.\n");
+				console.log("The detail is as below;\n" + err);
 				return
 			}
 			

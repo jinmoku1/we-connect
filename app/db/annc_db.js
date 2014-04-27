@@ -195,3 +195,88 @@ exports.getDetail = function(_id, callback) {
 		callback(resultDoc);
 	});
 };
+
+
+/**
+ * @param user Detail Object
+ */
+exports.followingAnnRecSystem = function(user, callback) {
+	var friendList = user.followings;
+	var cond = 
+		[
+	            {
+	            	$match : {"author._id" : { $in : friendList }}
+	            },
+	            {
+	                $sort : { timestamp : -1 }
+	            }
+	    ];
+	
+	connector.aggreate(anncConst.db.ANNC_BRIEFS, cond, function(db, result) {
+		db.close();
+		callback(result);
+	});
+};
+
+
+/**
+ * @param user Detail Object
+ */
+exports.AnnRecSystem = function(user, callback) {
+	var id = user.id,
+		interests = (user.interests == null ? [] : user.interests),
+		coursesTaken = (user.coursesTaken == null ? [] : user.coursesTaken),
+		overallGPA = user.overallGPA,
+		technicalGPA = user.technicalGPA,
+		classStanding = user.classStanding,
+		degree = user.degree;
+	var cond = 
+		[
+	       {
+	           $match : {"author._id" : {$ne : id }}
+	       },
+	       {
+	           $project : 
+	           {
+	               author : 1,
+	               title : 1,
+	               timestamp : 1,
+	               anncType : 1,
+	               interests : 1,
+	               content : 1,
+	               status : 1, 
+	               rank : 
+	               {
+	                   $add : 
+	                   [
+	                       { $size : {$setIntersection : [ "$interests", interests ]}},
+	                       { $size : {$setIntersection : [ "$coursesTaken", coursesTaken ]}}
+	                   ]
+	               },
+	               appliable : 
+	               {
+	                   $cond : 
+	                   [
+		                   { 
+		                       $and : 
+		                       [
+		                           {$lte : [ "$overallGPA", overallGPA ]},
+		                           {$lte : [ "$technialGPA", technicalGPA ]},
+		                           {$lte : [ "$classStanding", classStanding ]},
+		                           {$lte : [ "$degree", degree ]}
+		                       ]
+		                   }, 1, 0
+	                   ]
+	               }
+	           }
+	       },
+	       {
+	           $sort : { timestamp: -1, rank : -1 }
+	       }
+	    ];
+	
+	connector.aggreate(anncConst.db.ANNC_DETAILS, cond, function(db, result) {
+		db.close();
+		callback(result);
+	});
+};
