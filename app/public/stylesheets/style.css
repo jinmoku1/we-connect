@@ -298,7 +298,7 @@ div.tab-pane {
 	}
 
 #interestList {
-	
+	margin-left:10px;
 }
 
 	#interestList .interest{
@@ -316,7 +316,7 @@ div.tab-pane {
 	}
 	
 #courseList {
-	
+	margin-left:10px;
 }
 
 	#courseList .course{

@@ -106,7 +106,7 @@ exports.edit = function(req, res) {
 exports.editPost = function(req, res) {
 	var anncId = req.params.id;
 	var id = ObjectID.createFromHexString(anncId);
-	
+	console.log(req.body);
 	var user = session.getSessionUser(req);
 	var curtime = new Date();
 	
