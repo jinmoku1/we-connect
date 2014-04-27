@@ -239,7 +239,7 @@ exports.userRecsystem = function(user, callback) {
 	                rank : { $add: [
 	                    { $size : {$setIntersection : [ "$interests", interests]}},
 	                    { $cond : [{$eq : ["$department", department] }, 3, 0]},
-	                    { $cond : [{$eq : ["$userType", type]}, 3, 0]}
+	                    { $cond : [{$eq : ["$userType", userConst.TYPE_FACULTY]}, 3, 0]}
 	                    ]
 	                }
 	        }
