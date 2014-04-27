@@ -2,6 +2,7 @@ var constants = require('../constants');
 var userConst = constants.user;
 var session = require('../session');
 var userDb = require('../db/user_db');
+var anncDb = require('../db/annc_db');
 var fs = require('fs');
 var easyimg = require('easyimage');
 
@@ -219,7 +220,6 @@ exports.settingChangePW = function(req, res) {
 exports.settingAdditionalInfo = function(req, res) {
 	var user = session.getSessionUser(req);
 	user.intro = req.body.intro;
-	console.log(req.body);
 	var userDir = '/media/' + user._id;
 	var resumeDir = userDir + '/resume';
 	

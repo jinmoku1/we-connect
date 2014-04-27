@@ -38,6 +38,7 @@ exports.classStandings = [
 exports.user = {
 	TYPE_STUDENT	: 'student',
 	TYPE_FACULTY	: 'faculty',
+	TYPE_ADMIN		: 'admin',
 	
 	db : {
 		USER_DETAILS	: 'userDetails',
@@ -49,6 +50,7 @@ exports.user = {
 exports.annc = {
 	PENDING				: 0,
 	ACCEPTED			: 1,
+	REJECTED			: 2,
 	DECREASING			: -1,
 	INCREASING			: 1,
 	
