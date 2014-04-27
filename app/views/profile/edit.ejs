@@ -152,7 +152,8 @@
 					<label class="col-sm-3 control-label">Courses Taken</label>
 					<div class="col-sm-9">
 						<div class="ui-widget">
-							<input id="courses" class="form-control" data-courses="<%=courses%>" data-my-courses="<%=user.extension.coursesTaken%>">
+							<input id="courses" class="form-control" data-courses="<%=courses%>" 
+									data-my-courses="<%=user.extension.coursesTaken%>" data-my-type="<%=user.userType%>">
 						</div>
 						<br>
 						<div id="courseList">					
@@ -164,7 +165,8 @@
 					<label class="col-sm-3 control-label">Courses Taught</label>
 					<div class="col-sm-9">
 						<div class="ui-widget">
-							<input id="courses" class="form-control" data-courses="<%=courses%>" data-my-courses="<%=user.extension.coursesTaught%>">
+							<input id="courses" class="form-control" data-courses="<%=courses%>" 
+									data-my-courses="<%=user.extension.coursesTaught%>" data-my-type="<%=user.userType%>">
 						</div>
 						<br>
 						<div id="courseList">					
@@ -301,18 +303,26 @@ $(function() {
     }
     
     var myCourses = $("#courses").data("myCourses").split(",");
+    var myType = $("#courses").data("myType");
+    var naming;
+    if (myType="student"){
+    	naming = "coursesTaken";
+    }
+    else {
+    	naming = "coursesTaught";
+    }
     
     for (var i in myCourses){
     	var input = myCourses[i];
     	if (coursesAdded.length!=0 && coursesAdded.length%2==0){
 			$("<br><br>").appendTo("#courseList");
 		}
-		
+    	
 		coursesAdded.push($("#courses").val());
 		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+
 			input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
 
-		innerHtml += "<input type=\"checkbox\" name=\"coursesTaken\" id=\"courseHidden"+count2+"\""+
+		innerHtml += "<input type=\"checkbox\" name=\""+naming+"\" id=\"courseHidden"+count2+"\""+
 					" checked value=\""+input+"\" style=\"display:none;\" >";
 		
 		$(innerHtml).appendTo("#courseList");
@@ -338,12 +348,21 @@ $("#courses").keypress(function(e) {
     			$("<br><br>").appendTo("#courseList");
     		}
     		
+    		var myType = $("#courses").data("myType");
+    	    var naming;
+    	    if (myType="student"){
+    	    	naming = "coursesTaken";
+    	    }
+    	    else {
+    	    	naming = "coursesTaught";
+    	    }
+    		
     		coursesAdded.push($("#courses").val());
     		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+
     			input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
 
-			innerHtml += "<input type=\"checkbox\" name=\"coursesTaken\" id=\"courseHidden"+count+"\""+
-						" checked value=\""+input+"\" style=\"display:none;\" >";
+    		innerHtml += "<input type=\"checkbox\" name=\""+naming+"\" id=\"courseHidden"+count2+"\""+
+				" checked value=\""+input+"\" style=\"display:none;\" >";
 			
     		$(innerHtml).appendTo("#courseList");
     		
