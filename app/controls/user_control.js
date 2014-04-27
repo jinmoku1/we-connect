@@ -158,7 +158,7 @@ exports.settingProfile = function(req, res) {
 	var pictureDir = userDir + '/picture';
 	var profilePic = req.files.profilePic;
 	if (profilePic != null) {
-		user.profilePicUrl = pictureDir + '/' + profilePic.name;
+		user.profilePicUrl = pictureDir + '/' + user.netId;
 	}
 	
 	userDb.updateInfo(user._id, user, function(success) {
@@ -176,7 +176,8 @@ exports.settingProfile = function(req, res) {
 					fs.mkdirSync(pictureDirPath);
 				}
 				
-				var mediaPath = pictureDirPath + "/" + profilePic.name;
+				var mediaPath = pictureDirPath + "/" + user.netId;
+				console.log(mediaPath);
 				if (fs.existsSync(mediaPath)) {
 					fs.unlink(mediaPath);
 				}

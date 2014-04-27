@@ -6,8 +6,8 @@
 			<div class="panel-heading"><h2 class="panel-title">Author:</h2></div>
 			<div class="panel-body">
 				<div class="picture">
-					<% if (user.profilePicUrl != null) { %>
-						<img src="<%=author.profilePic%>" />
+					<% if (annc.author.profilePic != null) { %>
+						<img src="<%=annc.author.profilePic%>" />
 					<% } %>
 				</div>
 			</div>
@@ -249,7 +249,6 @@ $('#anncApply').click(function(){
 		},
 		success: function(data, textStatus, xhr) {
 			if (data == "true"){
-				alert("SDFKSDFSD");
 				var $apply = $('#apply');
 				$apply.parent().removeClass("validate-error");
 				$apply.css("display","none");
