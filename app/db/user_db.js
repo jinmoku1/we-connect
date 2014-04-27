@@ -211,13 +211,13 @@ exports.netIdExists = function(netId, callback) {
  */
 exports.userRecsystem = function(user, callback) {
 	//console.log(user);
-	var interests = user.interests,
+	var interests = (user.interests == null ? [] : user.interests),
 		department = user.department,
 		ids = user.followings;
 	ids.push(user._id);
 	
-	console.log("user: " + user._id);
-	console.log("IDs: " + ids);
+//	console.log("user: " + user._id);
+//	console.log("IDs: " + ids);
 	
 	var cond = [
 	    { 
