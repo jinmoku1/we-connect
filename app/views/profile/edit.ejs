@@ -305,7 +305,7 @@ $(function() {
     var myCourses = $("#courses").data("myCourses").split(",");
     var myType = $("#courses").data("myType");
     var naming;
-    if (myType="student"){
+    if (myType=="student"){
     	naming = "coursesTaken";
     }
     else {
@@ -350,12 +350,14 @@ $("#courses").keypress(function(e) {
     		
     		var myType = $("#courses").data("myType");
     	    var naming;
-    	    if (myType="student"){
+    	    
+    	    if (myType=="student"){
     	    	naming = "coursesTaken";
     	    }
     	    else {
     	    	naming = "coursesTaught";
     	    }
+    	    alert(naming);
     		
     		coursesAdded.push($("#courses").val());
     		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+

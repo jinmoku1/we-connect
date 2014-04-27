@@ -220,7 +220,6 @@ exports.settingAdditionalInfo = function(req, res) {
 	var user = session.getSessionUser(req);
 	user.intro = req.body.intro;
 	console.log(req.body);
-	
 	var userDir = '/media/' + user._id;
 	var resumeDir = userDir + '/resume';
 	
@@ -236,12 +235,13 @@ exports.settingAdditionalInfo = function(req, res) {
 	}
 	else {
 		user.extension.coursesTaught = req.body.coursesTaught;
+		console.log(user.extension.coursesTaught);
 	}
 	
 	userDb.updateInfo(user._id, user, function(success) {
 		if (success){
 			session.setSessionUser(req, user);
-			
+			console.log("DFS"+user.extension.coursesTaught);
 			if (resume != null && resume.size > 0) {
 				fileData = fs.readFileSync(resume.path);
 				if (fileData == null) {
@@ -249,7 +249,7 @@ exports.settingAdditionalInfo = function(req, res) {
 					renderSetting(req, res, error);
 					return;
 				}
-				
+					
 				// create directory
 				var userDirPath = "public" + userDir;
 				if (!fs.existsSync(userDirPath)) {
