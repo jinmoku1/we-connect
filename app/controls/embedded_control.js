@@ -58,7 +58,9 @@ exports.followers = function(req, res) {
 };
 
 exports.suggestedUsers = function(req, res) {
-	userDb.getBriefs(null, function(userBriefs) {
+	var sessionUser = session.getSessionUser(req);
+	
+	userDb.userRecsystem(sessionUser, function(userBriefs) {
 		res.render('embedded/suggestedusers', {
 			userBriefs : userBriefs
 		});

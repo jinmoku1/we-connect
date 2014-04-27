@@ -214,18 +214,23 @@ exports.netIdExists = function(netId, callback) {
  * @param type
  */
 exports.userRecsystem = function(user, callback) {
+	//console.log(user);
 	var interests = user.interests,
 		department = user.department,
 		type = user.userType,
 		ids = user.followings;
-	ids.push(_id);
+	ids.push(user._id);
+	
+	console.log("user: " + user._id);
+	console.log("IDs: " + ids);
 	
 	var cond = [
 	    { 
-	    	$match : { netId : { $nin: ids } }
+	    	$match : { detailId : { $nin: ids } }
 	    },
 	    { 
 	    	$project : {
+	    			detailId : 1,
 	    			netId : 1,
 	                firstName : 1,
 	                lastName : 1,
