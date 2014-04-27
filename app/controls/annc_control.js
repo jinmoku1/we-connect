@@ -213,7 +213,7 @@ exports.applyPost = function(req, res) {
 	
 };
 
-function sendMail(receiver, subject, text) {
+exports.sendMail = function(receiver, subject, text, html, callback) {
 	var smtpTransport = nodemailer.createTransport("SMTP",{
 	    service: "Hotmail",
 	    auth: {
@@ -224,17 +224,22 @@ function sendMail(receiver, subject, text) {
 	
 	var mailOptions = {
 	    from: "WeConnect:CS <weconnect.cs@outlook.com>",
-	    to: receiver.email,
+	    to: receiver,
 	    subject: subject,
-	    text: text
+	    text: text,
+	    html: html
 	};
 	
 	smtpTransport.sendMail(mailOptions, function(error, response){
+		result = false;
 	    if (error) {
 	        console.log(error);
-	    } else {
+	    }
+	    else {
+	    	result = true;
 	        console.log("Message sent: " + response.message);
 	    }
 		smtpTransport.close();
+		callback(result);
 	});
 };
