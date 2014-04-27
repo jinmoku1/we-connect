@@ -206,12 +206,49 @@ exports.netIdExists = function(netId, callback) {
 	});
 };
 
-exports.recSys = function(netId, callback) {
-	connector.findOne(userConst.db.USER_DETAILS, { netId : netId }, function(db, userDoc) {
-		console.log("following number: " + userDoc.followings.length);
-		
+/**
+ * @param _id  detailed ID
+ * @param ids  detail IDs' array of following (ObjectId list)
+ * @param interets 
+ * @param department
+ * @param type
+ */
+exports.userRecsystem = function(user, callback) {
+	var interests = user.interests,
+		department = user.department,
+		type = user.userType,
+		ids = user.followings;
+	ids.push(_id);
+	
+	var cond = [
+	    { 
+	    	$match : { netId : { $nin: ids } }
+	    },
+	    { 
+	    	$project : {
+	    			netId : 1,
+	                firstName : 1,
+	                lastName : 1,
+	                profilePicUrl : 1,
+	                interests : 1,
+	                rank : { $add: [
+	                    { $size : {$setIntersection : [ "$interests", interests]}},
+	                    { $cond : [{$eq : ["$department", department] }, 3, 0]},
+	                    { $cond : [{$eq : ["$userType", type]}, 3, 0]}
+	                    ]
+	                }
+	        }
+	    },
+	    { 
+	       	$sort : {rank : -1 } 
+	    },
+	    { 
+	    	$limit : 5 
+	    }
+	];
+	connector.aggreate(userConst.db.USER_BRIEFS, cond, function(db, result) {
 		db.close();
-		callback(true);
+		callback(result);
 	});
 };
 
