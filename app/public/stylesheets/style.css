@@ -99,11 +99,12 @@ a {
 			
 		}
 			
-			#archive {
+			#archive, #anncMyList {
 			
 			}
 			
-				#archive .anncList .row {
+				#archive .anncList .row,
+				#anncMyList .anncList .row {
 					padding-top:20px;
 					padding-bottom:20px;
 					border-bottom: 1px solid #ddd;
@@ -111,7 +112,8 @@ a {
 					margin-right:20px;
 				}
 				
-					#archive .anncList .row img {
+					#archive .anncList .row img,
+					#anncMyList .anncList .row img {
 						margin-top: 1em;
 						border-bottom: 1px solid #ddd;
 						width: 100px;
@@ -120,11 +122,13 @@ a {
 						border-radius: 10%;
 					}
 					
-					#archive .anncList .row .title {
+					#archive .anncList .row .title,
+					#anncMyList .anncList .row .title {
 						font-size: 2em;
 					}
 					
-					#archive .anncList .row .author {
+					#archive .anncList .row .author,
+					#anncMyList .anncList .row .author {
 						font-size: 0.8em;
 					}
 		
@@ -187,6 +191,7 @@ a {
 					#sideContainer .user .top .name {
 						margin-top: .5em;
 						font-size: 120%;
+						margin-left:5px;
 					}
 					
 					#sideContainer .user .top .name a {
@@ -201,6 +206,7 @@ a {
 					#sideContainer .user .top .side .email {
 						position: absolute;
 						bottom: 1em;
+						margin-left:5px;
 					}
 					
 				#sideContainer .user .interests {
@@ -257,7 +263,7 @@ a {
 
 
 	#anncAuthor .picture img{
-		width: 200px;
+		width: 180px;
 		height: auto;
 		background: pink;
 		border-radius: 10%;

@@ -96,6 +96,45 @@
 					</div>
 				</div>
 				<div class="tab-pane" id="anncMyList">
+					<div class="anncList">
+						<%  
+						for (var i in anncBriefs) { 
+						if (anncBriefs[i].author.netId == user.netId){
+						%>
+						<div class="row">
+							<div class="col-xs-2">
+								<img src="<%=anncBriefs[i].author.profilePic%>" />
+							</div>
+							<div class="col-xs-7">
+								<h1 class="title">
+									<a href="announcement/<%=anncBriefs[i].detailId%>"><%=anncBriefs[i].title%></a>
+									<span class="author">
+										<em><%=anncBriefs[i].author.name%></em>
+									</span>
+								</h1>
+								<p class="contentBrief">
+									<%=anncBriefs[i].contentBrief%>...
+									<span class="timeStamp">
+										<em>
+										<% var date = anncBriefs[i].timeStamp; %>
+										<%=""+date.getDate()+"/"
+											+(date.getMonth()+1)+"/"
+											+date.getFullYear()+" @ "
+											+date.getHours()+":"
+											+date.getMinutes()+":" 
+											+date.getSeconds()
+										%>
+										</em>
+									</span>
+								</p>
+								<p class="anncTypes">
+									<span class="label label-default"><%=anncBriefs[i].anncTypes%></span>
+								</p>
+							</div>
+						</div>
+						<% } 
+						} %>
+					</div>
 				</div>
 				<div class="tab-pane" id="anncBookmarked">
 					<div class="anncList">
@@ -131,7 +170,7 @@
 			</div>
 		</div>
 		<div id="sideContainer" class="col-xs-3">
-			<p>Now Loaidng...</p>
+			<p>Now Loadng...</p>
 		</div>
 	</div>
 </div>
