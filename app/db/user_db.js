@@ -205,3 +205,12 @@ exports.netIdExists = function(netId, callback) {
 		callback(userAccountDoc != null);
 	});
 };
+
+exports.recSys = function(netId, callback) {
+	connector.findOne(userConst.db.USER_DETAILS, { netId : netId }, function(db, userDoc) {
+		console.log("following number: " + userDoc.followings.length);
+		
+		db.close();
+		callback(true);
+	});
+};
