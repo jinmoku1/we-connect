@@ -20,8 +20,8 @@
 </head>
 
 <body>
-<header style="height:40px; line-height:40px; background:#eeeeee;">
-	<nav class="col-lg-6">
+<header style="height:40px; line-height:40px; background:#eeeeee;">	
+	<nav style="float:left;">
 		<a href="/" style="padding:0 .5em">WeConnect:<span style="color:red">CS</span></a>
 		<% if (user) { %>
 		<a href="/announcement/create" style="padding:0 .5em">Post Announcements</a>
@@ -29,7 +29,7 @@
 		<a href="/about" style="padding:0 .5em">About</a>
 		<a href="/support" style="padding:0 .5em">Support</a>
 	</nav>
-	<nav class="col-lg-6 text-right">
+	<nav class="text-right">
 	<% if (user) { %>
 		<span style="padding:0 .5em">
 			<span>Welcome <%=user.firstName%> <%=user.lastName%></span>
@@ -39,5 +39,4 @@
 	<% } %>
 	</nav>
 </header>
-	
-<div id="bodyContainer">
+<div id="bodyContainer" class="container" style="width:980px;">
