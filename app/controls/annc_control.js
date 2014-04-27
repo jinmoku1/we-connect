@@ -197,20 +197,35 @@ exports.unbookmark = function(req, res) {
 };
 
 exports.applyPost = function(req, res) {
+	var user = session.getSessionUser(req, user);
+	
 	var anncId = req.body.id;
+	var authorNetId = req.body.authorNetId;
 	var message = req.body.message;
+	var sendResume = req.body.sendResume;
+	
 	// db access for sending a resume
-
-	var successful = true;
-	if (successful){
-		res.writeHead(200, {"Content-Type": "text/plain"});
-		res.end("true");
-	}
-	else {
-		res.writeHead(200, {"Content-Type": "text/plain"});
-		res.end("false");
+	
+	var senderEmail = user.netId + '@illinois.edu';
+	var authorEmail = authorNetId + '@illinois.edu';
+	
+	var html = '<h1>Application to your Announcement</h1>';
+		html += '<p>Sent by : <a href="mailto:' + senderEmail + '">' + senderEmail +'</a></p>';
+		html += "<p>" + message + "</p>";
+	if (sendResume) {
+		html += "<p>" + '<a href="localhost:3000' + user.extension.resumeUrl + '">See Resume</a>' + "</p>";
 	}
 	
+	exports.sendMail(authorEmail, "Application to your Post : Title Goes Here", null, html, function(result) {
+		if (result){
+			res.writeHead(200, {"Content-Type": "text/plain"});
+			res.end("true");
+		}
+		else {
+			res.writeHead(200, {"Content-Type": "text/plain"});
+			res.end("false");
+		}
+	});
 };
 
 exports.sendMail = function(receiver, subject, text, html, callback) {
@@ -223,7 +238,7 @@ exports.sendMail = function(receiver, subject, text, html, callback) {
 	});
 	
 	var mailOptions = {
-	    from: "WeConnect:CS <weconnect.cs@outlook.com>",
+	    from: "WeConnect-CS <weconnect.cs@outlook.com>",
 	    to: receiver,
 	    subject: subject,
 	    text: text,

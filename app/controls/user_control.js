@@ -224,11 +224,13 @@ exports.settingAdditionalInfo = function(req, res) {
 	var resumeDir = userDir + '/resume';
 	
 	var resume = req.files.resume;
+	console.log(resume.size);
+	
 	if (user.userType == userConst.TYPE_STUDENT){
 		user.extension.overallGPA = req.body.overallGPA;
 		user.extension.technicalGPA = req.body.technicalGPA;
 		user.extension.coursesTaken = req.body.coursesTaken;
-		
+	
 		if (resume.size > 0) {
 			user.extension.resumeUrl = resumeDir + '/' + resume.name;
 		}
@@ -242,7 +244,7 @@ exports.settingAdditionalInfo = function(req, res) {
 		if (success){
 			session.setSessionUser(req, user);
 			console.log("DFS"+user.extension.coursesTaught);
-			if (resume != null && resume.size > 0) {
+			if (resume.size > 0) {
 				fileData = fs.readFileSync(resume.path);
 				if (fileData == null) {
 					var error = "[ERROR] Failed to read file.";

@@ -145,16 +145,23 @@
 						<div class="col-sm-9">
 							<div class="checkbox col-sm-6">
 								<label>
-									<input type="checkbox" name="sendResume" value="sendResume" <%
-									var resumeRequired = true;
-									if (resumeRequired){ %> checked="checked" <% } %></>
+									<% var resumeRequired = true;%>
+									<% if (resumeRequired) { %>
+										<input id="sendResume" type="checkbox" name="sendResume" checked="checked" /> 
+									<% } else { %>
+										<input id="sendResume" type="checkbox" name="sendResume" />
+									<% } %>
 								</label>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-9">
-							<button id="anncApply" type="button" class="btn btn-primary" data-dismiss="modal" data-annc-Id="<%=annc._id%>">Submit</button>
+							<button id="anncApply" type="button" class="btn btn-primary" data-dismiss="modal"
+								data-annc-id="<%=annc._id%>"
+								data-author-netid="<%=annc.author.netId%>">
+								Submit
+							</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 						</div>
 					</div>
@@ -232,7 +239,12 @@ $('#anncApply').click(function(){
 	$.ajax({
 		url: "/announcement/apply",
 		type: 'POST',
-		data: {id: $(this).data('anncId'), message: $("#applyMsg").val()},
+		data: {
+			id: $(this).data('anncId'),
+			message: $("#applyMsg").val(),
+			authorNetId : $(this).data('authorNetid'),
+			sendResume : $('#sendResume').prop('checked')
+		},
 		success: function(data, textStatus, xhr) {
 			if (data == "true"){
 				alert("SDFKSDFSD");
