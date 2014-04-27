@@ -219,7 +219,7 @@ exports.settingChangePW = function(req, res) {
 exports.settingAdditionalInfo = function(req, res) {
 	var user = session.getSessionUser(req);
 	user.intro = req.body.intro;
-	
+	console.log(req.body);
 	var userDir = '/media/' + user._id;
 	var resumeDir = userDir + '/resume';
 	var resume = req.files.resume;
