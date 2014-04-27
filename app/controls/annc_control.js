@@ -55,7 +55,6 @@ exports.create = function(req, res) {
 exports.createPost = function(req, res) {
 	var user = session.getSessionUser(req);
 	var curtime = new Date();
-	
 	var post = {
 		author : {
 			_id : user._id,
@@ -65,7 +64,7 @@ exports.createPost = function(req, res) {
 		},
 		title : req.body.title,
 		content : req.body.content,
-		anncType : req.body.anncType,
+		anncTypes : req.body.anncTypes,
 		interests : req.body.interests,
 		coursesTaken : req.body.coursesTaken,
 		degree : req.body.degree,

@@ -87,6 +87,7 @@ exports.create = function(post, callback) {
 	userDetail.lastName = post.lastName;
 	userDetail.interests = [].concat(post.interests);
 	userDetail.department = post.department;
+	userDetail.intro = post.intro;
 
 	switch (post.userType) {
 	case userConst.TYPE_STUDENT:
