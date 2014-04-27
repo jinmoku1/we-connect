@@ -211,11 +211,12 @@ exports.applyPost = function(req, res) {
 	
 	var html = '<h1>Application to your Announcement</h1>';
 		html += '<p>Sent by : <a href="mailto:' + senderEmail + '">' + senderEmail +'</a></p>';
-		html += "<p>" + message + "</p>";
+		html += '<p>' + message + '</p>';
 	if (sendResume) {
-		html += "<p>" + '<a href="localhost:3000' + user.extension.resumeUrl + '">See Resume</a>' + "</p>";
+		html += '<p>' + '<a href="http://localhost:3000' + user.extension.resumeUrl + '">See Resume</a>' + '</p>';
 	}
 	
+	console.log(html);
 	exports.sendMail(authorEmail, "Application to your Post : Title Goes Here", null, html, function(result) {
 		if (result){
 			res.writeHead(200, {"Content-Type": "text/plain"});
