@@ -139,7 +139,6 @@ exports.setting = function(req, res) {
 };
 
 exports.settingProfile = function(req, res) {
-	console.log(req.body);
 	//update object in the session
 	var user = session.getSessionUser(req);
 	user.firstName = req.body.firstName;

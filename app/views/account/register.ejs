@@ -46,7 +46,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-3 control-label">Interests (you can select more than one)</label>
+			<label class="col-sm-3 control-label">Interests</label>
 			<div class="col-sm-9">
 				<div class="ui-widget">
 					<input id="interests" class="form-control" data-interests="<%=interests%>">
@@ -55,7 +55,6 @@
 				<div id="interestList">					
 				</div>
 			</div>
-			<input type="hidden" name="interests">
 		</div>
 		<% if (userType == userConst.TYPE_STUDENT) { %>
 			<div class="form-group">
@@ -111,24 +110,30 @@ $("#interests").keypress(function(e) {
     if(e.which == 13) {
     	event.preventDefault();
     	
-    	if ( $("#interests").data("interests").split(",").indexOf($("#interests").val()) < 0 || 
-    			(interestsAdded.length > 0 && interestsAdded.indexOf($("#interests").val()) >= 0) ){
+    	var input = $("#interests").val();
+    	if ( $("#interests").data("interests").split(",").indexOf(input) < 0 || 
+    			(interestsAdded.length > 0 && interestsAdded.indexOf(input) >= 0) ){
     	}
     	else {
     		if (interestsAdded.length!=0 && interestsAdded.length%3==0){
     			$("<br><br>").appendTo("#interestList");
     		}
     		
-    		interestsAdded.push($("#interests").val());
+    		interestsAdded.push(input);
+    		
     		var innerHtml = "<span id=\"interestSelected"+count+"\" class=\"label label-default interest\" >"+
-    		$("#interests").val()+"<span id=\"interestDelete"+count+"\" class=\"badge\">X</span></span>";
+    			input+"<span id=\"interestDelete"+count+"\" class=\"badge\">X</span></span>";
 
+			innerHtml += "<input type=\"checkbox\" name=\"interests\" id=\"interestHidden"+count+"\""+
+						" checked value=\""+input+"\" style=\"display:none;\" >";
+			
     		$(innerHtml).appendTo("#interestList");
     		
     		$("#interestDelete"+count).data("count", count);
     		$("#interestDelete"+count).click(function(){
     			var c = $(this).data("count");
     			$("#interestSelected"+c).remove();
+    			$("#interestHidden"+c).remove();
     		});
     		count++;
     	}
@@ -148,7 +153,7 @@ jQuery.validator.addMethod("isValidName",
     },
     jQuery.validator.format("Only alphabets are allowed for names.")
 );
-	
+
 $('#signupForm').validate({
 	rules: {
 		netId: {
