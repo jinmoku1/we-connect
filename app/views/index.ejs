@@ -34,11 +34,11 @@
 				<% } %>
 			</p>
 			<div class="buttons">
-				<a class="btn btn-lgray btn-xs" data-toggle="modal" href="/embedded/followees" data-target="#followeesModal">
-					Followings <span id="followeeCount" class="badge"><%=user.followees.length%></span>
-				</a>
 				<a class="btn btn-lgray btn-xs" data-toggle="modal" href="/embedded/followings" data-target="#followingsModal">
-					Followers <span class="badge"><%=user.followings.length%></span>
+					Followings <span id="followingCount" class="badge"><%=user.followings.length%></span>
+				</a>
+				<a class="btn btn-lgray btn-xs" data-toggle="modal" href="/embedded/followers" data-target="#followersModal">
+					Followers <span class="badge"><%=user.followers.length%></span>
 				</a>
 			</div>
 		</div>
@@ -47,7 +47,7 @@
 		<div id="mainContainer" class="col-xs-9">
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#anncRecList" data-toggle="tab">Announcements</a></li>
-				<li><a href="#anncFollowingList" data-toggle="tab">Followings</a></li>
+				<li><a href="#anncFollowerList" data-toggle="tab">Followings</a></li>
 				<li><a href="#archive" data-toggle="tab">Archive</a></li>
 				<li><a href="#anncMyList" data-toggle="tab">My Announcements</a></li>
 				<li><a href="#anncBookmarked" data-toggle="tab">Bookmarks</a></li>
@@ -55,7 +55,7 @@
 			<div class="tab-content">
 				<div class="tab-pane active" id="anncRecList">
 				</div>
-				<div class="tab-pane" id="anncFollowingList">
+				<div class="tab-pane" id="anncFollowerList">
 				</div>
 				<div class="tab-pane" id="archive">
 					<div class="anncList">
@@ -159,14 +159,6 @@
 	</div>
 </div>
 
-<!-- Followees Modal -->
-<div class="modal fade" id="followeesModal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-		</div>
-	</div>
-</div>
-
 <!-- Followings Modal -->
 <div class="modal fade" id="followingsModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
@@ -175,8 +167,16 @@
 	</div>
 </div>
 
-<!-- User Followee list modal -->
-<div class="modal fade" id="userFolloweeListModal" tabindex="-1" role="dialog" aria-labelledby="userFolloweeListModal" aria-hidden="true">
+<!-- Followers Modal -->
+<div class="modal fade" id="followersModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
+
+<!-- User Following list modal -->
+<div class="modal fade" id="userFollowingListModal" tabindex="-1" role="dialog" aria-labelledby="userFollowingListModal" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 		</div>
@@ -193,7 +193,7 @@ function updateSuggestedUsers() {
 
 function onToggleFollow(targetId) {
 	$.post('/api/follow', { id : targetId }, function(sessionUser) {
-		$('#followeeCount').html(sessionUser.followees.length);
+		$('#followingCount').html(sessionUser.followings.length);
 		$('#' + targetId).fadeOut('fast');
 		$('.modal').modal('hide');
 

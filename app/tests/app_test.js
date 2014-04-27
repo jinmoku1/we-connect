@@ -1,9 +1,9 @@
 /**
- * You must have installed mocha in global level, use following commands to do so:
+ * You must have installed mocha in global level, use follower commands to do so:
  * 
  * 	sudo npm install -g mocha
  * 
- * Then you can run the test with following command:
+ * Then you can run the test with follower command:
  * 
  * 	mocha tests/sample.js
  * 

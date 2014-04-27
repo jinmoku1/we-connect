@@ -43,8 +43,8 @@ function schema(userType) {
 			interests		: [],
 
 			// operations
+			followers		: [],
 			followings		: [],
-			followees		: [],
 			bookmarkedAnncs	: [],
 			appliedAnncs	: [],
 

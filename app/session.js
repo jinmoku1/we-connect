@@ -22,11 +22,11 @@ exports.getSessionUser = function(req) {
 		sessionUser._id = ObjectID.createFromHexString(sessionUser._id);
 		sessionUser.briefId = ObjectID.createFromHexString(sessionUser.briefId);
 		console.log(sessionUser);
+		for (var i in sessionUser.followers) {
+			sessionUser.followers[i] = ObjectID.createFromHexString(sessionUser.followers[i]);
+		}
 		for (var i in sessionUser.followings) {
 			sessionUser.followings[i] = ObjectID.createFromHexString(sessionUser.followings[i]);
-		}
-		for (var i in sessionUser.followees) {
-			sessionUser.followees[i] = ObjectID.createFromHexString(sessionUser.followees[i]);
 		}
 		
 		return sessionUser;

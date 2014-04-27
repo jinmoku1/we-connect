@@ -1,9 +1,9 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	<% if (isFollowees) { %>
-		<h4 class="modal-title">My Followees</h1>
-	<% } else { %>
+	<% if (isFollowings) { %>
 		<h4 class="modal-title">My Followings</h1>
+	<% } else { %>
+		<h4 class="modal-title">My Followers</h1>
 	<% } %>
 </div>
 
@@ -36,7 +36,7 @@
 						</div>
 					</div>
 					<div class="col-md-2">
-						<% if (isFollowees) { %>
+						<% if (isFollowings) { %>
 							<button type="button" class="btn btn-warning" onclick="onToggleFollow('<%=userBriefs[i].detailId%>')">
 								Unfollow
 							</button>
@@ -46,10 +46,10 @@
 			</div>
 		<% } %>
 	<% } else { %>
-		<% if (isFollowees) { %>
-			<p class="text-center">No Followees</p>
-		<% } else { %>
+		<% if (isFollowings) { %>
 			<p class="text-center">No Followings</p>
+		<% } else { %>
+			<p class="text-center">No Followers</p>
 		<% } %>
 	<% } %>
 </div>
