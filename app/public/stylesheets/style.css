@@ -1,4 +1,5 @@
 body {
+	min-width: 980px;
 	font: 14px 'Nexa_Light', Helvetica, Arial, sans-serif;
 	overflow-y: scroll;
 }
@@ -44,12 +45,12 @@ a {
 	}
 	
 		#pictureContainer {
-			height: 220px;
+			height: 200px;
 		}
 		
 			#pictureContainer .picture {
 				margin: auto;
-				width: 220px;
+				width: 200px;
 				height: inherit;
 				background: pink;
 				border-radius: 10%;
@@ -67,7 +68,7 @@ a {
 			}
 		
 		#profileContainer {
-			height: 220px;
+			height: 200px;
 			position: relative;
 		}
 		
@@ -242,7 +243,7 @@ a {
 
 /* Announcement Page*/
 .createAnncTitle {
-	text-align:right;
+	text-align:left;
 	margin-bottom:30px;
 }
 
