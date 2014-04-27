@@ -60,7 +60,7 @@ function schema(userType) {
 			overallGPA		: 0,
 			degree			: null,
 			classStanding	: null,
-			courseTaken		: [],
+			coursesTaken		: [],
 			resumeUrl		: null,
 			anncPrefenreces	: [],
 			resumeUrl		: null,
@@ -69,7 +69,7 @@ function schema(userType) {
 	case userConst.TYPE_FACULTY:
 		userDetail.extension = {
 			websiteUrl		: null,
-			courseTaught	: [],
+			coursesTaught	: [],
 	};
 		break;
 	}

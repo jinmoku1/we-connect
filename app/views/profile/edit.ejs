@@ -152,7 +152,7 @@
 					<label class="col-sm-3 control-label">Courses Taken</label>
 					<div class="col-sm-9">
 						<div class="ui-widget">
-							<input id="courses" class="form-control" data-courses="<%=courses%>" data-my-courses="<%=user.courses%>">
+							<input id="courses" class="form-control" data-courses="<%=courses%>" data-my-courses="<%=user.extension.coursesTaken%>">
 						</div>
 						<br>
 						<div id="courseList">					
@@ -163,27 +163,12 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Courses Taught</label>
 					<div class="col-sm-9">
-					<% for (var i in courses) { %>
-						<div class="checkbox col-sm-6">
-							<label>
-								<%
-								var exists = 0;
-								for (var j in user.extension.coursesTaught){
-									if (user.extension.coursesTaught[j] == courses[i]){
-										exists = 1;
-										break;
-									}
-								}
-								if (exists){ %>
-									<input type="checkbox" name="coursesTaught" value="<%=courses[i]%>" checked="checked"/>
-									<%=courses[i]%>
-								<% } else { %>
-									<input type="checkbox" name="coursesTaught" value="<%=courses[i]%>" />
-									<%=courses[i]%>
-								<% } %>
-							</label>
+						<div class="ui-widget">
+							<input id="courses" class="form-control" data-courses="<%=courses%>" data-my-courses="<%=user.extension.coursesTaught%>">
 						</div>
-					<% } %>
+						<br>
+						<div id="courseList">					
+						</div>
 					</div>
 				</div>
 				<% } %>
@@ -316,6 +301,7 @@ $(function() {
     }
     
     var myCourses = $("#courses").data("myCourses").split(",");
+    
     for (var i in myCourses){
     	var input = myCourses[i];
     	if (coursesAdded.length!=0 && coursesAdded.length%2==0){
@@ -326,18 +312,17 @@ $(function() {
 		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+
 			input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
 
-		innerHtml += "<input type=\"checkbox\" name=\"coursesTaken\" id=\"courseHidden"+count+"\""+
+		innerHtml += "<input type=\"checkbox\" name=\"coursesTaken\" id=\"courseHidden"+count2+"\""+
 					" checked value=\""+input+"\" style=\"display:none;\" >";
 		
 		$(innerHtml).appendTo("#courseList");
-		
-		$("#courseDelete"+count).data("count", count2);
-		$("#courseDelete"+count).click(function(){
+		$("#courseDelete"+count2).data("count", count2);
+		$("#courseDelete"+count2).click(function(){
 			var c = $(this).data("count");
 			$("#courseSelected"+c).remove();
 			$("#courseHidden"+c).remove();
 		});
-		count++;
+		count2++;
     }
 });
 
