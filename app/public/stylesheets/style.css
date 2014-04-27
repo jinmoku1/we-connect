@@ -300,7 +300,7 @@ div.tab-pane {
 	}
 
 #interestList {
-	
+	margin-left:10px;
 }
 
 	#interestList .interest{
@@ -318,7 +318,7 @@ div.tab-pane {
 	}
 	
 #courseList {
-	
+	margin-left:10px;
 }
 
 	#courseList .course{
@@ -334,3 +334,45 @@ div.tab-pane {
 		margin-left:10px;
 		cursor: pointer;
 	}
+	
+#adminContainer {
+	
+}
+
+	#approveBox {
+		padding-top:20px;
+	}
+	
+		#approveBox button{
+			width:100px;
+			height:40px;
+			line-height:16px;
+			vertical-align:center;
+			font-size:16px;
+			margin-bottom:5px;
+		}
+			
+	#adminContainer .anncList .row {
+		padding-top:20px;
+		padding-bottom:20px;
+		border-bottom: 1px solid #ddd;
+		margin-left:20px;
+		margin-right:20px;
+	}
+	
+		#adminContainer .anncList .row img {
+			margin-top: 1em;
+			border-bottom: 1px solid #ddd;
+			width: 100px;
+			height: 100px;
+			background-color: #dfdfdf;
+			border-radius: 10%;
+		}
+		
+		#adminContainer .anncList .row .title {
+			font-size: 2em;
+		}
+		
+		#adminContainer .anncList .row .author {
+			font-size: 0.8em;
+		}

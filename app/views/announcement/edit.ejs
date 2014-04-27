@@ -22,13 +22,13 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Announcement Type</label>
 			<div class="col-sm-10">
-				<select id="department" class="form-control" name="anncType" required>
+				<select id="department" class="form-control" name="anncTypes" required>
 				<% for (var i in anncTypes) { %>
 					<option value="<%=anncTypes[i]%>"><%=anncTypes[i]%></option>
 				<% } %>
 				
 				<% for (var i in anncTypes) { 
-					if (annc.anncType == anncTypes[i]){
+					if (annc.anncTypes == anncTypes[i]){
 					%>
 					<option value="<%=anncTypes[i]%>" selected><%=anncTypes[i]%></option>
 					<%
@@ -41,23 +41,26 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Interests</label>
 			<div class="col-sm-10">
-				<div class="ui-widget">
-				<input id="interests" class="form-control" data-interests="<%=interests%>" data-my-interests="<%=annc.interests%>">
+				<div class="row">
+					<div class="ui-widget col-sm-10">
+						<input id="interests" class="form-control" data-interests="<%=interests%>" data-my-interests="<%=annc.interests%>">
 					</div>
-					<br>
-					<div id="interestList">					
-					</div>
+				</div>
+				<br>
+				<div id="interestList" class="row">					
 				</div>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Required Courses</label>
 			<div class="col-sm-10">
-				<div class="ui-widget">
-					<input id="courses" class="form-control" data-courses="<%=courses%>" data-my-courses="<%=annc.coursesTaken%>">
+			 	<div class="row">
+					<div class="ui-widget col-sm-10">
+						<input id="courses" class="form-control" data-courses="<%=interests%>" data-my-courses="<%=annc.coursesTaken%>">
+					</div>
 				</div>
 				<br>
-				<div id="courseList">					
+				<div id="courseList" class="row">					
 				</div>
 			</div>
 		</div>
@@ -73,7 +76,7 @@
 				} else{ %>
 					<option value="<%=degrees[i]%>"><%=degrees[i]%></option>
 				<% } }%>
-			</select>
+				</select>
 			</div>
 		</div>
 		<div class="form-group">
@@ -212,14 +215,6 @@ $(function() {
     }
     
     var myCourses = $("#courses").data("myCourses").split(",");
-    var myType = $("#courses").data("myType");
-    var naming;
-    if (myType="student"){
-    	naming = "coursesTaken";
-    }
-    else {
-    	naming = "coursesTaught";
-    }
     
     for (var i in myCourses){
     	var input = myCourses[i];
@@ -231,7 +226,7 @@ $(function() {
 		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+
 			input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
 
-		innerHtml += "<input type=\"checkbox\" name=\""+naming+"\" id=\"courseHidden"+count2+"\""+
+		innerHtml += "<input type=\"checkbox\" name=\"coursesTaken\" id=\"courseHidden"+count2+"\""+
 					" checked value=\""+input+"\" style=\"display:none;\" >";
 		
 		$(innerHtml).appendTo("#courseList");
@@ -259,12 +254,12 @@ $("#courses").keypress(function(e) {
     		
     		coursesAdded.push($("#courses").val());
     		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+
-    			input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
+				input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
 
-			innerHtml += "<input type=\"checkbox\" name=\"coursesTaken\" id=\"courseHidden"+count+"\""+
-						" checked value=\""+input+"\" style=\"display:none;\" >";
-			
-    		$(innerHtml).appendTo("#courseList");
+			innerHtml += "<input type=\"checkbox\" name=\"coursesTaken\" id=\"courseHidden"+count2+"\""+
+				" checked value=\""+input+"\" style=\"display:none;\" >";
+		
+			$(innerHtml).appendTo("#courseList");
     		
     		$("#courseDelete"+count).data("count", count2);
     		$("#courseDelete"+count).click(function(){
@@ -273,6 +268,7 @@ $("#courses").keypress(function(e) {
     			$("#courseHidden"+c).remove();
     		});
     		count++;
+    		alert($("#announceForm").serialize());
     	}
     }
 });

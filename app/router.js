@@ -7,6 +7,7 @@ var apiControl	= require('./controls/api_control');
 var userControl	= require('./controls/user_control');
 var embeddedControl = require('./controls/embedded_control');
 var anncControl = require('./controls/annc_control');
+var adminControl = require('./controls/admin_control');
 
 exports.route = function (app) {
 	// main
@@ -53,4 +54,6 @@ exports.route = function (app) {
 	app.post('/announcement/delete', anncControl.deletePost);
 	app.post('/announcement/apply', anncControl.applyPost);
 
+	app.post('/admin/approve', adminControl.approve);
+	app.post('/admin/disapprove', adminControl.disapprove);
 };
