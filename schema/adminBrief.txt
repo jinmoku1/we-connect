@@ -1,0 +1,11 @@
+{
+    "_id" : ObjectId("535c916a0cf98bf2c774f398"),
+    "detailId" : ObjectId("535c8f8d0cf98bf2c774f396"),
+    "netId" : "admin",
+    "firstName" : "Laura",
+    "lastName" : "Kim",
+    "department" : null,
+    "userType" : null,
+    "interests" : [],
+    "profilePicUrl" : null
+}

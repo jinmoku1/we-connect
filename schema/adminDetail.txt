@@ -1,0 +1,17 @@
+{
+    "_id" : ObjectId("535c8f8d0cf98bf2c774f396"),
+    "briefId" : ObjectId("535c916a0cf98bf2c774f398"),
+    "netId" : "admin",
+    "firstName" : "Laura",
+    "lastName" : "Kim",
+    "profilePicUrl" : null,
+    "intro" : null,
+    "userType" : "admin",
+    "department" : null,
+    "interests" : [],
+    "followings" : [],
+    "followees" : [],
+    "bookmarkedAnncs" : [],
+    "appliedAnncs" : [],
+    "extension" : null
+}
