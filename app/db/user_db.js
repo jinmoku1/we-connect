@@ -1,6 +1,8 @@
 var userConst = require('../constants').user;
 var connector = require('./connector');
 
+var ObjectID = require('mongodb').ObjectID;
+
 //--------------- Utility Functions --------------- //
 
 function detailToBrief(userDetail) {
@@ -211,13 +213,11 @@ exports.netIdExists = function(netId, callback) {
  */
 exports.userRecsystem = function(user, callback) {
 	//console.log(user);
-	var interests = user.interests,
+	var interests = (user.interests == null ? [] : user.interests),
 		department = user.department,
 		ids = user.followings;
 	ids.push(user._id);
-	
-	console.log("user: " + user._id);
-	console.log("IDs: " + ids);
+	ids.push(ObjectID.createFromHexString("535c8f8d0cf98bf2c774f396"));
 	
 	var cond = [
 	    { 
