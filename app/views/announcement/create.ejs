@@ -1,9 +1,7 @@
 <%- include ../partials/header.ejs %>
 
 <div class="col-sm-6 col-sm-offset-3">
-	<div class="col-sm-offset-2 col-sm-10">
-		<h1 class="createAnncTitle"><%=title%></h1>
-	</div>
+	<h1 class="createAnncTitle"><%=title%></h1>
 	<form id="announceForm" class="form-horizontal" method="post">
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="title">Title</label>
@@ -92,9 +90,9 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
+			<div class="col-sm-offset-9 col-sm-3">
 				<button type="submit" class="btn btn-primary">Submit</button>
-				<a href="/" class="btn btn-warning">Cancel</a>
+				<a href="/" class="btn btn-default">Cancel</a>
 			</div>
 		</div>
 	</form>

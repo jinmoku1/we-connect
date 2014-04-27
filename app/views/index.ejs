@@ -1,15 +1,23 @@
 <%- include partials/header.ejs %>
-
-<div class="col-sm-10 col-sm-offset-1">
 	<div id="topContainer" class="row">
+<<<<<<< HEAD
 		<div id="pictureContainer" class="col-md-3">
 			<div class="picture">
 			<% if (user.profilePicUrl != null) { %>
 				<img src="<%=user.profilePicUrl%>" />
 			<% } %>
+=======
+		<div class="col-xs-3">
+			<div id="pictureContainer">
+				<div class="picture">
+				<% if (user.profilePicUrl != null) { %>
+					<img src="<%=user.profilePicUrl%>" />
+				<% } %>
+				</div>
+>>>>>>> 49d99fe89f31acbdafcecf01d3d6a09a8078ceb1
 			</div>
 		</div>
-		<div id="profileContainer" class="col-md-9">
+		<div id="profileContainer" class="col-xs-9">
 			<h1 class="name">
 				<%=user.firstName%>
 				<%=user.lastName%>
@@ -34,18 +42,17 @@
 				<% } %>
 			</p>
 			<div class="buttons">
-				<a class="btn btn-lgray" data-toggle="modal" href="/embedded/followees" data-target="#followeesModal">
+				<a class="btn btn-lgray btn-sm" data-toggle="modal" href="/embedded/followees" data-target="#followeesModal">
 					Followees <span id="followeeCount" class="badge"><%=user.followees.length%></span>
 				</a>
-				<a class="btn btn-lgray" data-toggle="modal" href="/embedded/followings" data-target="#followingsModal">
+				<a class="btn btn-lgray btn-sm" data-toggle="modal" href="/embedded/followings" data-target="#followingsModal">
 					Followings <span class="badge"><%=user.followings.length%></span>
 				</a>
 			</div>
 		</div>
 	</div>
-
 	<div id="bottomContainer" class="row">
-		<div id="mainContainer" class="col-md-9">
+		<div id="mainContainer" class="col-xs-9">
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#anncRecList" data-toggle="tab">Announcements</a></li>
 				<li><a href="#anncFollowingList" data-toggle="tab">Followings</a></li>
@@ -63,10 +70,10 @@
 						<%  
 						for (var i in anncBriefs) { %>
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-xs-2">
 								<img src="<%=anncBriefs[i].author.profilePic%>" />
 							</div>
-							<div class="col-md-7">
+							<div class="col-xs-7">
 								<h1 class="title">
 									<a href="announcement/<%=anncBriefs[i].detailId%>"><%=anncBriefs[i].title%></a>
 									<span class="author">
@@ -106,10 +113,10 @@
 						<%  
 						for (var i in user.bookmarkedAnncs) { %>
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-xs-2">
 								<img src="<%=user.bookmarkedAnncs[i].author.profilePic%>" />
 							</div>
-							<div class="col-md-7">
+							<div class="col-xs-7">
 								<h1 class="title">
 									<a href="announcement/<%=user.bookmarkedAnncs[i].detailId%>"><%=user.bookmarkedAnncs[i].title%></a>
 									<span class="author">
@@ -137,19 +144,19 @@
 				</div>
 			</div>
 		</div>
-		<div id="sideContainer" class="col-md-3">
+		<div id="sideContainer" class="col-xs-3">
 			<h3 class="header-side">Suggested Users</h3>
 			<% for (var i in userBriefs) { %>
 				<div class="user" id="<%=userBriefs[i].detailId%>">
 					<div class="top row">
-						<div class="col-md-4">
+						<div class="col-xs-4">
 							<div class="picture">
 							<% if (userBriefs[i].profilePicUrl != null) { %>
 								<img src="<%=userBriefs[i].profilePicUrl%>" />
 							<% } %>
 							</div>
 						</div>
-						<div class="side col-md-8">
+						<div class="side col-xs-8">
 							<p class="name">
 								<a data-toggle="modal" href="/embedded/profile/<%=userBriefs[i].detailId%>" data-target="#userProfileModal">
 									<%=userBriefs[i].firstName%></br /><%=userBriefs[i].lastName%>
@@ -173,6 +180,7 @@
 		</div>
 	</div>
 </div>
+
 <!-- Full Intro Modal -->
 <div class="modal fade" id="fullIntroModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">

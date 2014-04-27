@@ -7,6 +7,7 @@ var userDb = require('../db/user_db');
 var anncDb = require('../db/annc_db');
 var ObjectID = require('mongodb').ObjectID;
 var constants = require('../constants');
+var nodemailer = require("nodemailer");
 
 exports.detail = function(req, res) {
 	var user = session.getSessionUser(req);
@@ -210,4 +211,30 @@ exports.applyPost = function(req, res) {
 		res.end("false");
 	}
 	
+};
+
+function sendMail(receiver, subject, text) {
+	var smtpTransport = nodemailer.createTransport("SMTP",{
+	    service: "Hotmail",
+	    auth: {
+	        user: "weconnect.cs@outlook.com",
+	        pass: "jinmoku1"
+	    }
+	});
+	
+	var mailOptions = {
+	    from: "WeConnect:CS <weconnect.cs@outlook.com>",
+	    to: receiver.email,
+	    subject: subject,
+	    text: text
+	};
+	
+	smtpTransport.sendMail(mailOptions, function(error, response){
+	    if (error) {
+	        console.log(error);
+	    } else {
+	        console.log("Message sent: " + response.message);
+	    }
+		smtpTransport.close();
+	});
 };
