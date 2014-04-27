@@ -107,3 +107,17 @@ exports.findAllwithConditionByOrder = function(collection, conditionDoc, sortedD
 		});
 	});
 };
+
+exports.aggreate = function(collection, aggreCondition, callback) {
+	exports.connect(function(db) {
+		var dbCollection = db.collection(collection);
+		dbCollection.aggregate(aggreCondition, function(err, result) {
+			if(err) {
+				console.log("[ERROR] Aggregate on \'" + collection + "\' Failed.");
+				return
+			}
+			
+			callback(db, result);
+		});
+	});
+};
