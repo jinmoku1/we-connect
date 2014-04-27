@@ -1,0 +1,32 @@
+<h3 class="header-side">Suggested Users</h3>
+<% for (var i in userBriefs) { %>
+    <div class="user" id="<%=userBriefs[i].detailId%>">
+        <div class="top row">
+            <div class="col-xs-4">
+                <div class="picture">
+                <% if (userBriefs[i].profilePicUrl != null) { %>
+                    <img src="<%=userBriefs[i].profilePicUrl%>" />
+                <% } %>
+                </div>
+            </div>
+            <div class="side col-xs-8">
+                <p class="name">
+                    <a data-toggle="modal" href="/embedded/profile/<%=userBriefs[i].detailId%>" data-target="#userProfileModal">
+                        <%=userBriefs[i].firstName%></br /><%=userBriefs[i].lastName%>
+                    </a>
+                </p>
+                <div class="email">
+                    <a href="mailto:<%=userBriefs[i].netId%>@illinois.edu">
+                        <em><%=userBriefs[i].netId%>@illinois.edu</a>
+                    </em>
+                </div>
+            </div>
+        </div>
+        <div class="interests">
+            <span class="label label-info">Software Engineering</span>
+            <span class="label label-info">Data Mining</span>
+            <span class="label label-info">Computer Architecture</span>
+            <span class="label label-info">Database</span>
+        </div>
+    </div>
+<% } %>

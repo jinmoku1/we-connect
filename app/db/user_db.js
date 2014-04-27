@@ -214,3 +214,33 @@ exports.recSys = function(netId, callback) {
 		callback(true);
 	});
 };
+
+/*
+db.userBriefs.aggregate(
+    [
+        { $match : { 
+            netId : { $nin: ['scha3', 'slee1', 'faculty1']}
+        }},
+        
+        { $project : {
+            netId : 1,
+            firstName : 1,
+            lastName : 1,
+            profilePicUrl : 1,
+            interests : 1,
+            rank : { $add: [
+                { $size : {$setIntersection : [ "$interests", ["Software Engineering"]]}},
+                { $cond : [{$eq : ["$department", "CS"] }, 3, 0]},
+                { $cond : [{$eq : ["$userType", "faculty"]}, 3, 0]}
+                ]
+            }
+        }},
+        { $sort : {
+            rank : -1
+        }},
+        { $limit : 5
+        }
+    ]
+)
+*/
+
