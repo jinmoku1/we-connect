@@ -12,6 +12,16 @@ a.btn-lgray {
 	background-color:#eee;
 }
 
+.tall{
+    height:90%;
+}
+
+.vcenter-login {
+    position: relative;
+    top: 25%;
+    transform: translateY(-50%);
+}
+
 @font-face {
     font-family: 'Archive';
     src: url("../fonts/Archive.otf") format("opentype");
@@ -26,3 +36,4 @@ a.btn-lgray {
     font-family: 'Nexa_Light';
     src: url("../fonts/Nexa_Light.otf") format("opentype");
 }
+
