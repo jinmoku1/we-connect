@@ -6,7 +6,9 @@
 			<div class="panel-heading"><h2 class="panel-title">Author:</h2></div>
 			<div class="panel-body">
 				<div class="picture">
-					<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
+					<% if (user.profilePicUrl != null) { %>
+						<img src="<%=author.profilePic%>" />
+					<% } %>
 				</div>
 			</div>
 			<div class="panel-footer">
