@@ -17,9 +17,14 @@ a.btn-lgray {
 }
 
 .vcenter-login {
-    position: relative;
-    top: 25%;
+    position: absolute;
+    top: 50%;
     transform: translateY(-50%);
+}
+
+.container{
+  max-width: none !important;
+  width: 1080px;
 }
 
 @font-face {
