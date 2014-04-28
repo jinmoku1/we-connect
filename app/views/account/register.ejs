@@ -88,7 +88,7 @@
 		<div class="form-group">
 			<div class="col-sm-offset-3 col-sm-9">
 				<input type="hidden" name="intro" value="You can edit this introduction.">
-				<button type="submit" class="btn btn-primary">Sign Up</button>
+				<button id="signupFormBtn" type="submit" class="btn btn-primary">Sign Up</button>
 			</div>
 		</div>
 	</form>
@@ -107,38 +107,53 @@ $(function() {
 
 var count = 1;
 var interestsAdded = [];
-$("#interests").keypress(function(e) {
-    if(e.which == 13) {
-    	event.preventDefault();
-    	
-    	var input = $("#interests").val();
-    	if ( $("#interests").data("interests").split(",").indexOf(input) < 0 || 
-    			(interestsAdded.length > 0 && interestsAdded.indexOf(input) >= 0) ){
-    	}
-    	else {
-    		if (interestsAdded.length!=0 && interestsAdded.length%3==0){
-    			$("<br><br>").appendTo("#interestList");
-    		}
-    		
-    		interestsAdded.push(input);
-    		
-    		var innerHtml = "<span id=\"interestSelected"+count+"\" class=\"label label-default interest\" >"+
-    			input+"<span id=\"interestDelete"+count+"\" class=\"badge\">X</span></span>";
+$(document).ready(function(){
+	
+	document.getElementById("signupForm").onsubmit = function () {
+	    return false;
+	};
+	
+	$("#signupFormBtn").click(function(){
+		document.getElementById("signupForm").onsubmit = function () {
+		    return true;
+		};
+		$("#signupForm").submit();
+	});
+	
+    $("#interests").keypress(function(e) {
+    	var code = e.charCode || e.keyCode;
+		if(code == 13) {  
+			e.preventDefault();
+			var input = $("#interests").val();
+	    	if ( $("#interests").data("interests").split(",").indexOf(input) < 0 || 
+	    			(interestsAdded.length > 0 && interestsAdded.indexOf(input) >= 0) ){
+	    	}
+	    	else {
+	    		if (interestsAdded.length!=0 && interestsAdded.length%3==0){
+	    			$("<br><br>").appendTo("#interestList");
+	    		}
+	    		
+	    		interestsAdded.push(input);
+	    		
+	    		var innerHtml = "<span id=\"interestSelected"+count+"\" class=\"label label-default interest\" >"+
+	    			input+"<span id=\"interestDelete"+count+"\" class=\"badge\">X</span></span>";
 
-			innerHtml += "<input type=\"checkbox\" name=\"interests\" id=\"interestHidden"+count+"\""+
-						" checked value=\""+input+"\" style=\"display:none;\" >";
-			
-    		$(innerHtml).appendTo("#interestList");
-    		
-    		$("#interestDelete"+count).data("count", count);
-    		$("#interestDelete"+count).click(function(){
-    			var c = $(this).data("count");
-    			$("#interestSelected"+c).remove();
-    			$("#interestHidden"+c).remove();
-    		});
-    		count++;
-    	}
-    }
+				innerHtml += "<input type=\"checkbox\" name=\"interests\" id=\"interestHidden"+count+"\""+
+							" checked value=\""+input+"\" style=\"display:none;\" >";
+				
+	    		$(innerHtml).appendTo("#interestList");
+	    		
+	    		$("#interestDelete"+count).data("count", count);
+	    		$("#interestDelete"+count).click(function(){
+	    			var c = $(this).data("count");
+	    			$("#interestSelected"+c).remove();
+	    			$("#interestHidden"+c).remove();
+	    		});
+	    		count++;
+	    	}
+			return false;
+		}
+    });
 });
 
 jQuery.validator.addMethod("isValidNetId", 
