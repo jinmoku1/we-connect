@@ -312,14 +312,8 @@ function onToggleFollow(targetId) {
 	});
 }
 
-$('a[data-toggle=modal]').click(function(event) {
-	event.preventDefault();
-	var url = $(this).attr('href');
-	var target = $(this).data('target');
-	// load the url and show modal on success
-	$(target + ' .modal-content').load(url, function() { 
-		$(target).modal('show');
-	});
+$('body').on('hidden.bs.modal', '.modal', function () {
+	$(this).removeData('bs.modal');
 });
 
 updateSuggestedUsers();
