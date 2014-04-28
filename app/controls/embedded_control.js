@@ -17,26 +17,6 @@ exports.profile = function(req, res) {
 	});
 };
 
-exports.followees = function(req, res) {
-	userDb.getBriefs(null, function(allBriefs) {
-		var sessionUser = session.getSessionUser(req);
-		
-		var userBriefs = [];
-		for (var i in allBriefs) {
-			for (var j in sessionUser.followees) {
-				if (allBriefs[i].detailId.equals(sessionUser.followees[j])) {
-					userBriefs.push(allBriefs[i]);
-				}
-			}
-		}
-		
-		res.render('embedded/follows', {
-			userBriefs : userBriefs,
-			isFollowees : true,
-		});
-	});
-};
-
 exports.followings = function(req, res) {
 	userDb.getBriefs(null, function(allBriefs) {
 		var sessionUser = session.getSessionUser(req);
@@ -52,7 +32,42 @@ exports.followings = function(req, res) {
 		
 		res.render('embedded/follows', {
 			userBriefs : userBriefs,
-			isFollowees : false,
+			isFollowings : true,
 		});
 	});
 };
+
+exports.followers = function(req, res) {
+	userDb.getBriefs(null, function(allBriefs) {
+		var sessionUser = session.getSessionUser(req);
+		
+		var userBriefs = [];
+		for (var i in allBriefs) {
+			for (var j in sessionUser.followers) {
+				if (allBriefs[i].detailId.equals(sessionUser.followers[j])) {
+					userBriefs.push(allBriefs[i]);
+				}
+			}
+		}
+		
+		res.render('embedded/follows', {
+			userBriefs : userBriefs,
+			isFollowings : false,
+		});
+	});
+};
+
+exports.suggestedUsers = function(req, res) {
+	var sessionUser = session.getSessionUser(req);
+	
+	userDb.userRecsystem(sessionUser, function(userBriefs) {
+		console.log(userBriefs);
+		res.render('embedded/suggestedusers', {
+			userBriefs : userBriefs
+		});
+	});
+	//var user = session.getSessionUser(req);
+	//res.send(user);
+
+	
+}

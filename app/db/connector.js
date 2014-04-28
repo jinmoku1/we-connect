@@ -81,3 +81,44 @@ exports.findAll = function(collection, callback){
 		});
 	});
 };
+
+exports.findAllwithCondition = function(collection, conditionDoc, callback) {
+	exports.connect(function(db){
+		var dbCollection = db.collection(collection);
+		dbCollection.find(conditionDoc).toArray(function(err, docs) {
+			if(err){
+				console.log("[ERROR] Find on \'" + collection +"\' Failed.");
+				return;
+			}
+			callback(db, docs);
+		});
+	});
+};
+
+exports.findAllwithConditionByOrder = function(collection, conditionDoc, sortedDoc, callback) {
+	exports.connect(function(db){
+		var dbCollection = db.collection(collection);
+		dbCollection.find(conditionDoc).sort(sortedDoc).toArray(function(err, docs) {
+			if(err){
+				console.log("[ERROR] Find on \'" + collection +"\' Failed.");
+				return;
+			}
+			callback(db, docs);
+		});
+	});
+};
+
+exports.aggreate = function(collection, aggreCondition, callback) {
+	exports.connect(function(db) {
+		var dbCollection = db.collection(collection);
+		dbCollection.aggregate(aggreCondition, function(err, result) {
+			if(err) {
+				console.log("[ERROR] Aggregate on \'" + collection + "\' Failed.\n");
+				console.log("The detail is as below;\n" + err);
+				return
+			}
+			
+			callback(db, result);
+		});
+	});
+};

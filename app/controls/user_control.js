@@ -2,6 +2,7 @@ var constants = require('../constants');
 var userConst = constants.user;
 var session = require('../session');
 var userDb = require('../db/user_db');
+var anncDb = require('../db/annc_db');
 var fs = require('fs');
 var easyimg = require('easyimage');
 
@@ -157,7 +158,7 @@ exports.settingProfile = function(req, res) {
 	var pictureDir = userDir + '/picture';
 	var profilePic = req.files.profilePic;
 	if (profilePic != null) {
-		user.profilePicUrl = pictureDir + '/' + profilePic.name;
+		user.profilePicUrl = pictureDir + '/' + user.netId;
 	}
 	
 	userDb.updateInfo(user._id, user, function(success) {
@@ -175,7 +176,7 @@ exports.settingProfile = function(req, res) {
 					fs.mkdirSync(pictureDirPath);
 				}
 				
-				var mediaPath = pictureDirPath + "/" + profilePic.name;
+				var mediaPath = pictureDirPath + "/" + user.netId;
 				if (fs.existsSync(mediaPath)) {
 					fs.unlink(mediaPath);
 				}
@@ -219,16 +220,17 @@ exports.settingChangePW = function(req, res) {
 exports.settingAdditionalInfo = function(req, res) {
 	var user = session.getSessionUser(req);
 	user.intro = req.body.intro;
-	
 	var userDir = '/media/' + user._id;
 	var resumeDir = userDir + '/resume';
+	
 	var resume = req.files.resume;
+	
 	if (user.userType == userConst.TYPE_STUDENT){
 		user.extension.overallGPA = req.body.overallGPA;
 		user.extension.technicalGPA = req.body.technicalGPA;
 		user.extension.coursesTaken = req.body.coursesTaken;
-		
-		if (resume != null) {
+	
+		if (resume.size > 0) {
 			user.extension.resumeUrl = resumeDir + '/' + resume.name;
 		}
 	}
@@ -239,15 +241,14 @@ exports.settingAdditionalInfo = function(req, res) {
 	userDb.updateInfo(user._id, user, function(success) {
 		if (success){
 			session.setSessionUser(req, user);
-			
-			if (resume != null) {
+			if (resume.size > 0) {
 				fileData = fs.readFileSync(resume.path);
 				if (fileData == null) {
 					var error = "[ERROR] Failed to read file.";
 					renderSetting(req, res, error);
 					return;
 				}
-				
+					
 				// create directory
 				var userDirPath = "public" + userDir;
 				if (!fs.existsSync(userDirPath)) {

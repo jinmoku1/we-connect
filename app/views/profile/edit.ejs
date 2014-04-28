@@ -60,29 +60,14 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Interests</label>
 					<div class="col-sm-9">
-					<% for (var i in interests) { %>
-						<div class="checkbox col-sm-6">
-							<label>
-								<%
-								var exists = 0;
-								for (var j in user.interests){
-									if (user.interests[j] == interests[i]){
-										exists = 1;
-										break;
-									}
-								}
-								if (exists){ %>
-									<input type="checkbox" name="interests" value="<%=interests[i]%>" checked="checked"/>
-									<%=interests[i]%>
-								<% } else { %>
-									<input type="checkbox" name="interests" value="<%=interests[i]%>" />
-									<%=interests[i]%>
-								<% } %>
-							</label>
+						<div class="ui-widget">
+						<input id="interests" class="form-control" data-interests="<%=interests%>" data-my-interests="<%=user.interests%>">
+							</div>
+							<br>
+							<div id="interestList">					
+							</div>
 						</div>
-					<% } %>
 					</div>
-				</div>
 				<% if (user.userType == userConst.TYPE_STUDENT) { %>
 					<div class="form-group">
 						<label class="col-sm-3 control-label">Degree</label>
@@ -166,54 +151,26 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Courses Taken</label>
 					<div class="col-sm-9">
-					<% for (var i in courses) { %>
-						<div class="checkbox col-sm-6">
-							<label>
-								<%
-								var exists = 0;
-								for (var j in user.extension.coursesTaken){
-									if (user.extension.coursesTaken[j] == courses[i]){
-										exists = 1;
-										break;
-									}
-								}
-								if (exists){ %>
-									<input type="checkbox" name="coursesTaken" value="<%=courses[i]%>" checked="checked"/>
-									<%=courses[i]%>
-								<% } else { %>
-									<input type="checkbox" name="coursesTaken" value="<%=courses[i]%>" />
-									<%=courses[i]%>
-								<% } %>
-							</label>
+						<div class="ui-widget">
+							<input id="courses" class="form-control" data-courses="<%=courses%>" 
+									data-my-courses="<%=user.extension.coursesTaken%>" data-my-type="<%=user.userType%>">
 						</div>
-					<% } %>
+						<br>
+						<div id="courseList">					
+						</div>
 					</div>
 				</div>
 				<% } else if (user.userType == userConst.TYPE_FACULTY) { %>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Courses Taught</label>
 					<div class="col-sm-9">
-					<% for (var i in courses) { %>
-						<div class="checkbox col-sm-6">
-							<label>
-								<%
-								var exists = 0;
-								for (var j in user.extension.coursesTaught){
-									if (user.extension.coursesTaught[j] == courses[i]){
-										exists = 1;
-										break;
-									}
-								}
-								if (exists){ %>
-									<input type="checkbox" name="coursesTaught" value="<%=courses[i]%>" checked="checked"/>
-									<%=courses[i]%>
-								<% } else { %>
-									<input type="checkbox" name="coursesTaught" value="<%=courses[i]%>" />
-									<%=courses[i]%>
-								<% } %>
-							</label>
+						<div class="ui-widget">
+							<input id="courses" class="form-control" data-courses="<%=courses%>" 
+									data-my-courses="<%=user.extension.coursesTaught%>" data-my-type="<%=user.userType%>">
 						</div>
-					<% } %>
+						<br>
+						<div id="courseList">					
+						</div>
 					</div>
 				</div>
 				<% } %>
@@ -259,6 +216,168 @@
 </div>
 
 <script>
+var count = 1;
+var interestsAdded = [];
+$(function() {
+    var availableTags = $("#interests").data("interests").split(",");
+    $("#interests").autocomplete({
+		source: availableTags
+	});
+
+    if ($("#interests").data("myInterests")=="undefined"){
+    	return;
+    }
+    
+    var myInterests = $("#interests").data("myInterests").split(",");
+	
+    for (var i in myInterests){
+    	var input = myInterests[i];
+	    if (interestsAdded.length!=0 && interestsAdded.length%3==0){
+			$("<br><br>").appendTo("#interestList");
+		}
+		
+		interestsAdded.push(input);
+		
+		var innerHtml = "<span id=\"interestSelected"+count+"\" class=\"label label-default interest\" >"+
+			input+"<span id=\"interestDelete"+count+"\" class=\"badge\">X</span></span>";
+	
+		innerHtml += "<input type=\"checkbox\" name=\"interests\" id=\"interestHidden"+count+"\""+
+					" checked value=\""+input+"\" style=\"display:none;\" >";
+		
+		$(innerHtml).appendTo("#interestList");
+		
+		$("#interestDelete"+count).data("count", count);
+		$("#interestDelete"+count).click(function(){
+			var c = $(this).data("count");
+			$("#interestSelected"+c).remove();
+			$("#interestHidden"+c).remove();
+		});
+		count++;
+    }
+});
+
+$("#interests").keypress(function(e) {
+    if(e.which == 13) {
+    	event.preventDefault();
+    	
+    	var input = $("#interests").val();
+    	if ( $("#interests").data("interests").split(",").indexOf(input) < 0 || 
+    			(interestsAdded.length > 0 && interestsAdded.indexOf(input) >= 0) ){
+    	}
+    	else {
+    		if (interestsAdded.length!=0 && interestsAdded.length%3==0){
+    			$("<br><br>").appendTo("#interestList");
+    		}
+    		
+    		interestsAdded.push(input);
+    		
+    		var innerHtml = "<span id=\"interestSelected"+count+"\" class=\"label label-default interest\" >"+
+    			input+"<span id=\"interestDelete"+count+"\" class=\"badge\">X</span></span>";
+
+			innerHtml += "<input type=\"checkbox\" name=\"interests\" id=\"interestHidden"+count+"\""+
+						" checked value=\""+input+"\" style=\"display:none;\" >";
+			
+    		$(innerHtml).appendTo("#interestList");
+    		
+    		$("#interestDelete"+count).data("count", count);
+    		$("#interestDelete"+count).click(function(){
+    			var c = $(this).data("count");
+    			$("#interestSelected"+c).remove();
+    			$("#interestHidden"+c).remove();
+    		});
+    		count++;
+    	}
+    }
+});
+
+var count2 = 1;
+var coursesAdded = [];
+$(function() {
+    var availableTags = $("#courses").data("courses").split(",");
+    $("#courses").autocomplete({
+		source: availableTags
+	});
+
+    if ($("#courses").data("myCourses")=="undefined" || $("#courses").data("myCourses")==""){
+    	return;
+    }
+    
+    var myCourses = $("#courses").data("myCourses").split(",");
+    var myType = $("#courses").data("myType");
+    var naming;
+    if (myType=="student"){
+    	naming = "coursesTaken";
+    }
+    else {
+    	naming = "coursesTaught";
+    }
+    
+    for (var i in myCourses){
+    	var input = myCourses[i];
+    	if (coursesAdded.length!=0 && coursesAdded.length%2==0){
+			$("<br><br>").appendTo("#courseList");
+		}
+    	
+		coursesAdded.push($("#courses").val());
+		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+
+			input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
+
+		innerHtml += "<input type=\"checkbox\" name=\""+naming+"\" id=\"courseHidden"+count2+"\""+
+					" checked value=\""+input+"\" style=\"display:none;\" >";
+		
+		$(innerHtml).appendTo("#courseList");
+		$("#courseDelete"+count2).data("count", count2);
+		$("#courseDelete"+count2).click(function(){
+			var c = $(this).data("count");
+			$("#courseSelected"+c).remove();
+			$("#courseHidden"+c).remove();
+		});
+		count2++;
+    }
+});
+
+$("#courses").keypress(function(e) {
+    if(e.which == 13) {
+    	event.preventDefault();
+    	var input = $("#courses").val();
+    	if ( $("#courses").data("courses").split(",").indexOf(input) < 0 || 
+    			(coursesAdded.length > 0 && coursesAdded.indexOf(input) >= 0) ){
+    	}
+    	else {
+    		if (coursesAdded.length!=0 && coursesAdded.length%2==0){
+    			$("<br><br>").appendTo("#courseList");
+    		}
+    		
+    		var myType = $("#courses").data("myType");
+    	    var naming;
+    	    
+    	    if (myType=="student"){
+    	    	naming = "coursesTaken";
+    	    }
+    	    else {
+    	    	naming = "coursesTaught";
+    	    }
+    	    alert(naming);
+    		
+    		coursesAdded.push($("#courses").val());
+    		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+
+    			input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
+
+    		innerHtml += "<input type=\"checkbox\" name=\""+naming+"\" id=\"courseHidden"+count2+"\""+
+				" checked value=\""+input+"\" style=\"display:none;\" >";
+			
+    		$(innerHtml).appendTo("#courseList");
+    		
+    		$("#courseDelete"+count).data("count", count2);
+    		$("#courseDelete"+count).click(function(){
+    			var c = $(this).data("count");
+    			$("#courseSelected"+c).remove();
+    			$("#courseHidden"+c).remove();
+    		});
+    		count++;
+    	}
+    }
+});
 
 jQuery.validator.addMethod("isValidNetId", 
 	function(value, element) {
@@ -273,7 +392,7 @@ jQuery.validator.addMethod("isValidName",
     },
     jQuery.validator.format("Only alphabets are allowed for names.")
 );
-		
+
 $('#editForm').validate({
 	rules: {
 		firstName: {

@@ -7,6 +7,7 @@ var apiControl	= require('./controls/api_control');
 var userControl	= require('./controls/user_control');
 var embeddedControl = require('./controls/embedded_control');
 var anncControl = require('./controls/annc_control');
+var adminControl = require('./controls/admin_control');
 
 exports.route = function (app) {
 	// main
@@ -33,8 +34,9 @@ exports.route = function (app) {
 	
 	// embedded view - used for ajax embedded view
 	app.get('/embedded/profile/:id', embeddedControl.profile);
+	app.get('/embedded/followers', embeddedControl.followers);
 	app.get('/embedded/followings', embeddedControl.followings);
-	app.get('/embedded/followees', embeddedControl.followees);
+	app.get('/embedded/suggestedusers', embeddedControl.suggestedUsers);
 	
 	// api - used for light dynamic requests
 	app.get('/api/sample', apiControl.sample);
@@ -52,4 +54,6 @@ exports.route = function (app) {
 	app.post('/announcement/delete', anncControl.deletePost);
 	app.post('/announcement/apply', anncControl.applyPost);
 
+	app.post('/admin/approve', adminControl.approve);
+	app.post('/admin/disapprove', adminControl.disapprove);
 };

@@ -11,6 +11,7 @@ function detailToBrief(anncDetail) {
 		author : anncDetail['author'],
 		title : anncDetail['title'],
 		timeStamp : anncDetail['timeStamp'],
+		status : anncDetail['status'],
 
 		// filtering properties
 		anncTypes : anncDetail['anncTypes'],
@@ -75,15 +76,15 @@ exports.create = function(post, callback) {
 	anncDetail.title = post.title;
 	anncDetail.timeStamp = post.timeStamp;
 	anncDetail.anncTypes = post.anncTypes;
-	anncDetail.interests = post.interests;
-	anncDetail.coursesTaken = post.coursesTaken;
+	anncDetail.interests = [].concat(post.interests);
+	anncDetail.coursesTaken = [].concat(post.coursesTaken);
 	anncDetail.degree = post.degree;
 	anncDetail.overallGPA = post.overallGPA;
 	anncDetail.technicalGPA = post.technicalGPA;
 	anncDetail.classStanding = post.classStanding;
 	anncDetail.resumeRequired = post.resumeRequired;
 	anncDetail.content = post.content;
-	anncDetail.status = post.status;
+	anncDetail.status = (post.status == null ? 0 : post.status );
 
 	connector.save(anncConst.db.ANNC_DETAILS, anncDetail, function(db, detailDoc) {
 		anncDetail = detailDoc;
@@ -128,25 +129,6 @@ exports.getBriefs = function(callback) {
 	});
 };
 
-/**
- * @param {Object} _id: brief Id
- * @param {Object} callback
- * @return {boolean} brief doc
- */
-exports.getBrief = function(detailed_id, callback) {
-	connector.findOne(anncConst.db.ANNC_BRIEFS, {detailId: detailed_id}, function(db, resultDoc){
-		db.close();
-		callback(resultDoc);
-	});
-};
-
-exports.getDetail = function(_id, callback) {
-	connector.findOne(anncConst.db.ANNC_DETAILS, {_id: _id}, function(db, resultDoc){
-		db.close();
-		callback(resultDoc);
-	});
-};
-
 
 /**
  * update announcement(detail/brief) db
@@ -168,3 +150,133 @@ exports.updateInfo = function(_id, updateDoc, callback) {
 };
 // --------------- Object Specific Operations --------------- //
 
+/**
+ * @param {Object} callback
+ * @return {boolean} brief doc
+ */
+exports.getAnncBriefByStatus = function(status, order, callback) {
+	connector.findAllwithConditionByOrder(anncConst.db.ANNC_BRIEFS, { status: status }, { timeStamp : -1 }, function(db, resultDoc){
+		db.close();
+		callback(resultDoc);
+	});
+};
+
+/**
+ * @param {Object} _id: brief Id
+ * @param {Object} callback
+ * @return {boolean} brief doc
+ */
+exports.getBrief = function(detailed_id, callback) {
+	connector.findOne(anncConst.db.ANNC_BRIEFS, {detailId: detailed_id}, function(db, resultDoc){
+		db.close();
+		callback(resultDoc);
+	});
+};
+
+/**
+ * @param {Object} callback
+ * @return {boolean} brief doc
+ */
+exports.getAnncDetailByStatus = function(status, order, callback) {
+	connector.findAllwithConditionByOrder(anncConst.db.ANNC_DETAILS, { status: status }, { timeStamp : -1 }, function(db, resultDoc){
+		db.close();
+		callback(resultDoc);
+	});
+};
+
+/**
+ * @param {Object} _id: brief Id
+ * @param {Object} callback
+ * @return {boolean} brief doc
+ */
+exports.getDetail = function(_id, callback) {
+	connector.findOne(anncConst.db.ANNC_DETAILS, {_id: _id}, function(db, resultDoc){
+		db.close();
+		callback(resultDoc);
+	});
+};
+
+
+/**
+ * @param user Detail Object
+ */
+exports.followingAnnRecSystem = function(user, callback) {
+	var friendList = user.followings;
+	var cond = 
+		[
+	            {
+	            	$match : {"author._id" : { $in : friendList }}
+	            },
+	            {
+	                $sort : { timestamp : -1 }
+	            }
+	    ];
+	
+	connector.aggreate(anncConst.db.ANNC_BRIEFS, cond, function(db, result) {
+		db.close();
+		callback(result);
+	});
+};
+
+
+/**
+ * @param user Detail Object
+ */
+exports.AnnRecSystem = function(user, callback) {
+	var id = user.id,
+		interests = (user.interests == null ? [] : user.interests),
+		coursesTaken = (user.coursesTaken == null ? [] : user.coursesTaken),
+		overallGPA = user.overallGPA,
+		technicalGPA = user.technicalGPA,
+		classStanding = user.classStanding,
+		degree = user.degree;
+	var cond = 
+		[
+	       {
+	           $match : {"author._id" : {$ne : id }}
+	       },
+	       {
+	           $project : 
+	           {
+	               author : 1,
+	               title : 1,
+	               timeStamp : 1,
+	               anncTypes : 1,
+	               interests : 1,
+	               content : 1,
+	               status : 1, 
+	               rank : 
+	               {
+	                   $add : 
+	                   [
+	                       { $size : {$setIntersection : [ "$interests", interests ]}},
+	                       { $size : {$setIntersection : [ "$coursesTaken", coursesTaken ]}}
+	                   ]
+	               },
+	               appliable : 
+	               {
+	                   $cond : 
+	                   [
+		                   { 
+		                       $and : 
+		                       [
+		                           {$lte : [ "$overallGPA", overallGPA ]},
+		                           {$lte : [ "$technialGPA", technicalGPA ]},
+		                           {$lte : [ "$classStanding", classStanding ]},
+		                           {$lte : [ "$degree", degree ]}
+		                       ]
+		                   }, 1, 0
+	                   ]
+	               }
+	           }
+	       },
+	       {
+	           $sort : { timestamp: -1, rank : -1 }
+	       }
+	    ];
+	
+	connector.aggreate(anncConst.db.ANNC_DETAILS, cond, function(db, result) {
+		db.close();
+		callback(result);
+	});
+};

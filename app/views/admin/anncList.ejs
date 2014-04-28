@@ -1,0 +1,96 @@
+<%- include ../partials/adminHeader.ejs %>
+
+<div class="col-sm-11 col-sm-offset-1">
+	<div id="adminContainer" class="col-md-12">
+		<div class="anncList">
+			<%  
+			for (var i in anncBriefs) { %>
+			<div class="row">
+				<div class="col-md-2">
+					<img src="<%=anncBriefs[i].author.profilePic%>" />
+				</div>
+				<div class="col-md-7">
+					<h1 class="title">
+						<a href="announcement/<%=anncBriefs[i].detailId%>"><%=anncBriefs[i].title%></a>
+						<span class="author">
+							<em><%=anncBriefs[i].author.name%></em>
+						</span>
+					</h1>
+					<p class="contentBrief">
+						<%=anncBriefs[i].contentBrief%>...
+						<span class="timeStamp">
+							<em>
+							<% var date = anncBriefs[i].timeStamp; %>
+							<%=""+date.getDate()+"/"
+								+(date.getMonth()+1)+"/"
+								+date.getFullYear()+" @ "
+								+date.getHours()+":"
+								+date.getMinutes()+":" 
+								+date.getSeconds()
+							%>
+							</em>
+						</span>
+					</p>
+					<p class="anncTypes">
+						<span class="label label-default"><%=anncBriefs[i].anncTypes%></span>
+					</p>
+				</div>
+				<div id="approveBox">
+					<button id="approve<%=i%>" class="btn btn-success" data-id="<%=anncBriefs[i].detailId%>">Approve</button>
+					<button id="disapprove<%=i%>" class="btn btn-danger" data-id="<%=anncBriefs[i].detailId%>">Disapprove</button>
+				</div>
+			</div>
+			<% } %>
+		</div>
+	</div>
+</div>
+
+<script>
+var clickedAnnc;
+$(function() {
+	$("#approveBox .btn-success").click(function(){
+		clickedAnnc = $(this).attr('id');
+		$.ajax({
+			url: "/admin/approve",
+			type: 'POST',
+			data: {id: $(this).data("id")},
+			success: function(data, textStatus, xhr) {
+				if (data == "true"){
+					var $approveBtn = $("#"+clickedAnnc);
+					$('#approveBox').removeClass("validate-error");
+					$approveBtn.parent().parent().remove();
+				}
+				else {
+					var $msgContainer = $('#approveBox');
+					$msgContainer.addClass("validate-error");
+					$msgContainer.append( "<p id=\"errorMsg\">Failed to approve. Please try again.</p>" );
+				}
+			}
+		});
+	});
+	
+	$("#approveBox .btn-danger").click(function(){
+		clickedAnnc = $(this).attr('id');
+		$.ajax({
+			url: "/admin/disapprove",
+			type: 'POST',
+			data: {id: $(this).data("id")},
+			success: function(data, textStatus, xhr) {
+				if (data == "true"){
+					var $disapproveBtn = $("#"+clickedAnnc);
+					$('#approveBox').removeClass("validate-error");
+					$disapproveBtn.parent().parent().remove();
+				}
+				else {
+					var $msgContainer = $('#approveBox');
+					$msgContainer.addClass("validate-error");
+					$msgContainer.append( "<p id=\"errorMsg\">Failed to approve. Please try again.</p>" );
+				}
+			}
+		});
+	});
+});
+
+
+</script>
+<%- include ../partials/footer.ejs %>

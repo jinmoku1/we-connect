@@ -11,10 +11,10 @@ exports.sample = function(req, res) {
 };
 
 exports.follow = function(req, res) {
-	var followeeId = ObjectID.createFromHexString(req.body.id);
+	var followingId = ObjectID.createFromHexString(req.body.id);
 	var user = session.getSessionUser(req);
-	exports.addFollowee(followeeId, user, function(result) {
-		exports.addFollowing(followeeId, user, function(result) {
+	exports.addFollowing(followingId, user, function(result) {
+		exports.addFollower(followingId, user, function(result) {
 			if (result) {
 				session.setSessionUser(req, user);
 				res.send(user);
@@ -23,48 +23,48 @@ exports.follow = function(req, res) {
 	});
 };
 
-exports.addFollowee = function(followeeID, following, callback) {
+exports.addFollowing = function(followingID, follower, callback) {
 	var index = -1;
-	for (var i in following.followees) {
-		if (followeeID.equals(following.followees[i])) {
+	for (var i in follower.followings) {
+		if (followingID.equals(follower.followings[i])) {
 			index = i;
 			break;
 		}
 	}
 
 	if (index < 0){
-		following.followees.push(followeeID);
+		follower.followings.push(followingID);
 	} else {
-		following.followees.splice(index, 1);
+		follower.followings.splice(index, 1);
 	}
 	
-	userDb.updateInfo(following._id, following, function(result) {
+	userDb.updateInfo(follower._id, follower, function(result) {
 		callback(result);
 	});
 };
 
-exports.addFollowing = function(followeeID, following, callback) {
-	userDb.getDetail(followeeID, function(followee){
-		appendFollowing(followee, following, function(followee){
-			userDb.updateInfo(followee._id, followee, function(result){
+exports.addFollower = function(followingID, follower, callback) {
+	userDb.getDetail(followingID, function(following){
+		appendFollower(following, follower, function(following){
+			userDb.updateInfo(following._id, following, function(result){
 				callback(result);
 			});
 		});
 	});
 };
 
-function appendFollowing(followee, following, callback){
+function appendFollower(following, follower, callback){
 	var index = -1;
-	for (var i in followee.followings) {
-		if (followee.followings[i].equals(following._id)){
+	for (var i in following.followers) {
+		if (following.followers[i].equals(follower._id)){
 			index = i;
 			break;
 		}
 	}
 	if (index < 0){
-		followee.followings.push(following._id);
+		following.followers.push(follower._id);
 	} else {
-		followee.followings.splice(index, 1);
+		following.followers.splice(index, 1);
 	}
-	callback(followee);
+	callback(following);
 }

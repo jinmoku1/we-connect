@@ -1,6 +1,8 @@
 var userConst = require('../constants').user;
 var connector = require('./connector');
 
+var ObjectID = require('mongodb').ObjectID;
+
 //--------------- Utility Functions --------------- //
 
 function detailToBrief(userDetail) {
@@ -43,8 +45,8 @@ function schema(userType) {
 			interests		: [],
 
 			// operations
+			followers		: [],
 			followings		: [],
-			followees		: [],
 			bookmarkedAnncs	: [],
 			appliedAnncs	: [],
 
@@ -60,7 +62,7 @@ function schema(userType) {
 			overallGPA		: 0,
 			degree			: null,
 			classStanding	: null,
-			courseTaken		: [],
+			coursesTaken		: [],
 			resumeUrl		: null,
 			anncPrefenreces	: [],
 			resumeUrl		: null,
@@ -69,7 +71,7 @@ function schema(userType) {
 	case userConst.TYPE_FACULTY:
 		userDetail.extension = {
 			websiteUrl		: null,
-			courseTaught	: [],
+			coursesTaught	: [],
 	};
 		break;
 	}
@@ -87,6 +89,7 @@ exports.create = function(post, callback) {
 	userDetail.lastName = post.lastName;
 	userDetail.interests = [].concat(post.interests);
 	userDetail.department = post.department;
+	userDetail.intro = post.intro;
 
 	switch (post.userType) {
 	case userConst.TYPE_STUDENT:
@@ -202,5 +205,49 @@ exports.netIdExists = function(netId, callback) {
 			function(db, userAccountDoc) {
 		db.close();
 		callback(userAccountDoc != null);
+	});
+};
+
+/**
+ * @param user Detail Object
+ */
+exports.userRecsystem = function(user, callback) {
+	//console.log(user);
+	var interests = (user.interests == null ? [] : user.interests),
+		department = user.department,
+		ids = user.followings;
+	ids.push(user._id);
+	ids.push(ObjectID.createFromHexString("535c8f8d0cf98bf2c774f396"));
+	
+	var cond = [
+	    { 
+	    	$match : { detailId : { $nin: ids } }
+	    },
+	    { 
+	    	$project : {
+	    			detailId : 1,
+	    			netId : 1,
+	                firstName : 1,
+	                lastName : 1,
+	                profilePicUrl : 1,
+	                interests : 1,
+	                rank : { $add: [
+	                    { $size : {$setIntersection : [ "$interests", interests]}},
+	                    { $cond : [{$eq : ["$department", department] }, 3, 0]},
+	                    { $cond : [{$eq : ["$userType", userConst.TYPE_FACULTY]}, 3, 0]}
+	                    ]
+	                }
+	        }
+	    },
+	    { 
+	       	$sort : {rank : -1 } 
+	    },
+	    { 
+	    	$limit : 5 
+	    }
+	];
+	connector.aggreate(userConst.db.USER_BRIEFS, cond, function(db, result) {
+		db.close();
+		callback(result);
 	});
 };

@@ -1,6 +1,13 @@
 body {
-	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	min-width: 980px;
+	font: 14px 'Oswald', 'sans-serif', Helvetica, Arial, sans-serif;
+	font-weight: 300; 
 	overflow-y: scroll;
+}
+
+h1 {
+	font-family: 'Oswald', 'sans-serif';
+	font-weight: 700; 
 }
 
 a {
@@ -12,7 +19,7 @@ a {
 }
 
 #bodyContainer {
-	width: 1024px;
+	height:100%;
 	margin: auto;
 }
 
@@ -40,12 +47,12 @@ a {
 	}
 	
 		#pictureContainer {
-			height: 220px;
+			height: 200px;
 		}
 		
 			#pictureContainer .picture {
 				margin: auto;
-				width: 220px;
+				width: 200px;
 				height: inherit;
 				background: pink;
 				border-radius: 10%;
@@ -63,7 +70,7 @@ a {
 			}
 		
 		#profileContainer {
-			height: 220px;
+			height: 200px;
 			position: relative;
 		}
 		
@@ -92,11 +99,14 @@ a {
 			
 		}
 			
-			#archive {
+			#archive, #anncMyList {
 			
 			}
 			
-				#archive .anncList .row {
+				#anncRecList .anncList .row,
+				#anncFollowerList .anncList .row,
+				#archive .anncList .row,
+				#anncMyList .anncList .row {
 					padding-top:20px;
 					padding-bottom:20px;
 					border-bottom: 1px solid #ddd;
@@ -104,7 +114,10 @@ a {
 					margin-right:20px;
 				}
 				
-					#archive .anncList .row img {
+					#anncRecList .anncList .row img,
+					#anncFollowerList .anncList .row img,
+					#archive .anncList .row img,
+					#anncMyList .anncList .row img {
 						margin-top: 1em;
 						border-bottom: 1px solid #ddd;
 						width: 100px;
@@ -113,11 +126,17 @@ a {
 						border-radius: 10%;
 					}
 					
-					#archive .anncList .row .title {
+					#anncRecList .anncList .row .title,
+					#anncFollowerList .anncList .row .title,
+					#archive .anncList .row .title,
+					#anncMyList .anncList .row .title {
 						font-size: 2em;
 					}
 					
-					#archive .anncList .row .author {
+					#anncRecList .anncList .row .author,
+					#anncFollowerList .anncList .row .author,
+					#archive .anncList .row .author,
+					#anncMyList .anncList .row .author {
 						font-size: 0.8em;
 					}
 		
@@ -180,6 +199,7 @@ a {
 					#sideContainer .user .top .name {
 						margin-top: .5em;
 						font-size: 120%;
+						margin-left:5px;
 					}
 					
 					#sideContainer .user .top .name a {
@@ -194,6 +214,7 @@ a {
 					#sideContainer .user .top .side .email {
 						position: absolute;
 						bottom: 1em;
+						margin-left:5px;
 					}
 					
 				#sideContainer .user .interests {
@@ -238,7 +259,7 @@ a {
 
 /* Announcement Page*/
 .createAnncTitle {
-	text-align:right;
+	text-align:left;
 	margin-bottom:30px;
 }
 
@@ -250,7 +271,7 @@ a {
 
 
 	#anncAuthor .picture img{
-		width: 200px;
+		width: 180px;
 		height: auto;
 		background: pink;
 		border-radius: 10%;
@@ -291,3 +312,81 @@ div.tab-pane {
 		height: 160px;
 		border-radius: 10%;
 	}
+
+#interestList {
+	margin-left:10px;
+}
+
+	#interestList .interest{
+		padding:7px;
+		margin-right:5px;
+	}
+	
+	#interestList .badge{
+		margin-left:10px;
+	}
+	
+	#interestList .badge:hover{
+		margin-left:10px;
+		cursor: pointer;
+	}
+	
+#courseList {
+	margin-left:10px;
+}
+
+	#courseList .course{
+		padding:7px;
+		margin-right:5px;
+	}
+	
+	#courseList .badge{
+		margin-left:10px;
+	}
+	
+	#courseList .badge:hover{
+		margin-left:10px;
+		cursor: pointer;
+	}
+	
+#adminContainer {
+	
+}
+
+	#approveBox {
+		padding-top:20px;
+	}
+	
+		#approveBox button{
+			width:100px;
+			height:40px;
+			line-height:16px;
+			vertical-align:center;
+			font-size:16px;
+			margin-bottom:5px;
+		}
+			
+	#adminContainer .anncList .row {
+		padding-top:20px;
+		padding-bottom:20px;
+		border-bottom: 1px solid #ddd;
+		margin-left:20px;
+		margin-right:20px;
+	}
+	
+		#adminContainer .anncList .row img {
+			margin-top: 1em;
+			border-bottom: 1px solid #ddd;
+			width: 100px;
+			height: 100px;
+			background-color: #dfdfdf;
+			border-radius: 10%;
+		}
+		
+		#adminContainer .anncList .row .title {
+			font-size: 2em;
+		}
+		
+		#adminContainer .anncList .row .author {
+			font-size: 0.8em;
+		}

@@ -1,26 +1,24 @@
 <%- include ../partials/header.ejs %>
 
-<div style="width: 700px; margin:auto;">
-	<div class="col-sm-offset-2 col-sm-10">
-		<h1 class="createAnncTitle"><%=title%></h1>
-	</div>
+<div class="col-xs-8 col-xs-offset-2">
+	<h1 class="createAnncTitle"><%=title%></h1>
 	<form id="announceForm" class="form-horizontal" method="post">
 		<div class="form-group">
-			<label class="col-sm-2 control-label" for="title">Title</label>
-			<div class="col-sm-10">
+			<label class="col-xs-2 control-label" for="title">Title</label>
+			<div class="col-xs-10">
 				<input type="text" name="title" id="title" placeholder="Announcement Title" class="form-control" required />
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label" for="content">Content</label>
-			<div class="col-sm-10">
+			<label class="col-xs-2 control-label" for="content">Content</label>
+			<div class="col-xs-10">
 				<textarea name="content" id="content" placeholder="Content" class="form-control" rows="10" required></textarea>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label">Announcement Type</label>
-			<div class="col-sm-10">
-				<select id="department" class="form-control" name="anncType" required>
+			<label class="col-xs-2 control-label">Type</label>
+			<div class="col-xs-10">
+				<select id="department" class="form-control" name="anncTypes" required>
 				<% for (var i in anncTypes) { %>
 					<option value="<%=anncTypes[i]%>"><%=anncTypes[i]%></option>
 				<% } %>
@@ -28,34 +26,30 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label">Interests</label>
-			<div class="col-sm-10">
-			<% for (var i in interests) { %>
-				<div class="checkbox col-sm-6">
-					<label>
-						<input type="checkbox" name="interests" value="<%=interests[i]%>" />
-						<%=interests[i]%>
-					</label>
+			<label class="col-xs-2 control-label">Interests</label>
+			<div class="col-xs-10">
+				<div class="ui-widget">
+					<input id="interests" class="form-control" data-interests="<%=interests%>">
 				</div>
-			<% } %>
+				<br>
+				<div id="interestList">					
+				</div>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label">Required Courses</label>
-			<div class="col-sm-10">
-			<% for (var i in courses) { %>
-				<div class="checkbox col-sm-6">
-					<label>
-						<input type="checkbox" name="coursesTaken" value="<%=courses[i]%>" />
-						<%=courses[i]%>
-					</label>
+			<label class="col-xs-2 control-label">Required Courses</label>
+			<div class="col-xs-10">
+				<div class="ui-widget">
+					<input id="courses" class="form-control" data-courses="<%=courses%>">
 				</div>
-			<% } %>
+				<br>
+				<div id="courseList">					
+				</div>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label">Minimum Degree</label>
-			<div class="col-sm-10">
+			<label class="col-xs-2 control-label">Minimum Degree</label>
+			<div class="col-xs-10">
 				<select id="degree" class="form-control" name="degree" required>
 				<% for (var i in degrees) { %>
 					<option value="<%=degrees[i]%>"><%=degrees[i]%></option>
@@ -64,8 +58,8 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label">Standing</label>
-			<div class="col-sm-10">
+			<label class="col-xs-2 control-label">Standing</label>
+			<div class="col-xs-10">
 				<select id="classStanding" class="form-control" name="classStanding" required>
 				<% for (var i in classStandings) { %>
 					<option value="<%=classStandings[i]%>"><%=classStandings[i]%></option>
@@ -74,21 +68,21 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label" for="overallGPA">Minimum Overall GPA</label>
-			<div class="col-sm-10">
+			<label class="col-xs-2 control-label" for="overallGPA">Minimum Overall GPA</label>
+			<div class="col-xs-10">
 				<input type="text" name="overallGPA" id="overallGPA" placeholder="Overall GPA" class="form-control"/>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label" for="technicalGPA">Minimum Technical GPA</label>
-			<div class="col-sm-10">
+			<label class="col-xs-2 control-label" for="technicalGPA">Minimum Technical GPA</label>
+			<div class="col-xs-10">
 				<input type="text" name="technicalGPA" id="technicalGPA" placeholder="Technical GPA" class="form-control"/>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label" for="resumeRequired">Resume Required</label>
-			<div class="col-sm-10">
-				<div class="checkbox col-sm-6">
+			<label class="col-xs-2 control-label" for="resumeRequired">Resume Required</label>
+			<div class="col-xs-10">
+				<div class="checkbox col-xs-6">
 					<label>
 						<input type="checkbox" name="resumeRequired" value="resumeRequired" />
 					</label>
@@ -96,9 +90,9 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-primary">Submit</button>
-				<a href="/" class="btn btn-warning">Cancel</a>
+			<div class="col-xs-offset-9 col-xs-3">
+				<button type="submit" class="btn btn-primary btn-sm">Submit</button>
+				<a href="/" class="btn btn-default btn-sm">Cancel</a>
 			</div>
 		</div>
 	</form>
@@ -106,6 +100,90 @@
 
 
 <script>
+$(function() {
+    var availableTags = $("#interests").data("interests").split(",");
+    $("#interests").autocomplete({
+		source: availableTags
+	});
+});
+
+var count = 1;
+var interestsAdded = [];
+$("#interests").keypress(function(e) {
+    if(e.which == 13) {
+    	event.preventDefault();
+    	
+    	var input = $("#interests").val();
+    	if ( $("#interests").data("interests").split(",").indexOf(input) < 0 || 
+    			(interestsAdded.length > 0 && interestsAdded.indexOf(input) >= 0) ){
+    	}
+    	else {
+    		if (interestsAdded.length!=0 && interestsAdded.length%3==0){
+    			$("<br><br>").appendTo("#interestList");
+    		}
+    		
+    		interestsAdded.push(input);
+    		
+    		var innerHtml = "<span id=\"interestSelected"+count+"\" class=\"label label-default interest\" >"+
+    			input+"<span id=\"interestDelete"+count+"\" class=\"badge\">X</span></span>";
+
+			innerHtml += "<input type=\"checkbox\" name=\"interests\" id=\"interestHidden"+count+"\""+
+						" checked value=\""+input+"\" style=\"display:none;\" >";
+			
+    		$(innerHtml).appendTo("#interestList");
+    		
+    		$("#interestDelete"+count).data("count", count);
+    		$("#interestDelete"+count).click(function(){
+    			var c = $(this).data("count");
+    			$("#interestSelected"+c).remove();
+    			$("#interestHidden"+c).remove();
+    		});
+    		count++;
+    	}
+    }
+});
+
+
+$(function() {
+    var availableTags = $("#courses").data("courses").split(",");
+    $("#courses").autocomplete({
+		source: availableTags
+	});
+});
+
+var count2 = 1;
+var coursesAdded = [];
+$("#courses").keypress(function(e) {
+    if(e.which == 13) {
+    	event.preventDefault();
+    	var input = $("#courses").val();
+    	if ( $("#courses").data("courses").split(",").indexOf(input) < 0 || 
+    			(coursesAdded.length > 0 && coursesAdded.indexOf(input) >= 0) ){
+    	}
+    	else {
+    		if (coursesAdded.length!=0 && coursesAdded.length%2==0){
+    			$("<br><br>").appendTo("#courseList");
+    		}
+    		
+    		coursesAdded.push($("#courses").val());
+    		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+
+    			input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
+
+			innerHtml += "<input type=\"checkbox\" name=\"coursesTaken\" id=\"courseHidden"+count+"\""+
+						" checked value=\""+input+"\" style=\"display:none;\" >";
+			
+    		$(innerHtml).appendTo("#courseList");
+    		
+    		$("#courseDelete"+count).data("count", count2);
+    		$("#courseDelete"+count).click(function(){
+    			var c = $(this).data("count");
+    			$("#courseSelected"+c).remove();
+    			$("#courseHidden"+c).remove();
+    		});
+    		count++;
+    	}
+    }
+});
 </script>
 
 <%- include ../partials/footer.ejs %>

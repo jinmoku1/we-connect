@@ -1,3 +1,4 @@
+
 span.label.label-default {
 	background-color: #eee;
 	color: #666;
@@ -9,4 +10,19 @@ a {
 
 a.btn-lgray {
 	background-color:#eee;
+}
+
+.tall{
+    height:90%;
+}
+
+.vcenter-login {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.container{
+  max-width: none !important;
+  width: 1080px;
 }

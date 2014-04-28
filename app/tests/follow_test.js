@@ -11,18 +11,6 @@ describe("#addingDummies", function() {
 	var result;
 	
 	var post1 = {
-			netId			: 'followee',
-			password		: '1',
-			firstName		: 'Jessica',
-			lastName		: 'Alba',
-			department		: 'CS',
-			userType		: userConst.TYPE_STUDENT,
-			interests		: [],
-			classStanding	: 'Junior',
-			degree			: 'Bachelor\'s',
-	};
-
-	var post2 = {
 			netId			: 'following',
 			password		: '1',
 			firstName		: 'Jessica',
@@ -34,10 +22,22 @@ describe("#addingDummies", function() {
 			degree			: 'Bachelor\'s',
 	};
 
+	var post2 = {
+			netId			: 'follower',
+			password		: '1',
+			firstName		: 'Jessica',
+			lastName		: 'Alba',
+			department		: 'CS',
+			userType		: userConst.TYPE_STUDENT,
+			interests		: [],
+			classStanding	: 'Junior',
+			degree			: 'Bachelor\'s',
+	};
+
 	before(function(done) {
-		userDb.create(post1, function(followee) {
-			userDb.create(post2, function(following) {
-				result = following;
+		userDb.create(post1, function(following) {
+			userDb.create(post2, function(follower) {
+				result = follower;
 				done();
 			});
 		});
@@ -48,54 +48,14 @@ describe("#addingDummies", function() {
 	});
 });
 
-describe("#addFollowee(toggle)", function() {
-	this.timeout(0);
-	var result = false;
-
-	before(function(done) {
-		userDb.isValidLogin("followee", "1", function(followee) {
-			userDb.isValidLogin("following", "1", function(following) {
-				api.addFollowee(followee._id, following, function(success) {
-					result = success;
-					done();
-				});
-			});
-		});
-	});
-	
-	it("Should add followee to the following", function() {
-		assert(result);
-	});
-});
-
-describe("#deleteFollowee(toggle)", function() {
-	this.timeout(0);
-	var result = false;
-
-	before(function(done) {
-		userDb.isValidLogin("followee", "1", function(followee) {
-			userDb.isValidLogin("following", "1", function(following) {
-				api.addFollowee(followee._id, following, function(success) {
-					result = success;
-					done();
-				});
-			});
-		});
-	});
-	
-	it("Should delete followee from the following", function() {
-		assert(result);
-	});
-});
-
 describe("#addFollowing(toggle)", function() {
 	this.timeout(0);
 	var result = false;
 
 	before(function(done) {
-		userDb.isValidLogin("followee", "1", function(followee) {
-			userDb.isValidLogin("following", "1", function(following) {
-				api.addFollowing(followee._id, following, function(success) {
+		userDb.isValidLogin("following", "1", function(following) {
+			userDb.isValidLogin("follower", "1", function(follower) {
+				api.addFollowing(following._id, follower, function(success) {
 					result = success;
 					done();
 				});
@@ -103,7 +63,7 @@ describe("#addFollowing(toggle)", function() {
 		});
 	});
 	
-	it("Should add the following to the followee", function() {
+	it("Should add following to the follower", function() {
 		assert(result);
 	});
 });
@@ -113,9 +73,9 @@ describe("#deleteFollowing(toggle)", function() {
 	var result = false;
 
 	before(function(done) {
-		userDb.isValidLogin("followee", "1", function(followee) {
-			userDb.isValidLogin("following", "1", function(following) {
-				api.addFollowing(followee._id, following, function(success) {
+		userDb.isValidLogin("following", "1", function(following) {
+			userDb.isValidLogin("follower", "1", function(follower) {
+				api.addFollowing(following._id, follower, function(success) {
 					result = success;
 					done();
 				});
@@ -123,7 +83,47 @@ describe("#deleteFollowing(toggle)", function() {
 		});
 	});
 	
-	it("Should delete the following from the followee", function() {
+	it("Should delete following from the follower", function() {
+		assert(result);
+	});
+});
+
+describe("#addFollower(toggle)", function() {
+	this.timeout(0);
+	var result = false;
+
+	before(function(done) {
+		userDb.isValidLogin("following", "1", function(following) {
+			userDb.isValidLogin("follower", "1", function(follower) {
+				api.addFollower(following._id, follower, function(success) {
+					result = success;
+					done();
+				});
+			});
+		});
+	});
+	
+	it("Should add the follower to the following", function() {
+		assert(result);
+	});
+});
+
+describe("#deleteFollower(toggle)", function() {
+	this.timeout(0);
+	var result = false;
+
+	before(function(done) {
+		userDb.isValidLogin("following", "1", function(following) {
+			userDb.isValidLogin("follower", "1", function(follower) {
+				api.addFollower(following._id, follower, function(success) {
+					result = success;
+					done();
+				});
+			});
+		});
+	});
+	
+	it("Should delete the follower from the following", function() {
 		assert(result);
 	});
 });
@@ -133,10 +133,10 @@ describe("#removingDummies", function() {
 	var result = false;
 
 	before(function(done) {
-		userDb.isValidLogin("followee", "1", function(followee) {
-			userDb.isValidLogin("following", "1", function(following) {
-				userDb.remove(followee._id, function(removed1) {
-					userDb.remove(following._id, function(removed2) {
+		userDb.isValidLogin("following", "1", function(following) {
+			userDb.isValidLogin("follower", "1", function(follower) {
+				userDb.remove(following._id, function(removed1) {
+					userDb.remove(follower._id, function(removed2) {
 						result = removed2;
 						done();
 					});

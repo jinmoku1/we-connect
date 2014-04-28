@@ -24,9 +24,6 @@
 <header style="height:40px; line-height:40px; background:#eeeeee;">	
 	<nav style="float:left;">
 		<a href="/" style="padding:0 .5em">WeConnect:<span style="color:red">CS</span></a>
-		<% if (user) { %>
-		<a href="/announcement/create" style="padding:0 .5em">Post Announcements</a>
-		<% } %>
 		<a href="/about" style="padding:0 .5em">About</a>
 		<a href="/support" style="padding:0 .5em">Support</a>
 	</nav>
@@ -34,7 +31,6 @@
 	<% if (user) { %>
 		<span style="padding:0 .5em">
 			<span>Welcome <%=user.firstName%> <%=user.lastName%></span>
-			<a href="/setting">Settings</a> |
 			<a href="/account/logout" style="line-height:40px">Logout</a>
 		</span>
 	<% } %>

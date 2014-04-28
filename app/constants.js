@@ -11,7 +11,7 @@ exports.db = {
 
 exports.interests = [
 	'Software Engineering', 'Data Mining', 'Machine Learning', 'Algorithm',
-	'Graphics', 'Multimedia', 'Aritificial Intelligence', 'Database', 'User Inteface',
+	'Graphics', 'Multimedia', 'Artificial Intelligence', 'Database', 'User Inteface',
 	'Web Development', 'System Programming', 'Network', 'Security',
 ];
 
@@ -38,6 +38,7 @@ exports.classStandings = [
 exports.user = {
 	TYPE_STUDENT	: 'student',
 	TYPE_FACULTY	: 'faculty',
+	TYPE_ADMIN		: 'admin',
 	
 	db : {
 		USER_DETAILS	: 'userDetails',
@@ -47,6 +48,12 @@ exports.user = {
 };
 
 exports.annc = {
+	PENDING				: 0,
+	ACCEPTED			: 1,
+	REJECTED			: 2,
+	DECREASING			: -1,
+	INCREASING			: 1,
+	
 	db: {
 		ANNC_DETAILS	: 'anncDetails',
 		ANNC_BRIEFS		: 'anncBriefs',
