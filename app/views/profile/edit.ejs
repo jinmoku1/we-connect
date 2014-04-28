@@ -297,8 +297,8 @@ $(function() {
     $("#courses").autocomplete({
 		source: availableTags
 	});
-    
-    if ($("#courses").data("myCourses")=="undefined"){
+
+    if ($("#courses").data("myCourses")=="undefined" || $("#courses").data("myCourses")==""){
     	return;
     }
     
