@@ -390,3 +390,16 @@ div.tab-pane {
 		#adminContainer .anncList .row .author {
 			font-size: 0.8em;
 		}
+
+#modalPicture .picture {
+	width: 120px;
+	height: 120px;
+	background-color: #dfdfdf;
+	border-radius: 10%;
+}
+
+#modalPicture .picture img {
+	width: 120px;
+	height: 120px;
+	border-radius: 10%;
+}

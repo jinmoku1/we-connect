@@ -8,7 +8,11 @@
 <div class="modal-body">
 	<div class="row">
 		<div id="modalPicture" class="col-md-5">
-			<img src="http://www.hdwallpapers.in/walls/amanda_seyfried-normal5.4.jpg" />
+			<div class="picture">
+			<% if (userDetail.profilePicUrl != null) { %>
+				<img src="<%=userDetail.profilePicUrl%>" />
+			<% } %>
+			</div>
 		</div>
 		<div id="modalProfile">
 			<p>
