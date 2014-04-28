@@ -23,10 +23,10 @@
             </div>
         </div>
         <div class="interests">
-            <span class="label label-info">Software Engineering</span>
-            <span class="label label-info">Data Mining</span>
-            <span class="label label-info">Computer Architecture</span>
-            <span class="label label-info">Database</span>
+            <% for (var j in userBriefs[i].interests) { %>
+                <span class="label label-info"><%=userBriefs[i].interests[j]%></span>
+                
+            <% } %>
         </div>
     </div>
 <% } %>
