@@ -61,6 +61,7 @@ exports.suggestedUsers = function(req, res) {
 	var sessionUser = session.getSessionUser(req);
 	
 	userDb.userRecsystem(sessionUser, function(userBriefs) {
+		console.log(userBriefs);
 		res.render('embedded/suggestedusers', {
 			userBriefs : userBriefs
 		});

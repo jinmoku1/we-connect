@@ -54,8 +54,80 @@
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="anncRecList">
+					<div class="anncList">
+						<%  
+						for (var i in recBriefs) { %>
+						<div class="row">
+							<div class="col-xs-2">
+								<img src="/media/<%=recBriefs[i].author._id%>/picture/<%=recBriefs[i].author.netId%>" />
+							</div>
+							<div class="col-xs-7">
+								<h1 class="title">
+									<a href="announcement/<%=recBriefs[i].detailId%>"><%=recBriefs[i].title%></a>
+									<span class="author">
+										<em><%=recBriefs[i].author.name%></em>
+									</span>
+								</h1>
+								<p class="contentBrief">
+									<%=recBriefs[i].contentBrief%>...
+									<span class="timeStamp">
+										<em>
+										<% var date = recBriefs[i].timeStamp; %>
+										<%=""+date.getDate()+"/"
+											+(date.getMonth()+1)+"/"
+											+date.getFullYear()+" @ "
+											+date.getHours()+":"
+											+date.getMinutes()+":" 
+											+date.getSeconds()
+										%>
+										</em>
+									</span>
+								</p>
+								<p class="anncTypes">
+									<span class="label label-default"><%=recBriefs[i].anncTypes%></span>
+								</p>
+							</div>
+						</div>
+						<% } %>
+					</div>
 				</div>
 				<div class="tab-pane" id="anncFollowerList">
+					<div class="anncList">
+						<%  
+						for (var i in followBriefs) { %>
+						<div class="row">
+							<div class="col-xs-2">
+								<img src="/media/<%=followBriefs[i].author._id%>/picture/<%=followBriefs[i].author.netId%>" />
+							</div>
+							<div class="col-xs-7">
+								<h1 class="title">
+									<a href="announcement/<%=followBriefs[i].detailId%>"><%=followBriefs[i].title%></a>
+									<span class="author">
+										<em><%=followBriefs[i].author.name%></em>
+									</span>
+								</h1>
+								<p class="contentBrief">
+									<%=followBriefs[i].contentBrief%>...
+									<span class="timeStamp">
+										<em>
+										<% var date = followBriefs[i].timeStamp; %>
+										<%=""+date.getDate()+"/"
+											+(date.getMonth()+1)+"/"
+											+date.getFullYear()+" @ "
+											+date.getHours()+":"
+											+date.getMinutes()+":" 
+											+date.getSeconds()
+										%>
+										</em>
+									</span>
+								</p>
+								<p class="anncTypes">
+									<span class="label label-default"><%=followBriefs[i].anncTypes%></span>
+								</p>
+							</div>
+						</div>
+						<% } %>
+					</div>
 				</div>
 				<div class="tab-pane" id="archive">
 					<div class="anncList">
