@@ -129,7 +129,6 @@ exports.getBriefs = function(callback) {
 	});
 };
 
-
 /**
  * update announcement(detail/brief) db
  * 
@@ -205,7 +204,12 @@ exports.followingAnnRecSystem = function(user, callback) {
 	var cond = 
 		[
 	            {
-	            	$match : {"author._id" : { $in : friendList }}
+	            	$match :{  
+	            		$and: [
+	      	        	          {"author._id" : { $in : friendList }},
+	    	        	          {"status" : {$eq : 1}}
+	    	        	   ]
+	      	        }
 	            },
 	            {
 	                $sort : { timestamp : -1 }
@@ -233,7 +237,12 @@ exports.AnnRecSystem = function(user, callback) {
 	var cond = 
 		[
 	       {
-	           $match : {"author._id" : {$ne : id }}
+	           $match : {
+	        	   $and: [
+	        	          {"author._id" : {$ne : id }},
+	        	          {"status" : {$eq : 1}}
+	        	   ]
+	           }
 	       },
 	       {
 	           $project : 

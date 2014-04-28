@@ -73,8 +73,13 @@ exports.createPost = function(req, res) {
 		overallGPA : req.body.overallGPA,
 		technicalGPA : req.body.technicalGPA,
 		resumeRequired : req.body.resumeRequired,
-		timeStamp : curtime
+		timeStamp : curtime,
+		status : 1
 	};
+	
+	if (user.userType == constants.user.TYPE_STUDENT) {
+		post.status = 0;
+	}
 	
 	anncDb.create(post, function(result) {
 		if (result){
@@ -252,7 +257,7 @@ exports.sendMail = function(receiver, subject, text, html, callback) {
 	    }
 	    else {
 	    	result = true;
-	        console.log("Message sent: " + response.message);
+	        //console.log("Message sent: " + response.message);
 	    }
 		smtpTransport.close();
 		callback(result);
