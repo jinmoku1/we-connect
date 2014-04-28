@@ -204,6 +204,7 @@ exports.applyPost = function(req, res) {
 	var user = session.getSessionUser(req, user);
 	
 	var anncId = req.body.id;
+	var id = ObjectID.createFromHexString(anncId);
 	var authorNetId = req.body.authorNetId;
 	var message = req.body.message;
 	var sendResume = req.body.sendResume;
@@ -220,15 +221,19 @@ exports.applyPost = function(req, res) {
 		html += '<p>' + '<a href="http://localhost:3000' + user.extension.resumeUrl + '">See Resume</a>' + '</p>';
 	}
 	
-	//console.log(html);
-	exports.sendMail(authorEmail, "Application to your Post : Title Goes Here", null, html, function(result) {
-		if (result){
-			res.writeHead(200, {"Content-Type": "text/plain"});
-			res.end("true");
-		}
-		else {
-			res.writeHead(200, {"Content-Type": "text/plain"});
-			res.end("false");
+	anncDb.getDetail(id, function(announcement){
+		console.log(announcement);
+		if (announcement){
+			exports.sendMail(authorEmail, "Application to your Post : "+announcement.title, null, html, function(result) {
+				if (result){
+					res.writeHead(200, {"Content-Type": "text/plain"});
+					res.end("true");
+				}
+				else {
+					res.writeHead(200, {"Content-Type": "text/plain"});
+					res.end("false");
+				}
+			});
 		}
 	});
 };
