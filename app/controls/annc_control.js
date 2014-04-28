@@ -106,7 +106,6 @@ exports.edit = function(req, res) {
 exports.editPost = function(req, res) {
 	var anncId = req.params.id;
 	var id = ObjectID.createFromHexString(anncId);
-	console.log(req.body);
 	var user = session.getSessionUser(req);
 	var curtime = new Date();
 	
@@ -216,7 +215,7 @@ exports.applyPost = function(req, res) {
 		html += '<p>' + '<a href="http://localhost:3000' + user.extension.resumeUrl + '">See Resume</a>' + '</p>';
 	}
 	
-	console.log(html);
+	//console.log(html);
 	exports.sendMail(authorEmail, "Application to your Post : Title Goes Here", null, html, function(result) {
 		if (result){
 			res.writeHead(200, {"Content-Type": "text/plain"});

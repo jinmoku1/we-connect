@@ -56,23 +56,23 @@
 				<div class="tab-pane active" id="anncRecList">
 					<div class="anncList">
 						<%  
-						for (var i in recBriefs) { %>
+						for (var i in recDetails) { %>
 						<div class="row">
 							<div class="col-xs-2">
-								<img src="/media/<%=recBriefs[i].author._id%>/picture/<%=recBriefs[i].author.netId%>" />
+								<img src="/media/<%=recDetails[i].author._id%>/picture/<%=recDetails[i].author.netId%>" />
 							</div>
 							<div class="col-xs-7">
 								<h1 class="title">
-									<a href="announcement/<%=recBriefs[i].detailId%>"><%=recBriefs[i].title%></a>
+									<a href="announcement/<%=recDetails[i]._id%>"><%=recDetails[i].title%></a>
 									<span class="author">
-										<em><%=recBriefs[i].author.name%></em>
+										<em><%=recDetails[i].author.name%></em>
 									</span>
 								</h1>
 								<p class="contentBrief">
-									<%=recBriefs[i].contentBrief%>...
+									<%=recDetails[i].content%>...
 									<span class="timeStamp">
 										<em>
-										<% var date = recBriefs[i].timeStamp; %>
+										<% var date = recDetails[i].timeStamp; %>
 										<%=""+date.getDate()+"/"
 											+(date.getMonth()+1)+"/"
 											+date.getFullYear()+" @ "
@@ -84,7 +84,7 @@
 									</span>
 								</p>
 								<p class="anncTypes">
-									<span class="label label-default"><%=recBriefs[i].anncTypes%></span>
+									<span class="label label-default"><%=recDetails[i].anncTypes%></span>
 								</p>
 							</div>
 						</div>

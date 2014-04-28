@@ -177,7 +177,6 @@ exports.settingProfile = function(req, res) {
 				}
 				
 				var mediaPath = pictureDirPath + "/" + user.netId;
-				console.log(mediaPath);
 				if (fs.existsSync(mediaPath)) {
 					fs.unlink(mediaPath);
 				}
@@ -225,7 +224,6 @@ exports.settingAdditionalInfo = function(req, res) {
 	var resumeDir = userDir + '/resume';
 	
 	var resume = req.files.resume;
-	console.log(resume.size);
 	
 	if (user.userType == userConst.TYPE_STUDENT){
 		user.extension.overallGPA = req.body.overallGPA;
@@ -238,13 +236,11 @@ exports.settingAdditionalInfo = function(req, res) {
 	}
 	else {
 		user.extension.coursesTaught = req.body.coursesTaught;
-		console.log(user.extension.coursesTaught);
 	}
 	
 	userDb.updateInfo(user._id, user, function(success) {
 		if (success){
 			session.setSessionUser(req, user);
-			console.log("DFS"+user.extension.coursesTaught);
 			if (resume.size > 0) {
 				fileData = fs.readFileSync(resume.path);
 				if (fileData == null) {

@@ -29,18 +29,14 @@ exports.index = function(req, res) {
 	else {
 		userDb.getBriefs(null, function(userBriefs) {
 			anncDb.getAnncBriefByStatus(anncConst.ACCEPTED,anncConst.DECREASING,function(anncBriefs) {
-				anncDb.AnnRecSystem(user,function(recBriefs) {
+				anncDb.AnnRecSystem(user,function(recDetails) {
 					anncDb.followingAnnRecSystem(user,function(followBriefs) {
-						console.log("REC BRIEFS!!!");
-						console.log(recBriefs);
-						console.log("FOLLOW BRIEFS!!!");
-						console.log(followBriefs);
 						res.render('index', {
 							user : user,
 							userConst : userConst,
 							userBriefs : userBriefs,
 							anncBriefs : anncBriefs,
-							recBriefs : recBriefs,
+							recDetails : recDetails,
 							followBriefs : followBriefs,
 							title : 'WeConnect : CS',
 							welcome : 'Welcome to WeConnect'

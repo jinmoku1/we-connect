@@ -213,7 +213,6 @@ exports.followingAnnRecSystem = function(user, callback) {
 	    ];
 	
 	connector.aggreate(anncConst.db.ANNC_BRIEFS, cond, function(db, result) {
-		console.log(result);
 		db.close();
 		callback(result);
 	});
@@ -242,7 +241,7 @@ exports.AnnRecSystem = function(user, callback) {
 	               author : 1,
 	               title : 1,
 	               timeStamp : 1,
-	               anncType : 1,
+	               anncTypes : 1,
 	               interests : 1,
 	               content : 1,
 	               status : 1, 
@@ -278,7 +277,6 @@ exports.AnnRecSystem = function(user, callback) {
 	
 	connector.aggreate(anncConst.db.ANNC_DETAILS, cond, function(db, result) {
 		db.close();
-		console.log(result);
 		callback(result);
 	});
 };
