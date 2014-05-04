@@ -123,9 +123,9 @@ exports.remove = function(_id, callback) {
 	});
 };
 
-exports.removeAllBookmarks = function(anncBriefId, callback){
-	var queryStatement = {"bookmarkedAnncs" : { $elemMatch : {"_id" : anncBriefId}}};
-	connector.updateAll(userConst.db.USER_DETAILS, queryStatement, {'$pull': {"bookmarkedAnncs": {"_id" :anncBriefId}}}, function(db, result){
+exports.removeAllBookmarks = function(anncId, callback){
+	var queryStatement = {"bookmarkedAnncs" : { $elemMatch : {"detailId" : anncId}}};
+	connector.updateAll(userConst.db.USER_DETAILS, queryStatement, {'$pull': {"bookmarkedAnncs": {"detailId" :anncId}}}, function(db, result){
 		db.close();
 		callback(result);
 	});
