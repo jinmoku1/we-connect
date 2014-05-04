@@ -212,7 +212,6 @@ exports.netIdExists = function(netId, callback) {
  * @param user Detail Object
  */
 exports.userRecsystem = function(user, callback) {
-	//console.log(user);
 	var interests = (user.interests == null ? [] : user.interests),
 		department = user.department,
 		ids = user.followings;
