@@ -177,7 +177,7 @@ exports.getBrief = function(detailed_id, callback) {
  * @return {boolean} brief doc
  */
 exports.getAnncDetailByStatus = function(status, order, callback) {
-	connector.findAllwithConditionByOrder(anncConst.db.ANNC_DETAILS, { status: status }, { timeStamp : -1 }, function(db, resultDoc){
+	connector.findAllwithConditionByOrder(anncConst.db.ANNC_DETAILS, { status: status }, { timeStamp : order }, function(db, resultDoc){
 		db.close();
 		callback(resultDoc);
 	});

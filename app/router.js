@@ -39,8 +39,6 @@ exports.route = function (app) {
 	app.get('/embedded/suggestedusers', embeddedControl.suggestedUsers);
 	
 	// api - used for light dynamic requests
-	app.get('/api/sample', apiControl.sample);
-	
 	app.post('/api/follow', apiControl.follow);
 	
 	//announcement
