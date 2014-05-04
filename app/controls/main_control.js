@@ -1,3 +1,10 @@
+/**
+ * This is the main controller which maintains the index page and the about page.
+ * 
+ * @module controls/mainControl
+ * 
+ */
+
 /*
  * GET rendered view page.
  */
@@ -10,6 +17,17 @@ var userConstDev = require('../constants').developers;
 var userDb = require('../db/user_db');
 var anncDb = require('../db/annc_db');
 
+/**
+ * The purpose of this function is to create the Main page depending on the user login status</br>
+ * The function checks whether the usertype is Admin or a standard user</br>
+ * </br>
+ * usertype: Admin - generate the Admin page for approving announcement posts</br>
+ * usertype: standard - generate the main profile page dynamically
+ * by populating with data using the recommendation system and DB calls</br>
+ * 
+ * @param (object) req A request object
+ * @param (object) res A response object
+ */
 exports.index = function(req, res) {
 	if (!session.isLoggedin(req)) {
 		res.redirect('/account/login');
@@ -48,6 +66,12 @@ exports.index = function(req, res) {
 	}
 };
 
+/**
+ * This function generates the data format for the About page where developer information is displayed
+ * 
+ * @param (object) req A request object
+ * @param (object) res A response object
+ */
 exports.about = function(req, res) {
 	res.render('about', {
 		user : session.getSessionUser(req),
