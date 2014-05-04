@@ -227,13 +227,15 @@ exports.followingAnnRecSystem = function(user, callback) {
  * @param user Detail Object
  */
 exports.AnnRecSystem = function(user, callback) {
-	var id = user.id,
+	var id = user._id,
 		interests = (user.interests == null ? [] : user.interests),
 		coursesTaken = (user.coursesTaken == null ? [] : user.coursesTaken),
 		overallGPA = user.overallGPA,
 		technicalGPA = user.technicalGPA,
 		classStanding = user.classStanding,
 		degree = user.degree;
+	console.log("user Id: " + id);
+	
 	var cond = 
 		[
 	       {

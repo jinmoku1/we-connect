@@ -222,7 +222,6 @@ exports.applyPost = function(req, res) {
 	}
 	
 	anncDb.getDetail(id, function(announcement){
-		console.log(announcement);
 		if (announcement){
 			exports.sendMail(authorEmail, "Application to your Post : "+announcement.title, null, html, function(result) {
 				if (result){
@@ -262,7 +261,6 @@ exports.sendMail = function(receiver, subject, text, html, callback) {
 	    }
 	    else {
 	    	result = true;
-	        //console.log("Message sent: " + response.message);
 	    }
 		smtpTransport.close();
 		callback(result);
