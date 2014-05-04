@@ -56,6 +56,19 @@ exports.remove = function(collection, conditionDoc, callback) {
 	});
 };
 
+exports.updateAll = function(collection, query, update, callback){
+	exports.connect(function(db){
+		var dbCollection = db.collection(collection);
+		dbCollection.update(query, update, {multi: true}, function(err, result){
+			if (err) {
+				console.log("[ERROR] update on \'" + collection + "\' Failed.");
+				return;
+			}
+			callback(db, result);
+		});
+	});
+};
+
 exports.update = function(collection, conditionDoc, updateDoc, callback) {
 	exports.connect(function(db) {
 		var dbCollection = db.collection(collection);

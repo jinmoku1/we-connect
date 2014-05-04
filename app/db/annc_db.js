@@ -1,4 +1,5 @@
 // Collection Constants
+var userConst = require('../constants').user;
 var anncConst = require('../constants').annc;
 var connector = require('./connector');
 
@@ -122,6 +123,14 @@ exports.remove = function(_id, callback) {
 	});
 };
 
+exports.removeAllBookmarks = function(anncBriefId, callback){
+	var queryStatement = {"bookmarkedAnncs" : { $elemMatch : {"_id" : anncBriefId}}};
+	connector.updateAll(userConst.db.USER_DETAILS, queryStatement, {'$pull': {"bookmarkedAnncs": {"_id" :anncBriefId}}}, function(db, result){
+		db.close();
+		callback(result);
+	});
+};
+
 exports.getBriefs = function(callback) {
 	connector.findAll(anncConst.db.ANNC_BRIEFS, function(db, docs){
 		db.close();
@@ -177,7 +186,7 @@ exports.getBrief = function(detailed_id, callback) {
  * @return {boolean} brief doc
  */
 exports.getAnncDetailByStatus = function(status, order, callback) {
-	connector.findAllwithConditionByOrder(anncConst.db.ANNC_DETAILS, { status: status }, { timeStamp : -1 }, function(db, resultDoc){
+	connector.findAllwithConditionByOrder(anncConst.db.ANNC_DETAILS, { status: status }, { timeStamp : order }, function(db, resultDoc){
 		db.close();
 		callback(resultDoc);
 	});
@@ -234,6 +243,7 @@ exports.AnnRecSystem = function(user, callback) {
 		technicalGPA = user.technicalGPA,
 		classStanding = user.classStanding,
 		degree = user.degree;
+	//console.log("user Id: " + id);
 	
 	var cond = 
 		[
