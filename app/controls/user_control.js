@@ -1,3 +1,11 @@
+/**
+ * This is the user control that maintains redirecting of GET and POST requests
+ * for login, user agreement, user registration, user validation, and user account and
+ * profile settings. It also renders the pages generated here.
+ * 
+ * @module controls/userControl
+ */
+
 var constants = require('../constants');
 var userConst = constants.user;
 var session = require('../session');
