@@ -1,8 +1,10 @@
 /**
- * This is the main controller which maintains the index page and the about page.
+ * This is the main controller which handles the index page and the about page.
  * 
  * @module controls/mainControl
- * 
+ * @requires module:session
+ * @requires module:constants
+ * @requires module:db/user_db
  */
 
 /*
@@ -25,8 +27,8 @@ var anncDb = require('../db/annc_db');
  * usertype: standard - generate the main profile page dynamically
  * by populating with data using the recommendation system and DB calls</br>
  * 
- * @param (object) req A request object
- * @param (object) res A response object
+ * @param {object} req A request object
+ * @param {object} res A response object
  */
 exports.index = function(req, res) {
 	if (!session.isLoggedin(req)) {
@@ -69,8 +71,8 @@ exports.index = function(req, res) {
 /**
  * This function generates the data format for the About page where developer information is displayed
  * 
- * @param (object) req A request object
- * @param (object) res A response object
+ * @param {object} req A request object
+ * @param {object} res A response object
  */
 exports.about = function(req, res) {
 	res.render('about', {
