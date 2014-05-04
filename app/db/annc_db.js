@@ -234,7 +234,6 @@ exports.AnnRecSystem = function(user, callback) {
 		technicalGPA = user.technicalGPA,
 		classStanding = user.classStanding,
 		degree = user.degree;
-	console.log("user Id: " + id);
 	
 	var cond = 
 		[
