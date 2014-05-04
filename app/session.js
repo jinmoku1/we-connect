@@ -21,7 +21,7 @@ exports.getSessionUser = function(req) {
 		// build ObjectID
 		sessionUser._id = ObjectID.createFromHexString(sessionUser._id);
 		sessionUser.briefId = ObjectID.createFromHexString(sessionUser.briefId);
-		console.log(sessionUser);
+		//console.log(sessionUser);
 		for (var i in sessionUser.followers) {
 			sessionUser.followers[i] = ObjectID.createFromHexString(sessionUser.followers[i]);
 		}

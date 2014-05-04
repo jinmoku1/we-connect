@@ -1,4 +1,5 @@
 // Collection Constants
+var userConst = require('../constants').user;
 var anncConst = require('../constants').annc;
 var connector = require('./connector');
 
@@ -122,6 +123,14 @@ exports.remove = function(_id, callback) {
 	});
 };
 
+exports.removeAllBookmarks = function(anncBriefId, callback){
+	var queryStatement = {"bookmarkedAnncs" : { $elemMatch : {"_id" : anncBriefId}}};
+	connector.updateAll(userConst.db.USER_DETAILS, queryStatement, {'$pull': {"bookmarkedAnncs": {"_id" :anncBriefId}}}, function(db, result){
+		db.close();
+		callback(result);
+	});
+};
+
 exports.getBriefs = function(callback) {
 	connector.findAll(anncConst.db.ANNC_BRIEFS, function(db, docs){
 		db.close();
@@ -234,7 +243,7 @@ exports.AnnRecSystem = function(user, callback) {
 		technicalGPA = user.technicalGPA,
 		classStanding = user.classStanding,
 		degree = user.degree;
-	console.log("user Id: " + id);
+	//console.log("user Id: " + id);
 	
 	var cond = 
 		[

@@ -147,8 +147,12 @@ exports.deletePost = function(req, res) {
 	
 	anncDb.remove(id, function(result) {
 		if (result){
-			res.writeHead(200, {"Content-Type": "text/plain"});
-			res.end("true");
+			anncDb.removeAllBookmarks(id, function(result){
+				if(result){
+					res.writeHead(200, {"Content-Type": "text/plain"});
+					res.end("true");
+				}
+			});
 		}
 	});
 };

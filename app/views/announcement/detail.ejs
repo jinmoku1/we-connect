@@ -229,6 +229,7 @@ $('#deleteAnnc').click(function(){
 		type: 'POST',
 		data: {id: $(this).data('anncId')},
 		success: function(data, textStatus, xhr) {
+			alert(data);
 			if (data=="true")
 				window.location.replace("/");
 		}
