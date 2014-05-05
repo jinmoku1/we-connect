@@ -1,5 +1,5 @@
 /**
- * Connector Modile is for 
+ * Connector Modile is for.
  * @module db/connector
  *
  * @requires module:mongodb
@@ -12,7 +12,7 @@ var mongoClient = require('mongodb').MongoClient;
 /**
  * connect to mongoDB
  * 
- * @param {db/connector~connectCallback} Callback function 
+ * @param {connectCallback} Callback function 
  */
 exports.connect = function(callback) {
 	mongoClient.connect(dbConst.CONNECTION_STRING, function(err, db) {
@@ -26,7 +26,7 @@ exports.connect = function(callback) {
 /**
  * This callback is displayed as part of the Connector module.
  *
- * @callback db/connector~connectCallback
+ * @callback connectCallback
  * @param {Object} db location, so that other functions know where to modify
  */
 
@@ -35,7 +35,7 @@ exports.connect = function(callback) {
  * 
  * @param {string} collection name
  * @param {Object} document that would be saved on db
- * @param {db/connector~saveCallback} Callback function
+ * @param {saveCallback} Callback function
  */
 exports.save = function(collection, inputDoc, callback) {
 	exports.connect(function(db) {
@@ -52,7 +52,7 @@ exports.save = function(collection, inputDoc, callback) {
 /**
  * This callback is displayed as part of the Connector module.
  *
- * @callback db/connector~saveCallback
+ * @callback saveCallback
  * @param {Object} db location, so that other functions know where to modify
  * @param {Object} the most saved document
  */
@@ -62,7 +62,7 @@ exports.save = function(collection, inputDoc, callback) {
  * 
  * @param {string} collection name
  * @param {Object} documents that contain conditions
- * @param {db/connector~findOneCallback} Callback function
+ * @param {findOneCallback} Callback function
  */
 exports.findOne = function(collection, conditionDoc, callback) {
 	exports.connect(function(db) {
@@ -79,7 +79,7 @@ exports.findOne = function(collection, conditionDoc, callback) {
 /**
  * This callback is displayed as part of the Connector module.
  *
- * @callback db/connector~findOneCallback
+ * @callback findOneCallback
  * @param {Object} db location, so that other functions know where to modify
  * @param {Object} found document
  */
@@ -89,7 +89,7 @@ exports.findOne = function(collection, conditionDoc, callback) {
  * 
  * @param {string} collection name
  * @param {ObjectId} documents that contain conditions
- * @param {db/connector~removeCallback} Callback function
+ * @param {removeCallback} Callback function
  */
 exports.remove = function(collection, conditionDoc, callback) {
 	exports.connect(function(db) {
@@ -107,7 +107,7 @@ exports.remove = function(collection, conditionDoc, callback) {
 /**
  * This callback is displayed as part of the Connector module.
  *
- * @callback db/connector~removeCallback
+ * @callback removeCallback
  * @param {Object} db location, so that other functions know where to modify
  * @param {Boolean} notice whether conditioned doc is removed successfully
  */
@@ -118,7 +118,7 @@ exports.remove = function(collection, conditionDoc, callback) {
  * @param {string} collection name
  * @param {Object} conditional documents that contain conditions to filter out
  * @param {Object} document that would replace to
- * @param {db/connector~updateAllCallback} Callback function
+ * @param {updateAllCallback} Callback function
  */
 exports.updateAll = function(collection, query, update, callback){
 	exports.connect(function(db){
@@ -135,7 +135,7 @@ exports.updateAll = function(collection, query, update, callback){
 /**
  * This callback is displayed as part of the Connector module.
  *
- * @callback db/connector~updateAllCallback
+ * @callback updateAllCallback
  * @param {Object} db location, so that other functions know where to modify
  * @param {Boolean} notice whether condition-related docs are updated successfully
  */
@@ -146,7 +146,7 @@ exports.updateAll = function(collection, query, update, callback){
  * @param {string} collection name
  * @param {Object} conditional document that contain conditions to find one
  * @param {Object} document that would replace to
- * @param {db/connector~updateCallback} Callback function
+ * @param {updateCallback} Callback function
  */
 exports.update = function(collection, conditionDoc, updateDoc, callback) {
 	exports.connect(function(db) {
@@ -163,7 +163,7 @@ exports.update = function(collection, conditionDoc, updateDoc, callback) {
 /**
  * This callback is displayed as part of the Connector module.
  *
- * @callback db/connector~updateCallback
+ * @callback updateCallback
  * @param {Object} The update() method returns a WriteResult object that contains the status of the operation. Upon success, the WriteResult object contains the number of documents that matched the query condition, the number of documents inserted via an upsert, and the number of documents modified:
  */
 
@@ -171,7 +171,7 @@ exports.update = function(collection, conditionDoc, updateDoc, callback) {
  * fina all documents from db
  * 
  * @param {string} collection name
- * @param {db/connector~findAllCallback} Callback function
+ * @param {findAllCallback} Callback function
  */
 exports.findAll = function(collection, callback){
 	exports.connect(function(db){
@@ -188,7 +188,7 @@ exports.findAll = function(collection, callback){
 /**
  * This callback is displayed as part of the Connector module.
  *
- * @callback db/connector~findAllCallback
+ * @callback findAllCallback
  * @param {List<Object>} All documents.
  */
 
@@ -197,7 +197,7 @@ exports.findAll = function(collection, callback){
  * 
  * @param {string} collection name
  * @param {Object} conditional document that contain conditions to filter out
- * @param {db/connector~findAllwithConditionCallback} Callback function
+ * @param {findAllwithConditionCallback} Callback function
  */
 exports.findAllwithCondition = function(collection, conditionDoc, callback) {
 	exports.connect(function(db){
@@ -214,7 +214,7 @@ exports.findAllwithCondition = function(collection, conditionDoc, callback) {
 /**
  * This callback is displayed as part of the Connector module.
  *
- * @callback db/connector~findAllwithConditionCallback
+ * @callback findAllwithConditionCallback
  * @param {List<Object>} the documents that match the query criteria.
  */
 
@@ -224,7 +224,7 @@ exports.findAllwithCondition = function(collection, conditionDoc, callback) {
  * @param {string} collection name
  * @param {Object} conditional document that contain conditions to filter out
  * @param {Object} conditional document that contain information about how to order the result
- * @param {db/connector~findAllwithConditionByOrderCallback} Callback function
+ * @param {findAllwithConditionByOrderCallback} Callback function
  */
 exports.findAllwithConditionByOrder = function(collection, conditionDoc, sortedDoc, callback) {
 	exports.connect(function(db){
@@ -241,7 +241,7 @@ exports.findAllwithConditionByOrder = function(collection, conditionDoc, sortedD
 /**
  * This callback is displayed as part of the Connector module.
  *
- * @callback db/connector~findAllwithConditionByOrderCallback
+ * @callback findAllwithConditionByOrderCallback
  * @param {List<Object>} the documents that match the query criteria with given order condition.
  */
 
@@ -250,7 +250,7 @@ exports.findAllwithConditionByOrder = function(collection, conditionDoc, sortedD
  * 
  * @param {string} collection name
  * @param {Object} conditional document that contain conditions to filter out
- * @param {db/connector~aggreateCallback} Callback function
+ * @param {aggreateCallback} Callback function
  */
 exports.aggreate = function(collection, aggreCondition, callback) {
 	exports.connect(function(db) {
@@ -269,6 +269,6 @@ exports.aggreate = function(collection, aggreCondition, callback) {
 /**
  * This callback is displayed as part of the Connector module.
  *
- * @callback db/connector~aggreateCallback
+ * @callback aggreateCallback
  * @param {Object} computed results with given conditions
  */
