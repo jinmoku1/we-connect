@@ -49,15 +49,18 @@ exports.index = function(req, res) {
 			anncDb.getAnncBriefByStatus(anncConst.ACCEPTED,anncConst.DECREASING,function(anncBriefs) {
 				anncDb.AnnRecSystem(user,function(recDetails) {
 					anncDb.followingAnnRecSystem(user,function(followBriefs) {
-						res.render('index', {
-							user : user,
-							userConst : userConst,
-							userBriefs : userBriefs,
-							anncBriefs : anncBriefs,
-							recDetails : recDetails,
-							followBriefs : followBriefs,
-							title : 'WeConnect : CS',
-							welcome : 'Welcome to WeConnect'
+						userDb.getDetail(user._id, function(updatedUser) {
+							session.setSessionUser(req, updatedUser);
+							res.render('index', {
+								user : updatedUser,
+								userConst : userConst,
+								userBriefs : userBriefs,
+								anncBriefs : anncBriefs,
+								recDetails : recDetails,
+								followBriefs : followBriefs,
+								title : 'WeConnect : CS',
+								welcome : 'Welcome to WeConnect'
+							});
 						});
 					});
 				});
