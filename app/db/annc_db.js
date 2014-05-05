@@ -80,7 +80,7 @@ function schema() {
  * create announcement in db
  * 
  * @param {Object} post
- * @param {createCallback} Callback function
+ * @param {db/anncDb~createCallback} Callback function
  */
 exports.create = function(post, callback) {
 	// to be implemented
@@ -116,7 +116,7 @@ exports.create = function(post, callback) {
 /**
  * This callback is displayed as part of the AnncDb module.
  *
- * @callback createCallback
+ * @callback db/anncDb~createCallback
  * @param {Object} announcement detail object
  */
 
@@ -124,7 +124,7 @@ exports.create = function(post, callback) {
  * remove announcement from db
  * 
  * @param {ObjectId} announcement detail id
- * @param {removeCallback} Callback function
+ * @param {db/anncDb~removeCallback} Callback function
  */
 exports.remove = function(_id, callback) {
 	// to be implemented
@@ -144,15 +144,15 @@ exports.remove = function(_id, callback) {
 /**
  * This callback is displayed as part of the AnncDb module.
  *
- * @callback removeCallback
+ * @callback db/anncDb~removeCallback
  * @param {Boolean} check whetehr removing is successfully done
  */
 
 /**
  * This function remove all bookmarks related given announcement Id
- * 
+ * @param {string} collection name
  * @param {ObjectId} anncoundment detail Id
- * @param {removeAllBookmarksCallback} Callback function
+ * @param {db/anncDb~removeAllBookmarksCallback} Callback function
  */
 exports.removeAllBookmarks = function(anncId, callback){
 	var queryStatement = {"bookmarkedAnncs" : { $elemMatch : {"detailId" : anncId}}};
@@ -164,14 +164,14 @@ exports.removeAllBookmarks = function(anncId, callback){
 /**
  * This callback is displayed as part of the AnncDb module.
  *
- * @callback removeAllBookmarksCallback
+ * @callback db/anncDb~removeAllBookmarksCallback
  * @param {List<Object>} brief announcement objects list
  */
 
 /**
  * This function returns brief announcement list
  *
- * @param {getBriefsCallback} Callback function
+ * @param {db/anncDb~getBriefsCallback} Callback function
  */
 exports.getBriefs = function(callback) {
 	connector.findAll(anncConst.db.ANNC_BRIEFS, function(db, docs){
@@ -182,7 +182,7 @@ exports.getBriefs = function(callback) {
 /**
  * This callback is displayed as part of the AnncDb module.
  *
- * @callback getBriefsCallback
+ * @callback db/anncDb~getBriefsCallback
  * @param {List<Object>} brief announcement objects list
  */
 
@@ -191,7 +191,7 @@ exports.getBriefs = function(callback) {
  * 
  * @param {ObjectId} announcement detail object Id
  * @param {Object} update Document object
- * @param {updateInfoCallback} Callback function
+ * @param {db/anncDb~updateInfoCallback} Callback function
  */
 exports.updateInfo = function(_id, updateDoc, callback) {
 	connector.update(anncConst.db.ANNC_DETAILS, {_id : _id}, updateDoc, function(db, detailDoc){
@@ -206,7 +206,7 @@ exports.updateInfo = function(_id, updateDoc, callback) {
 /**
  * This callback is displayed as part of the AnncDb module.
  *
- * @callback updateInfoCallback
+ * @callback db/anncDb~updateInfoCallback
  * @param {Boolean} check updated is successful or not.
  */
 
@@ -215,7 +215,7 @@ exports.updateInfo = function(_id, updateDoc, callback) {
  *
  * @param {Number} Status of announcement
  * @param {Number} Order of announcement on posted time
- * @param {getAnncBriefByStatusCallback} Callback function with list of brief announcement objects with given order and status
+ * @param {db/anncDb~getAnncBriefByStatusCallback} Callback function with list of brief announcement objects with given order and status
  */
 exports.getAnncBriefByStatus = function(status, order, callback) {
 	connector.findAllwithConditionByOrder(anncConst.db.ANNC_BRIEFS, { status: status }, { timeStamp : order }, function(db, resultDoc){
@@ -226,7 +226,7 @@ exports.getAnncBriefByStatus = function(status, order, callback) {
 /**
  * This callback is displayed as part of the AnncDb module.
  *
- * @callback getAnncBriefByStatusCallback
+ * @callback db/anncDb~getAnncBriefByStatusCallback
  * @param {List<Object>} list of brief announcement objects with given order and status
  */
 
@@ -234,7 +234,7 @@ exports.getAnncBriefByStatus = function(status, order, callback) {
  * This function returns brief announcement list
  *
  * @param {ObjectId} detail announcement object Id
- * @param {getBriefCallback} Callback function with brief announcement object with given detail Object Id
+ * @param {db/anncDb~getBriefCallback} Callback function with brief announcement object with given detail Object Id
  */
 exports.getBrief = function(detailed_id, callback) {
 	connector.findOne(anncConst.db.ANNC_BRIEFS, {detailId: detailed_id}, function(db, resultDoc){
@@ -245,7 +245,7 @@ exports.getBrief = function(detailed_id, callback) {
 /**
  * This callback is displayed as part of the AnncDb module.
  *
- * @callback getBriefCallback
+ * @callback db/anncDb~getBriefCallback
  * @param {Object} brief announcement object
  */
 
@@ -254,7 +254,7 @@ exports.getBrief = function(detailed_id, callback) {
  *
  * @param {Number} Status of announcement
  * @param {Number} Order of announcement on posted time
- * @param {getAnncDetailByStatusCallback} Callback function with list of filtered announcement detail with given order
+ * @param {db/anncDb~getAnncDetailByStatusCallback} Callback function with list of filtered announcement detail with given order
  */
 exports.getAnncDetailByStatus = function(status, order, callback) {
 	connector.findAllwithConditionByOrder(anncConst.db.ANNC_DETAILS, { status: status }, { timeStamp : order }, function(db, resultDoc){
@@ -265,7 +265,7 @@ exports.getAnncDetailByStatus = function(status, order, callback) {
 /**
  * This callback is displayed as part of the AnncDb module.
  *
- * @callback getAnncDetailByStatusCallback
+ * @callback db/anncDb~getAnncDetailByStatusCallback
  * @param {List<Object>} list of announcement's detail objects that is filtered by status value with gvein order
  */
 
@@ -273,7 +273,7 @@ exports.getAnncDetailByStatus = function(status, order, callback) {
  * Get Announcemet Detail information from db
  *
  * @param {ObjectId} Brief Announcement Id
- * @param {getDetailCallback} Callback function with announcement detail information
+ * @param {db/anncDb~getDetailCallback} Callback function with announcement detail information
  */
 exports.getDetail = function(_id, callback) {
 	connector.findOne(anncConst.db.ANNC_DETAILS, {_id: _id}, function(db, resultDoc){
@@ -284,7 +284,7 @@ exports.getDetail = function(_id, callback) {
 /**
  * This callback is displayed as part of the AnncDb module.
  *
- * @callback getDetailCallback
+ * @callback db/anncDb~getDetailCallback
  * @param {Object} odbject of announcement's detail
  */
 
@@ -293,7 +293,7 @@ exports.getDetail = function(_id, callback) {
  * This method is for score-based announcement recommendation system (filtering out for following users).
  * 
  * @param {Object} Detail Object
- * @param {followingAnnRecSystemCallback} Callback function with recommended announcements
+ * @param {db/anncDb~followingAnnRecSystemCallback} Callback function with recommended announcements
  */
 exports.followingAnnRecSystem = function(user, callback) {
 	var friendList = user.followings;
@@ -320,7 +320,7 @@ exports.followingAnnRecSystem = function(user, callback) {
 /**
  * This callback is displayed as part of the AnncDb module.
  *
- * @callback followingAnnRecSystemCallback
+ * @callback db/anncDb~followingAnnRecSystemCallback
  * @param {List<Object>} recommended announcements' list
  */
 
@@ -329,7 +329,7 @@ exports.followingAnnRecSystem = function(user, callback) {
  * This method is for score-based announcement recommendation system (for all announcement).
  * 
  * @param {Object} Detail Object
- * @param {AnnRecSystemCallback} Callback function with recommended announcements
+ * @param {db/anncDb~AnnRecSystemCallback} Callback function with recommended announcements
  */
 exports.AnnRecSystem = function(user, callback) {
 	var id = user._id,
@@ -339,7 +339,6 @@ exports.AnnRecSystem = function(user, callback) {
 		technicalGPA = user.technicalGPA,
 		classStanding = user.classStanding,
 		degree = user.degree;
-	//console.log("user Id: " + id);
 	
 	var cond = 
 		[
@@ -398,7 +397,7 @@ exports.AnnRecSystem = function(user, callback) {
 	/**
 	 * This callback is displayed as part of the AnncDb module.
 	 *
-	 * @callback AnnRecSystemCallback
+	 * @callback db/anncDb~AnnRecSystemCallback
 	 * @param {List<Object>} recommended announcements' list
 	 */
 };

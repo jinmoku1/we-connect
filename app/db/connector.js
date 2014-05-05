@@ -2,7 +2,7 @@
  * Connector Modile is for 
  * @module db/connector
  *
- * @requires module:db/connector
+ * @requires module:mongodb
  * @requires module:contants
  */
 
@@ -10,9 +10,9 @@ var dbConst = require('../constants').db;
 var mongoClient = require('mongodb').MongoClient;
 
 /**
- * make a connection to db and initialize it
+ * connect to mongoDB
  * 
- * @param callback it is just a callback function that happens when this method is done
+ * @param {connectCallback} Callback function 
  */
 exports.connect = function(callback) {
 	mongoClient.connect(dbConst.CONNECTION_STRING, function(err, db) {
@@ -24,17 +24,18 @@ exports.connect = function(callback) {
 	});
 };
 /**
- * This callback is displayed as part of the AnncDb module.
+ * This callback is displayed as part of the Connector module.
  *
- * @callback removeCallback
- * @param {Boolean} check whetehr removing is successfully done
+ * @callback connectCallback
+ * @param {Object} db location, so that other functions know where to modify
  */
 
 /**
- * remove announcement from db
+ * save data to db
  * 
- * @param {ObjectId} announcement detail id
- * @param {removeCallback} Callback function
+ * @param {string} collection name
+ * @param {Object} document that would be saved on db
+ * @param {saveCallback} Callback function
  */
 exports.save = function(collection, inputDoc, callback) {
 	exports.connect(function(db) {
@@ -49,17 +50,19 @@ exports.save = function(collection, inputDoc, callback) {
 	});
 };
 /**
- * This callback is displayed as part of the AnncDb module.
+ * This callback is displayed as part of the Connector module.
  *
- * @callback removeCallback
- * @param {Boolean} check whetehr removing is successfully done
+ * @callback saveCallback
+ * @param {Object} db location, so that other functions know where to modify
+ * @param {Object} the most saved document
  */
 
 /**
- * remove announcement from db
+ * find a document, which is satisfied by conditions, from db
  * 
- * @param {ObjectId} announcement detail id
- * @param {removeCallback} Callback function
+ * @param {string} collection name
+ * @param {Object} documents that contain conditions
+ * @param {findOneCallback} Callback function
  */
 exports.findOne = function(collection, conditionDoc, callback) {
 	exports.connect(function(db) {
@@ -74,16 +77,18 @@ exports.findOne = function(collection, conditionDoc, callback) {
 	});
 };
 /**
- * This callback is displayed as part of the AnncDb module.
+ * This callback is displayed as part of the Connector module.
  *
- * @callback removeCallback
- * @param {Boolean} check whetehr removing is successfully done
+ * @callback findOneCallback
+ * @param {Object} db location, so that other functions know where to modify
+ * @param {Object} found document
  */
 
 /**
- * remove announcement from db
+ * remove document from db
  * 
- * @param {ObjectId} announcement detail id
+ * @param {string} collection name
+ * @param {ObjectId} documents that contain conditions
  * @param {removeCallback} Callback function
  */
 exports.remove = function(collection, conditionDoc, callback) {
@@ -100,13 +105,21 @@ exports.remove = function(collection, conditionDoc, callback) {
 	});
 };
 /**
- * This callback is displayed as part of the AnncDb module.
+ * This callback is displayed as part of the Connector module.
  *
  * @callback removeCallback
- * @param {Boolean} check whetehr removing is successfully done
+ * @param {Object} db location, so that other functions know where to modify
+ * @param {Boolean} notice whether conditioned doc is removed successfully
  */
 
-
+/**
+ * update all related documents from db
+ * 
+ * @param {string} collection name
+ * @param {Object} conditional documents that contain conditions to filter out
+ * @param {Object} document that would replace to
+ * @param {updateAllCallback} Callback function
+ */
 exports.updateAll = function(collection, query, update, callback){
 	exports.connect(function(db){
 		var dbCollection = db.collection(collection);
@@ -119,9 +132,16 @@ exports.updateAll = function(collection, query, update, callback){
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the Connector module.
+ *
+ * @callback updateAllCallback
+ * @param {Object} db location, so that other functions know where to modify
+ * @param {Boolean} notice whether condition-related docs are updated successfully
+ */
 
 /**
- * remove announcement from db
+ * update documents from db
  * 
  * @param {ObjectId} announcement detail id
  * @param {removeCallback} Callback function
@@ -139,7 +159,7 @@ exports.update = function(collection, conditionDoc, updateDoc, callback) {
 	});
 };
 /**
- * This callback is displayed as part of the AnncDb module.
+ * This callback is displayed as part of the Connector module.
  *
  * @callback removeCallback
  * @param {Boolean} check whetehr removing is successfully done
@@ -164,7 +184,7 @@ exports.findAll = function(collection, callback){
 	});
 };
 /**
- * This callback is displayed as part of the AnncDb module.
+ * This callback is displayed as part of the Connector module.
  *
  * @callback removeCallback
  * @param {Boolean} check whetehr removing is successfully done
@@ -189,7 +209,7 @@ exports.findAllwithCondition = function(collection, conditionDoc, callback) {
 	});
 };
 /**
- * This callback is displayed as part of the AnncDb module.
+ * This callback is displayed as part of the Connector module.
  *
  * @callback removeCallback
  * @param {Boolean} check whetehr removing is successfully done
@@ -214,7 +234,7 @@ exports.findAllwithConditionByOrder = function(collection, conditionDoc, sortedD
 	});
 };
 /**
- * This callback is displayed as part of the AnncDb module.
+ * This callback is displayed as part of the Connector module.
  *
  * @callback removeCallback
  * @param {Boolean} check whetehr removing is successfully done
@@ -241,7 +261,7 @@ exports.aggreate = function(collection, aggreCondition, callback) {
 	});
 };
 /**
- * This callback is displayed as part of the AnncDb module.
+ * This callback is displayed as part of the Connector module.
  *
  * @callback removeCallback
  * @param {Boolean} check whetehr removing is successfully done
