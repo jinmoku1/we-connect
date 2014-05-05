@@ -1,3 +1,11 @@
+/**
+ * Connector Modile is for 
+ * @module db/connector
+ *
+ * @requires module:db/connector
+ * @requires module:contants
+ */
+
 var dbConst = require('../constants').db;
 var mongoClient = require('mongodb').MongoClient;
 
@@ -15,7 +23,19 @@ exports.connect = function(callback) {
 		callback(db);
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback removeCallback
+ * @param {Boolean} check whetehr removing is successfully done
+ */
 
+/**
+ * remove announcement from db
+ * 
+ * @param {ObjectId} announcement detail id
+ * @param {removeCallback} Callback function
+ */
 exports.save = function(collection, inputDoc, callback) {
 	exports.connect(function(db) {
 		var dbCollection = db.collection(collection);
@@ -28,7 +48,19 @@ exports.save = function(collection, inputDoc, callback) {
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback removeCallback
+ * @param {Boolean} check whetehr removing is successfully done
+ */
 
+/**
+ * remove announcement from db
+ * 
+ * @param {ObjectId} announcement detail id
+ * @param {removeCallback} Callback function
+ */
 exports.findOne = function(collection, conditionDoc, callback) {
 	exports.connect(function(db) {
 		var dbCollection = db.collection(collection);
@@ -41,7 +73,19 @@ exports.findOne = function(collection, conditionDoc, callback) {
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback removeCallback
+ * @param {Boolean} check whetehr removing is successfully done
+ */
 
+/**
+ * remove announcement from db
+ * 
+ * @param {ObjectId} announcement detail id
+ * @param {removeCallback} Callback function
+ */
 exports.remove = function(collection, conditionDoc, callback) {
 	exports.connect(function(db) {
 		var dbCollection = db.collection(collection);
@@ -55,6 +99,13 @@ exports.remove = function(collection, conditionDoc, callback) {
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback removeCallback
+ * @param {Boolean} check whetehr removing is successfully done
+ */
+
 
 exports.updateAll = function(collection, query, update, callback){
 	exports.connect(function(db){
@@ -69,6 +120,12 @@ exports.updateAll = function(collection, query, update, callback){
 	});
 };
 
+/**
+ * remove announcement from db
+ * 
+ * @param {ObjectId} announcement detail id
+ * @param {removeCallback} Callback function
+ */
 exports.update = function(collection, conditionDoc, updateDoc, callback) {
 	exports.connect(function(db) {
 		var dbCollection = db.collection(collection);
@@ -81,7 +138,19 @@ exports.update = function(collection, conditionDoc, updateDoc, callback) {
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback removeCallback
+ * @param {Boolean} check whetehr removing is successfully done
+ */
 
+/**
+ * remove announcement from db
+ * 
+ * @param {ObjectId} announcement detail id
+ * @param {removeCallback} Callback function
+ */
 exports.findAll = function(collection, callback){
 	exports.connect(function(db){
 		var dbCollection = db.collection(collection);
@@ -94,7 +163,19 @@ exports.findAll = function(collection, callback){
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback removeCallback
+ * @param {Boolean} check whetehr removing is successfully done
+ */
 
+/**
+ * remove announcement from db
+ * 
+ * @param {ObjectId} announcement detail id
+ * @param {removeCallback} Callback function
+ */
 exports.findAllwithCondition = function(collection, conditionDoc, callback) {
 	exports.connect(function(db){
 		var dbCollection = db.collection(collection);
@@ -107,7 +188,19 @@ exports.findAllwithCondition = function(collection, conditionDoc, callback) {
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback removeCallback
+ * @param {Boolean} check whetehr removing is successfully done
+ */
 
+/**
+ * remove announcement from db
+ * 
+ * @param {ObjectId} announcement detail id
+ * @param {removeCallback} Callback function
+ */
 exports.findAllwithConditionByOrder = function(collection, conditionDoc, sortedDoc, callback) {
 	exports.connect(function(db){
 		var dbCollection = db.collection(collection);
@@ -120,7 +213,19 @@ exports.findAllwithConditionByOrder = function(collection, conditionDoc, sortedD
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback removeCallback
+ * @param {Boolean} check whetehr removing is successfully done
+ */
 
+/**
+ * remove announcement from db
+ * 
+ * @param {ObjectId} announcement detail id
+ * @param {removeCallback} Callback function
+ */
 exports.aggreate = function(collection, aggreCondition, callback) {
 	exports.connect(function(db) {
 		var dbCollection = db.collection(collection);
@@ -135,3 +240,9 @@ exports.aggreate = function(collection, aggreCondition, callback) {
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback removeCallback
+ * @param {Boolean} check whetehr removing is successfully done
+ */

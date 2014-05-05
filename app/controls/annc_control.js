@@ -1,3 +1,17 @@
+/**
+ * This is the announcement controller which handles all requests for announcements
+ * including: CRUD operations for announcements, applying to an announcement,
+ * sending an email, and bookmarking announcements. 
+ * 
+ * @module controls/anncControl
+ * @requires module:session
+ * @requires module:db/user_db
+ * @requires module:db/annc_db
+ * @requires module:mongodb
+ * @requires module:constants
+ * @requires module:nodemailer
+ */
+
 /*
  * GET (non-view) resources
  */
@@ -9,6 +23,14 @@ var ObjectID = require('mongodb').ObjectID;
 var constants = require('../constants');
 var nodemailer = require("nodemailer");
 
+/**
+ * handles announcement details page through GET request</br>
+ * This function pulls announcement data and renders the 
+ * announcement details page
+ * 
+ * @param {object} req A request object
+ * @param {object} res A response object
+ */
 exports.detail = function(req, res) {
 	var user = session.getSessionUser(req);
 	var anncId = req.params.id;
@@ -40,6 +62,13 @@ exports.detail = function(req, res) {
 	
 };
 
+/**
+ * handles creating the announcement page through GET request</br>
+ * This function renders the announcement page creation
+ * 
+ * @param {object} req A request object
+ * @param {object} res A response object
+ */
 exports.create = function(req, res) {
 	res.render('announcement/create', {
 		user : session.getSessionUser(req),
@@ -53,6 +82,13 @@ exports.create = function(req, res) {
 	});
 };
 
+/**
+ * handles creating the announcement page through POST request</br>
+ * This function pushes the inputted data and creates the announcement post
+ * 
+ * @param {object} req A request object
+ * @param {object} res A response object
+ */
 exports.createPost = function(req, res) {
 	var user = session.getSessionUser(req);
 	var curtime = new Date();
@@ -88,6 +124,13 @@ exports.createPost = function(req, res) {
 	});
 };
 
+/**
+ * handles announcement edit page through GET request</br>
+ * This function renders the announcement edit page
+ * 
+ * @param {object} req A request object
+ * @param {object} res A response object
+ */
 exports.edit = function(req, res) {
 	var anncId = req.params.id;
 	var id = ObjectID.createFromHexString(anncId);
@@ -108,6 +151,14 @@ exports.edit = function(req, res) {
 	});
 };
 
+/**
+ * handles announcement edit page through POST request</br>
+ * This function pushes inputted data from user and updates
+ * DB along with rendering new information onto the announcement page
+ * 
+ * @param {object} req A request object
+ * @param {object} res A response object
+ */
 exports.editPost = function(req, res) {
 	var anncId = req.params.id;
 	var id = ObjectID.createFromHexString(anncId);
@@ -141,14 +192,24 @@ exports.editPost = function(req, res) {
 	});
 };
 
+/**
+ * handles deleting thhe announcement page through POST request</br>
+ * This function removes the announcement from the DB
+ * 
+ * @param {object} req A request object
+ * @param {object} res A response object
+ */
 exports.deletePost = function(req, res) {
 	var anncId = req.body.id;
 	var id = ObjectID.createFromHexString(anncId);
 	
+//	console.log("[AnncCtrl:deletePost] Id passed : " + anncId);
 	anncDb.remove(id, function(result) {
 		if (result){
+//			console.log("[AnncCtrl:deletePost] after remove");
 			anncDb.removeAllBookmarks(id, function(result){
 				if(result){
+//					console.log("[AnncCtrl:deletePost] after remove all bookmarks");
 					res.writeHead(200, {"Content-Type": "text/plain"});
 					res.end("true");
 				}
@@ -157,6 +218,14 @@ exports.deletePost = function(req, res) {
 	});
 };
 
+/**
+ * handles bookmark functionality through POST request</br>
+ * This function updates users set of bookmarks in the DB when
+ * user requests to add an announcement as a bookmark
+ * 
+ * @param {object} req A request object
+ * @param {object} res A response object
+ */
 exports.bookmark = function(req, res) {
 	var user = session.getSessionUser(req);
 	var anncId = req.body.id;
@@ -178,6 +247,14 @@ exports.bookmark = function(req, res) {
 	});
 };
 
+/**
+ * handles removing bookmark functionality through POST request</br>
+ * This function updates users set of bookmarks in the DB when user
+ * requests to remove a bookmark
+ * 
+ * @param {object} req A request object
+ * @param {object} res A response object
+ */
 exports.unbookmark = function(req, res) {
 	var user = session.getSessionUser(req);
 	var anncId = req.body.id;
@@ -204,6 +281,13 @@ exports.unbookmark = function(req, res) {
 	});
 };
 
+/**
+ * handles application to an announcement functionality through POST request</br>
+ * This function renders the application modal and sends the information
+ * 
+ * @param {object} req A request object
+ * @param {object} res A response object
+ */
 exports.applyPost = function(req, res) {
 	var user = session.getSessionUser(req, user);
 	
@@ -241,6 +325,14 @@ exports.applyPost = function(req, res) {
 	});
 };
 
+/**
+ * handles sending an email functionality through POST request</br>
+ * This function sends an email with the attached resume to the user
+ * and the specified creator of the announcement
+ * 
+ * @param {object} req A request object
+ * @param {object} res A response object
+ */
 exports.sendMail = function(receiver, subject, text, html, callback) {
 	var smtpTransport = nodemailer.createTransport("SMTP",{
 	    service: "Hotmail",
