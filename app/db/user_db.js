@@ -158,7 +158,7 @@ function schema(userType) {
  * in userAccounts, userDetails, userBriefs.
  *
  * @param {ObjectId} detail user object Id
- * @param {removeCallback} Callback function with boolean value indicating if it succeeded or not.
+ * @param {removeCallback} Callback function
  */
 exports.remove = function(_id, callback) {
 	connector.remove(userConst.db.USER_ACCOUNTS, { detailId : _id }, function(db, accountRemoved) {
@@ -184,7 +184,7 @@ exports.remove = function(_id, callback) {
  * This callback is displayed as part of the userDb module.
  *
  * @callback removeCallback
- * @param {Object} User detail object
+ * @param {Boolean} boolean indicating if it succeeded or failed.
  */
 
 /**
@@ -193,7 +193,7 @@ exports.remove = function(_id, callback) {
  *
  * @param {ObjectId} detail user object Id
  * @param {Object} a new document
- * @param {updateInfoCallback} Callback function with boolean value indicating if it succeeded or not.
+ * @param {updateInfoCallback} Callback function
  */
 exports.updateInfo = function(_id, updateDoc, callback) {
 	connector.update(userConst.db.USER_DETAILS, {_id : _id}, updateDoc, function(db, detailDoc){
@@ -209,15 +209,16 @@ exports.updateInfo = function(_id, updateDoc, callback) {
  * This callback is displayed as part of the userDb module.
  *
  * @callback updateInfoCallback
- * @param {Object} User detail object
+ * @param {Boolean} boolean indicating if it succeeded or failed.
  */
+
 
 /**
  * This function updates User password in userAccounts.
  *
  * @param {Object} a new document that includes all account information.
  * @param {string} old password
- * @param {updatePasswordCallback} Callback function with boolean value indicating if it succeeded or not.
+ * @param {updatePasswordCallback} Callback function
  */
 exports.updatePassword = function(update, oldPassword, callback) {
 	connector.update(userConst.db.USER_ACCOUNTS, { netId : update.netId, password : oldPassword }, update, function(db, result) {
@@ -229,17 +230,15 @@ exports.updatePassword = function(update, oldPassword, callback) {
  * This callback is displayed as part of the userDb module.
  *
  * @callback updatePasswordCallback
- * @param {Object} User detail object
+ * @param {Boolean} boolean indicating if it succeeded or failed.
  */
 
 
-
 /**
- * This function returns all brief documents
+ * This function returns all brief documents that satisfy the query condition.
  *
- * @param {Object} a new document that includes all account information.
- * @param {string} old password
- * @param {updatePasswordCallback} Callback function with boolean value indicating if it succeeded or not.
+ * @param {Object} a query statement.
+ * @param {getBriefsCallback} Callback function.
  */
 exports.getBriefs = function(selector, callback) {
 	connector.findAll(userConst.db.USER_BRIEFS, function(db, docs){
@@ -250,11 +249,17 @@ exports.getBriefs = function(selector, callback) {
 /**
  * This callback is displayed as part of the userDb module.
  *
- * @callback createCallback
- * @param {Object} User detail object
+ * @callback getBriefsCallback
+ * @param {List<Object>} User brief objects
  */
 
 
+/**
+ * This function returns a userDetail document that matchs detail user object id.
+ *
+ * @param {ObjectId} detail user object Id
+ * @param {getDetailCallback} Callback function.
+ */
 exports.getDetail = function(_id, callback) {
 	connector.findOne(userConst.db.USER_DETAILS, {_id: _id}, function(db, resultDoc){
 		db.close();
@@ -264,11 +269,18 @@ exports.getDetail = function(_id, callback) {
 /**
  * This callback is displayed as part of the userDb module.
  *
- * @callback createCallback
+ * @callback getDetailCallback
  * @param {Object} User detail object
  */
 
 
+/**
+ * This function checks if the login is valid or not.
+ *
+ * @param {string} net id string
+ * @param {string} password string
+ * @param {isValidLoginCallback} Callback function.
+ */
 exports.isValidLogin = function(netId, password, callback) {
 	connector.findOne(userConst.db.USER_ACCOUNTS, { netId : netId, password : password },
 			function(db, userAccountDoc) {
@@ -288,11 +300,17 @@ exports.isValidLogin = function(netId, password, callback) {
 /**
  * This callback is displayed as part of the userDb module.
  *
- * @callback createCallback
+ * @callback isValidLoginCallback
  * @param {Object} User detail object
  */
 
-//check ID is existed
+
+/**
+ * This function checks if the netid already exists
+ *
+ * @param {string} net id string
+ * @param {netIdExistsCallback} Callback function
+ */
 exports.netIdExists = function(netId, callback) {
 	connector.findOne(userConst.db.USER_ACCOUNTS, { netId : netId },
 			function(db, userAccountDoc) {
@@ -303,12 +321,17 @@ exports.netIdExists = function(netId, callback) {
 /**
  * This callback is displayed as part of the userDb module.
  *
- * @callback createCallback
- * @param {Object} User detail object
+ * @callback netIdExistsCallback
+ * @param {Boolean} boolean indicating if it succeeded or failed.
  */
 
+
 /**
- * @param user Detail Object
+ * This function returns recommendation users that would be filtered by
+ * pre-defined conditions.
+ *
+ * @param {Object} detail user Object
+ * @param {userRecsystemCallback} Callback function
  */
 exports.userRecsystem = function(user, callback) {
 	var interests = (user.interests == null ? [] : user.interests),
@@ -352,6 +375,6 @@ exports.userRecsystem = function(user, callback) {
 /**
  * This callback is displayed as part of the userDb module.
  *
- * @callback createCallback
- * @param {Object} User detail object
+ * @callback userRecsystemCallback
+ * @param {List<Object>} User objects
  */
