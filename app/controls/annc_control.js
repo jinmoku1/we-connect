@@ -203,13 +203,13 @@ exports.deletePost = function(req, res) {
 	var anncId = req.body.id;
 	var id = ObjectID.createFromHexString(anncId);
 	
-	console.log("[AnncCtrl:deletePost] Id passed : " + anncId);
+//	console.log("[AnncCtrl:deletePost] Id passed : " + anncId);
 	anncDb.remove(id, function(result) {
 		if (result){
-			console.log("[AnncCtrl:deletePost] after remove");
+//			console.log("[AnncCtrl:deletePost] after remove");
 			anncDb.removeAllBookmarks(id, function(result){
 				if(result){
-					console.log("[AnncCtrl:deletePost] after remove all bookmarks");
+//					console.log("[AnncCtrl:deletePost] after remove all bookmarks");
 					res.writeHead(200, {"Content-Type": "text/plain"});
 					res.end("true");
 				}
