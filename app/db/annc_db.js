@@ -1,10 +1,23 @@
+/**
+ * A module for Anncouncement DB.
+ * @module db/anncDb
+ *
+ * @requires module:db/connector
+ * @requires module:contants
+ */
+
 // Collection Constants
 var userConst = require('../constants').user;
 var anncConst = require('../constants').annc;
 var connector = require('./connector');
 
-//--------------- Utility Functions --------------- //
 
+/**
+ * Struct Announcement Brief DB schema from Announcement Detail DB schema
+ *
+ * @access private
+ * @param {Object} anncouncement detail object
+ */
 function detailToBrief(anncDetail) {
 	var anncBrief = {
 		detailId : anncDetail['_id'],
@@ -25,9 +38,11 @@ function detailToBrief(anncDetail) {
 	return anncBrief;
 }
 
-//--------------- Common Operations --------------- //
-
-//schema for anncDetail
+/**
+ * Struct Announcement Detail DB schema
+ *
+ * @access private
+ */
 function schema() {
 	var anncDetail = {
 		_id : null,
@@ -62,11 +77,10 @@ function schema() {
 }
 
 /**
- * create announcement db
+ * create announcement in db
  * 
  * @param {Object} post
- * @param {Object} callback
- * @return anncDetail doc
+ * @param {createCallback} Callback function
  */
 exports.create = function(post, callback) {
 	// to be implemented
@@ -99,13 +113,18 @@ exports.create = function(post, callback) {
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback createCallback
+ * @param {Object} announcement detail object
+ */
 
 /**
- * remove announcement db
+ * remove announcement from db
  * 
- * @param {Object} _id: detailed _id
- * @param {Object} callback
- * @return {boolean} task_feedback
+ * @param {ObjectId} announcement detail id
+ * @param {removeCallback} Callback function
  */
 exports.remove = function(_id, callback) {
 	// to be implemented
@@ -122,7 +141,20 @@ exports.remove = function(_id, callback) {
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback removeCallback
+ * @param {Boolean} check whetehr removing is successfully done
+ */
 
+<<<<<<< HEAD
+/**
+ * This function returns brief announcement list
+ *
+ * @param {getBriefsCallback} Callback function
+ */
+=======
 exports.removeAllBookmarks = function(anncId, callback){
 	var queryStatement = {"bookmarkedAnncs" : { $elemMatch : {"detailId" : anncId}}};
 	connector.updateAll(userConst.db.USER_DETAILS, queryStatement, {'$pull': {"bookmarkedAnncs": {"detailId" :anncId}}}, function(db, result){
@@ -131,20 +163,26 @@ exports.removeAllBookmarks = function(anncId, callback){
 	});
 };
 
+>>>>>>> FETCH_HEAD
 exports.getBriefs = function(callback) {
 	connector.findAll(anncConst.db.ANNC_BRIEFS, function(db, docs){
 		db.close();
 		callback(docs);
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback getBriefsCallback
+ * @param {List<Object>} brief announcement objects list
+ */
 
 /**
  * update announcement(detail/brief) db
  * 
- * @param {Object} _id: detailed _id
- *  @param {Object} updateDoc: updated Document
- * @param {Object} callback
- * @return {boolean} task_feedback
+ * @param {ObjectId} announcement detail object Id
+ * @param {Object} update Document object
+ * @param {updateInfoCallback} Callback function
  */
 exports.updateInfo = function(_id, updateDoc, callback) {
 	connector.update(anncConst.db.ANNC_DETAILS, {_id : _id}, updateDoc, function(db, detailDoc){
@@ -156,23 +194,38 @@ exports.updateInfo = function(_id, updateDoc, callback) {
 		});
 	});
 };
-// --------------- Object Specific Operations --------------- //
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback updateInfoCallback
+ * @param {Boolean} check updated is successful or not.
+ */
 
 /**
- * @param {Object} callback
- * @return {boolean} brief doc
+ * This function returns that brief announcement list with given order and status
+ *
+ * @param {Number} Status of announcement
+ * @param {Number} Order of announcement on posted time
+ * @param {getAnncBriefByStatusCallback} Callback function with list of brief announcement objects with given order and status
  */
 exports.getAnncBriefByStatus = function(status, order, callback) {
-	connector.findAllwithConditionByOrder(anncConst.db.ANNC_BRIEFS, { status: status }, { timeStamp : -1 }, function(db, resultDoc){
+	connector.findAllwithConditionByOrder(anncConst.db.ANNC_BRIEFS, { status: status }, { timeStamp : order }, function(db, resultDoc){
 		db.close();
 		callback(resultDoc);
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback getAnncBriefByStatusCallback
+ * @param {List<Object>} list of brief announcement objects with given order and status
+ */
 
 /**
- * @param {Object} _id: brief Id
- * @param {Object} callback
- * @return {boolean} brief doc
+ * This function returns brief announcement list
+ *
+ * @param {ObjectId} detail announcement object Id
+ * @param {getBriefCallback} Callback function with brief announcement object with given detail Object Id
  */
 exports.getBrief = function(detailed_id, callback) {
 	connector.findOne(anncConst.db.ANNC_BRIEFS, {detailId: detailed_id}, function(db, resultDoc){
@@ -180,10 +233,19 @@ exports.getBrief = function(detailed_id, callback) {
 		callback(resultDoc);
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback getBriefCallback
+ * @param {Object} brief announcement object
+ */
 
 /**
- * @param {Object} callback
- * @return {boolean} brief doc
+ * This function returns announcement detail list with given status and order
+ *
+ * @param {Number} Status of announcement
+ * @param {Number} Order of announcement on posted time
+ * @param {getAnncDetailByStatusCallback} Callback function with list of filtered announcement detail with given order
  */
 exports.getAnncDetailByStatus = function(status, order, callback) {
 	connector.findAllwithConditionByOrder(anncConst.db.ANNC_DETAILS, { status: status }, { timeStamp : order }, function(db, resultDoc){
@@ -191,11 +253,18 @@ exports.getAnncDetailByStatus = function(status, order, callback) {
 		callback(resultDoc);
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback getAnncDetailByStatusCallback
+ * @param {List<Object>} list of announcement's detail objects that is filtered by status value with gvein order
+ */
 
 /**
- * @param {Object} _id: brief Id
- * @param {Object} callback
- * @return {boolean} brief doc
+ * Get Announcemet Detail information from db
+ *
+ * @param {ObjectId} Brief Announcement Id
+ * @param {getDetailCallback} Callback function with announcement detail information
  */
 exports.getDetail = function(_id, callback) {
 	connector.findOne(anncConst.db.ANNC_DETAILS, {_id: _id}, function(db, resultDoc){
@@ -203,37 +272,55 @@ exports.getDetail = function(_id, callback) {
 		callback(resultDoc);
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback getDetailCallback
+ * @param {Object} odbject of announcement's detail
+ */
 
 
 /**
- * @param user Detail Object
+ * This method is for score-based announcement recommendation system (filtering out for following users).
+ * 
+ * @param {Object} Detail Object
+ * @param {followingAnnRecSystemCallback} Callback function with recommended announcements
  */
 exports.followingAnnRecSystem = function(user, callback) {
 	var friendList = user.followings;
 	var cond = 
 		[
-	            {
-	            	$match :{  
-	            		$and: [
-	      	        	          {"author._id" : { $in : friendList }},
-	    	        	          {"status" : {$eq : 1}}
-	    	        	   ]
-	      	        }
-	            },
-	            {
-	                $sort : { timestamp : -1 }
-	            }
-	    ];
+				{
+					$match :{  
+						$and: [
+								  {"author._id" : { $in : friendList }},
+								  {"status" : {$eq : 1}}
+						   ]
+					}
+				},
+				{
+					$sort : { timestamp : -1 }
+				}
+		];
 	
 	connector.aggreate(anncConst.db.ANNC_BRIEFS, cond, function(db, result) {
 		db.close();
 		callback(result);
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback followingAnnRecSystemCallback
+ * @param {List<Object>} recommended announcements' list
+ */
 
 
 /**
- * @param user Detail Object
+ * This method is for score-based announcement recommendation system (for all announcement).
+ * 
+ * @param {Object} Detail Object
+ * @param {AnnRecSystemCallback} Callback function with recommended announcements
  */
 exports.AnnRecSystem = function(user, callback) {
 	var id = user._id,
@@ -247,56 +334,62 @@ exports.AnnRecSystem = function(user, callback) {
 	
 	var cond = 
 		[
-	       {
-	           $match : {
-	        	   $and: [
-	        	          {"author._id" : {$ne : id }},
-	        	          {"status" : {$eq : 1}}
-	        	   ]
-	           }
-	       },
-	       {
-	           $project : 
-	           {
-	               author : 1,
-	               title : 1,
-	               timeStamp : 1,
-	               anncTypes : 1,
-	               interests : 1,
-	               content : 1,
-	               status : 1, 
-	               rank : 
-	               {
-	                   $add : 
-	                   [
-	                       { $size : {$setIntersection : [ "$interests", interests ]}},
-	                       { $size : {$setIntersection : [ "$coursesTaken", coursesTaken ]}}
-	                   ]
-	               },
-	               appliable : 
-	               {
-	                   $cond : 
-	                   [
-		                   { 
-		                       $and : 
-		                       [
-		                           {$lte : [ "$overallGPA", overallGPA ]},
-		                           {$lte : [ "$technialGPA", technicalGPA ]},
-		                           {$lte : [ "$classStanding", classStanding ]},
-		                           {$lte : [ "$degree", degree ]}
-		                       ]
-		                   }, 1, 0
-	                   ]
-	               }
-	           }
-	       },
-	       {
-	           $sort : { timestamp: -1, rank : -1 }
-	       }
-	    ];
+		   {
+			   $match : {
+				   $and: [
+						  {"author._id" : {$ne : id }},
+						  {"status" : {$eq : 1}}
+				   ]
+			   }
+		   },
+		   {
+			   $project : 
+			   {
+				   author : 1,
+				   title : 1,
+				   timeStamp : 1,
+				   anncTypes : 1,
+				   interests : 1,
+				   content : 1,
+				   status : 1, 
+				   rank : 
+				   {
+					   $add : 
+					   [
+						   { $size : {$setIntersection : [ "$interests", interests ]}},
+						   { $size : {$setIntersection : [ "$coursesTaken", coursesTaken ]}}
+					   ]
+				   },
+				   appliable : 
+				   {
+					   $cond : 
+					   [
+						   { 
+							   $and : 
+							   [
+								   {$lte : [ "$overallGPA", overallGPA ]},
+								   {$lte : [ "$technialGPA", technicalGPA ]},
+								   {$lte : [ "$classStanding", classStanding ]},
+								   {$lte : [ "$degree", degree ]}
+							   ]
+						   }, 1, 0
+					   ]
+				   }
+			   }
+		   },
+		   {
+			   $sort : { timestamp: -1, rank : -1 }
+		   }
+		];
 	
 	connector.aggreate(anncConst.db.ANNC_DETAILS, cond, function(db, result) {
 		db.close();
 		callback(result);
 	});
+	/**
+	 * This callback is displayed as part of the AnncDb module.
+	 *
+	 * @callback AnnRecSystemCallback
+	 * @param {List<Object>} recommended announcements' list
+	 */
 };
