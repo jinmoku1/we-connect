@@ -106,14 +106,7 @@ exports.remove = function(collection, conditionDoc, callback) {
  * @param {Boolean} check whetehr removing is successfully done
  */
 
-<<<<<<< HEAD
-/**
- * remove announcement from db
- * 
- * @param {ObjectId} announcement detail id
- * @param {removeCallback} Callback function
- */
-=======
+
 exports.updateAll = function(collection, query, update, callback){
 	exports.connect(function(db){
 		var dbCollection = db.collection(collection);
@@ -127,7 +120,12 @@ exports.updateAll = function(collection, query, update, callback){
 	});
 };
 
->>>>>>> FETCH_HEAD
+/**
+ * remove announcement from db
+ * 
+ * @param {ObjectId} announcement detail id
+ * @param {removeCallback} Callback function
+ */
 exports.update = function(collection, conditionDoc, updateDoc, callback) {
 	exports.connect(function(db) {
 		var dbCollection = db.collection(collection);

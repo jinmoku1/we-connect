@@ -148,13 +148,12 @@ exports.remove = function(_id, callback) {
  * @param {Boolean} check whetehr removing is successfully done
  */
 
-<<<<<<< HEAD
 /**
- * This function returns brief announcement list
- *
- * @param {getBriefsCallback} Callback function
+ * This function remove all bookmarks related given announcement Id
+ * 
+ * @param {ObjectId} anncoundment detail Id
+ * @param {removeAllBookmarksCallback} Callback function
  */
-=======
 exports.removeAllBookmarks = function(anncId, callback){
 	var queryStatement = {"bookmarkedAnncs" : { $elemMatch : {"detailId" : anncId}}};
 	connector.updateAll(userConst.db.USER_DETAILS, queryStatement, {'$pull': {"bookmarkedAnncs": {"detailId" :anncId}}}, function(db, result){
@@ -162,8 +161,18 @@ exports.removeAllBookmarks = function(anncId, callback){
 		callback(result);
 	});
 };
+/**
+ * This callback is displayed as part of the AnncDb module.
+ *
+ * @callback removeAllBookmarksCallback
+ * @param {List<Object>} brief announcement objects list
+ */
 
->>>>>>> FETCH_HEAD
+/**
+ * This function returns brief announcement list
+ *
+ * @param {getBriefsCallback} Callback function
+ */
 exports.getBriefs = function(callback) {
 	connector.findAll(anncConst.db.ANNC_BRIEFS, function(db, docs){
 		db.close();
