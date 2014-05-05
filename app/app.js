@@ -1,6 +1,8 @@
-
 /**
- * Module dependencies.
+ * This is the module that is executed to run the whole application. This module sets up the express framework
+ * and basic server configurations, and starts the routing.
+ * 
+ * @module app
  */
 
 var express = require('express');

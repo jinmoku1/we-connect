@@ -1,5 +1,5 @@
 /**
- * Handles routing for all GET and POST requests for application
+ * Handles routing for all client requests for application
  * 
  * @module router
  * @requires module:controls/main_control
