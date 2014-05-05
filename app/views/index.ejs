@@ -227,7 +227,14 @@
 									<%=user.bookmarkedAnncs[i].contentBrief%>...
 									<span class="timeStamp">
 										<em>
-										<%=user.bookmarkedAnncs[i].timeStamp %>
+										<% var date = user.bookmarkedAnncs[i].timeStamp; %>
+										<%=""+date.getDate()+"/"
+											+(date.getMonth()+1)+"/"
+											+date.getFullYear()+" @ "
+											+date.getHours()+":"
+											+date.getMinutes()+":" 
+											+date.getSeconds()
+										%>
 										</em>
 									</span>
 								</p>

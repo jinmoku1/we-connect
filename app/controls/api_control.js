@@ -11,7 +11,10 @@ var userDb = require('../db/user_db');
 var ObjectID = require('mongodb').ObjectID;
 
 /**
- * This method handle's the user's request to add another user to his list of followings.
+ * This method handle's the user's request to follow another user.
+ * It adds the user being followed to this user's list of followings and
+ * adds this user to the other user's list of followers.
+ * The request is returned with a response including the userDetail object.
  * @param {Object} req A request object
  * @param {Object} res A response object
  */
@@ -29,9 +32,12 @@ exports.follow = function(req, res) {
 };
 
 /**
- * This method handle's the user's request to add another user to his list of followings.
- * @param {Object} req A request object
- * @param {Object} res A response object
+ * @access private
+ * This method is a helper function to exports.follow. It addes the user with followingID to the list of the user's
+ * followings list
+ * @param {String} followingID	The mongoDB objectID of the user being followed
+ * @param {Object} follower 	The userDetail object of the user folliwng
+ * @callback callback			The callback to 
  */
 exports.addFollowing = function(followingID, follower, callback) {
 	var index = -1;
@@ -53,6 +59,13 @@ exports.addFollowing = function(followingID, follower, callback) {
 	});
 };
 
+/**
+ * @access private
+ * This method is a helper function to exports.follow. It addes the follower to the list of followers of the 
+ * user being followed.
+ * @param {String} followingID	The mongoDB objectID of the user being followed
+ * @param {Object} follower 	The userDetail object of the user following
+ */
 exports.addFollower = function(followingID, follower, callback) {
 	userDb.getDetail(followingID, function(following){
 		appendFollower(following, follower, function(following){
@@ -63,6 +76,13 @@ exports.addFollower = function(followingID, follower, callback) {
 	});
 };
 
+/**
+ * @access private
+ * This method is a helper function to exports.addFollower. It addes the follower to the list of followers of the 
+ * user being followed.
+ * @param {String} following	The userDetail object of the user being followed
+ * @param {Object} follower 	The userDetail object of the user following
+ */
 function appendFollower(following, follower, callback){
 	var index = -1;
 	for (var i in following.followers) {
