@@ -11,7 +11,6 @@ var userConst = require('../constants').user;
 var anncConst = require('../constants').annc;
 var connector = require('./connector');
 
-
 /**
  * Struct Announcement Brief DB schema from Announcement Detail DB schema
  *
