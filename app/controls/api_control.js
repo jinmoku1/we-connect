@@ -1,7 +1,7 @@
 /**
  * A module for managing follower-following relationship. This module controls all user interactions involving
  * following and unfollowing actions.
- * @module controls/adminControl
+ * @module controls/apiControl
  * @requires module:session
  * @requires module:db/userDb
  */
@@ -32,12 +32,12 @@ exports.follow = function(req, res) {
 };
 
 /**
- * @access private
  * This method is a helper function to exports.follow. It addes the user with followingID to the list of the user's
  * followings list
- * @param {String} followingID	The mongoDB objectID of the user being followed
- * @param {Object} follower 	The userDetail object of the user folliwng
- * @callback callback			The callback to 
+ * @access private
+ * @param {String} followingID	- The mongoDB objectID of the user being followed
+ * @param {Object} follower 	- The userDetail object of the user following
+ * @param {addFollowingCallback} callback - The callback function that handles the response.
  */
 exports.addFollowing = function(followingID, follower, callback) {
 	var index = -1;
@@ -58,13 +58,21 @@ exports.addFollowing = function(followingID, follower, callback) {
 		callback(result);
 	});
 };
+/**
+ * This callback is used to call another helper function within exports.addFollowing.
+ *
+ * @callback addFollowingCallback
+ * @param {Object} user userDetail object
+ */
+
 
 /**
- * @access private
  * This method is a helper function to exports.follow. It addes the follower to the list of followers of the 
  * user being followed.
+ * @access private
  * @param {String} followingID	The mongoDB objectID of the user being followed
  * @param {Object} follower 	The userDetail object of the user following
+ * @param {addFollowerCallback} callback - The callback function that handles the response.
  */
 exports.addFollower = function(followingID, follower, callback) {
 	userDb.getDetail(followingID, function(following){
@@ -75,13 +83,20 @@ exports.addFollower = function(followingID, follower, callback) {
 		});
 	});
 };
+/**
+ * This callback is used to call another helper function within exports.addFollower.
+ *
+ * @callback addFollowerCallback
+ * @param {Object} user userDetail object
+ */
 
 /**
- * @access private
  * This method is a helper function to exports.addFollower. It addes the follower to the list of followers of the 
  * user being followed.
+ * @access private
  * @param {String} following	The userDetail object of the user being followed
  * @param {Object} follower 	The userDetail object of the user following
+ * @param {appendFollowerCallback} callback - The callback function that handles the response.
  */
 function appendFollower(following, follower, callback){
 	var index = -1;
@@ -98,3 +113,9 @@ function appendFollower(following, follower, callback){
 	}
 	callback(following);
 }
+/**
+ * This callback is used to call another helper function within exports.appendFollower.
+ *
+ * @callback appendFollowerCallback
+ * @param {Object} user userDetail object
+ */
