@@ -1,15 +1,20 @@
-/*
- * GET (non-view) resources
+/**
+ * A module for managing follower-following relationship. This module controls all user interactions involving
+ * following and unfollowing actions.
+ * @module controls/adminControl
+ * @requires module:session
+ * @requires module:db/userDb
  */
 
 var session = require('../session');
 var userDb = require('../db/user_db');
 var ObjectID = require('mongodb').ObjectID;
 
-exports.sample = function(req, res) {
-	res.send('sample');
-};
-
+/**
+ * This method handle's the user's request to add another user to his list of followings.
+ * @param {Object} req A request object
+ * @param {Object} res A response object
+ */
 exports.follow = function(req, res) {
 	var followingId = ObjectID.createFromHexString(req.body.id);
 	var user = session.getSessionUser(req);
@@ -23,6 +28,11 @@ exports.follow = function(req, res) {
 	});
 };
 
+/**
+ * This method handle's the user's request to add another user to his list of followings.
+ * @param {Object} req A request object
+ * @param {Object} res A response object
+ */
 exports.addFollowing = function(followingID, follower, callback) {
 	var index = -1;
 	for (var i in follower.followings) {
