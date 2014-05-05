@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: db/connector.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: db/connector.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var dbConst = require('../constants').db;
+var mongoClient = require('mongodb').MongoClient;
+
+/**
+ * make a connection to db and initialize it
+ * 
+ * @param callback it is just a callback function that happens when this method is done
+ */
+exports.connect = function(callback) {
+	mongoClient.connect(dbConst.CONNECTION_STRING, function(err, db) {
+		if (err) {
+			console.log("[ERROR] Database Connection failed : " + dbConst.CONNECTION_STRING);
+			return;
+		}
+		callback(db);
+	});
+};
+
+exports.save = function(collection, inputDoc, callback) {
+	exports.connect(function(db) {
+		var dbCollection = db.collection(collection);
+		dbCollection.save(inputDoc, { safe : true }, function(err, resultDoc) {
+			if (err) {
+				console.log("[ERROR] Save on \'"+collection+"\' Failed.");
+				return;
+			}
+			callback(db, resultDoc);
+		});
+	});
+};
+
+exports.findOne = function(collection, conditionDoc, callback) {
+	exports.connect(function(db) {
+		var dbCollection = db.collection(collection);
+		dbCollection.findOne(conditionDoc, function(err, resultDoc) {
+			if (err) {
+				console.log("[ERROR] Find on \'"+collection+"\' Failed.");
+				return;
+			}
+			callback(db, resultDoc);
+		});
+	});
+};
+
+exports.remove = function(collection, conditionDoc, callback) {
+	exports.connect(function(db) {
+		var dbCollection = db.collection(collection);
+		dbCollection.findAndModify(conditionDoc, null, null, { remove : true },
+		function(err, resultDoc) {
+			if (err) {
+				console.log("[ERROR] Remove on \'"+collection+"\' Failed.");
+				return;
+			}
+			callback(db, resultDoc != null);
+		});
+	});
+};
+
+exports.updateAll = function(collection, query, update, callback){
+	exports.connect(function(db){
+		var dbCollection = db.collection(collection);
+		dbCollection.update(query, update, {multi: true}, function(err, result){
+			if (err) {
+				console.log("[ERROR] update on \'" + collection + "\' Failed.");
+				return;
+			}
+			callback(db, result);
+		});
+	});
+};
+
+exports.update = function(collection, conditionDoc, updateDoc, callback) {
+	exports.connect(function(db) {
+		var dbCollection = db.collection(collection);
+		dbCollection.findAndModify(conditionDoc, null, updateDoc, {'new':true}, function(err, resultDoc) {
+			if (err) {
+				console.log("[ERROR] Update on \'"+collection+"\' Failed.");
+				return;
+			}
+			callback(db, resultDoc);
+		});
+	});
+};
+
+exports.findAll = function(collection, callback){
+	exports.connect(function(db){
+		var dbCollection = db.collection(collection);
+		dbCollection.find().toArray(function(err, docs){
+			if(err){
+				console.log("[ERROR] Find on \'" + collection +"\' Failed.");
+				return;
+			}
+			callback(db, docs);
+		});
+	});
+};
+
+exports.findAllwithCondition = function(collection, conditionDoc, callback) {
+	exports.connect(function(db){
+		var dbCollection = db.collection(collection);
+		dbCollection.find(conditionDoc).toArray(function(err, docs) {
+			if(err){
+				console.log("[ERROR] Find on \'" + collection +"\' Failed.");
+				return;
+			}
+			callback(db, docs);
+		});
+	});
+};
+
+exports.findAllwithConditionByOrder = function(collection, conditionDoc, sortedDoc, callback) {
+	exports.connect(function(db){
+		var dbCollection = db.collection(collection);
+		dbCollection.find(conditionDoc).sort(sortedDoc).toArray(function(err, docs) {
+			if(err){
+				console.log("[ERROR] Find on \'" + collection +"\' Failed.");
+				return;
+			}
+			callback(db, docs);
+		});
+	});
+};
+
+exports.aggreate = function(collection, aggreCondition, callback) {
+	exports.connect(function(db) {
+		var dbCollection = db.collection(collection);
+		dbCollection.aggregate(aggreCondition, function(err, result) {
+			if(err) {
+				console.log("[ERROR] Aggregate on \'" + collection + "\' Failed.\n");
+				console.log("The detail is as below;\n" + err);
+				return
+			}
+			
+			callback(db, result);
+		});
+	});
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="adminControl.html">controls/adminControl</a></li><li><a href="anncControl.html">controls/anncControl</a></li><li><a href="embeddedControl.html">controls/embeddedControl</a></li><li><a href="mainControl.html">controls/mainControl</a></li><li><a href="userControl.html">controls/userControl</a></li><li><a href="module-router.html">router</a></li><li><a href="module-session.html">session</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AnnRecSystem">AnnRecSystem</a></li><li><a href="global.html#connect">connect</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#db">db</a></li><li><a href="global.html#express">express</a></li><li><a href="global.html#followingAnnRecSystem">followingAnnRecSystem</a></li><li><a href="global.html#getAnncBriefByStatus">getAnncBriefByStatus</a></li><li><a href="global.html#getAnncDetailByStatus">getAnncDetailByStatus</a></li><li><a href="global.html#getBrief">getBrief</a></li><li><a href="global.html#getDetail">getDetail</a></li><li><a href="global.html#interests">interests</a></li><li><a href="global.html#remove">remove</a></li><li><a href="global.html#updateInfo">updateInfo</a></li><li><a href="global.html#userRecsystem">userRecsystem</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Sun May 04 2014 19:28:31 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
