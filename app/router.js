@@ -1,5 +1,13 @@
 /**
+ * Handles routing for all client requests for application
  * 
+ * @module router
+ * @requires module:controls/main_control
+ * @requires module:controls/api_control
+ * @requires module:controls/user_control
+ * @requires module:controls/embedded_control
+ * @requires module:controls/annc_control
+ * @requires module:controls/admin_control
  */
 
 var mainControl	= require('./controls/main_control');
@@ -9,6 +17,12 @@ var embeddedControl = require('./controls/embedded_control');
 var anncControl = require('./controls/annc_control');
 var adminControl = require('./controls/admin_control');
 
+/**
+ * This function controls and handles all routing for GET and POST requests for all pages
+ * and functionalities
+ * 
+ * @param {object} app The application framework - express
+ */
 exports.route = function (app) {
 	// main
 	app.get('/', mainControl.index);
@@ -39,8 +53,6 @@ exports.route = function (app) {
 	app.get('/embedded/suggestedusers', embeddedControl.suggestedUsers);
 	
 	// api - used for light dynamic requests
-	app.get('/api/sample', apiControl.sample);
-	
 	app.post('/api/follow', apiControl.follow);
 	
 	//announcement

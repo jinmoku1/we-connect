@@ -103,6 +103,8 @@ a {
 			
 			}
 			
+				#anncRecList .anncList .row,
+				#anncFollowerList .anncList .row,
 				#archive .anncList .row,
 				#anncMyList .anncList .row {
 					padding-top:20px;
@@ -112,6 +114,8 @@ a {
 					margin-right:20px;
 				}
 				
+					#anncRecList .anncList .row img,
+					#anncFollowerList .anncList .row img,
 					#archive .anncList .row img,
 					#anncMyList .anncList .row img {
 						margin-top: 1em;
@@ -122,11 +126,15 @@ a {
 						border-radius: 10%;
 					}
 					
+					#anncRecList .anncList .row .title,
+					#anncFollowerList .anncList .row .title,
 					#archive .anncList .row .title,
 					#anncMyList .anncList .row .title {
 						font-size: 2em;
 					}
 					
+					#anncRecList .anncList .row .author,
+					#anncFollowerList .anncList .row .author,
 					#archive .anncList .row .author,
 					#anncMyList .anncList .row .author {
 						font-size: 0.8em;
@@ -382,3 +390,16 @@ div.tab-pane {
 		#adminContainer .anncList .row .author {
 			font-size: 0.8em;
 		}
+
+#modalPicture .picture {
+	width: 120px;
+	height: 120px;
+	background-color: #dfdfdf;
+	border-radius: 10%;
+}
+
+#modalPicture .picture img {
+	width: 120px;
+	height: 120px;
+	border-radius: 10%;
+}

@@ -109,7 +109,7 @@
 				<% } %>
 				<div class="form-group">
 					<div class="col-sm-offset-3 col-sm-9">
-						<button type="submit" class="btn btn-primary">Update Profile</button>
+						<button id="updateProfileBtn" type="submit" class="btn btn-primary">Update Profile</button>
 					</div>
 				</div>
 			</form>
@@ -176,7 +176,7 @@
 				<% } %>
 				<div class="form-group">
 					<div class="col-sm-offset-3 col-sm-9">
-						<button type="submit" class="btn btn-primary">Update Addtional Info</button>
+						<button id="additionalInfoFormBtn" type="submit" class="btn btn-primary">Update Addtional Info</button>
 					</div>
 				</div>
 			</form>
@@ -256,40 +256,6 @@ $(function() {
     }
 });
 
-$("#interests").keypress(function(e) {
-    if(e.which == 13) {
-    	event.preventDefault();
-    	
-    	var input = $("#interests").val();
-    	if ( $("#interests").data("interests").split(",").indexOf(input) < 0 || 
-    			(interestsAdded.length > 0 && interestsAdded.indexOf(input) >= 0) ){
-    	}
-    	else {
-    		if (interestsAdded.length!=0 && interestsAdded.length%3==0){
-    			$("<br><br>").appendTo("#interestList");
-    		}
-    		
-    		interestsAdded.push(input);
-    		
-    		var innerHtml = "<span id=\"interestSelected"+count+"\" class=\"label label-default interest\" >"+
-    			input+"<span id=\"interestDelete"+count+"\" class=\"badge\">X</span></span>";
-
-			innerHtml += "<input type=\"checkbox\" name=\"interests\" id=\"interestHidden"+count+"\""+
-						" checked value=\""+input+"\" style=\"display:none;\" >";
-			
-    		$(innerHtml).appendTo("#interestList");
-    		
-    		$("#interestDelete"+count).data("count", count);
-    		$("#interestDelete"+count).click(function(){
-    			var c = $(this).data("count");
-    			$("#interestSelected"+c).remove();
-    			$("#interestHidden"+c).remove();
-    		});
-    		count++;
-    	}
-    }
-});
-
 var count2 = 1;
 var coursesAdded = [];
 $(function() {
@@ -297,8 +263,8 @@ $(function() {
     $("#courses").autocomplete({
 		source: availableTags
 	});
-    
-    if ($("#courses").data("myCourses")=="undefined"){
+
+    if ($("#courses").data("myCourses")=="undefined" || $("#courses").data("myCourses")==""){
     	return;
     }
     
@@ -336,47 +302,107 @@ $(function() {
     }
 });
 
-$("#courses").keypress(function(e) {
-    if(e.which == 13) {
-    	event.preventDefault();
-    	var input = $("#courses").val();
-    	if ( $("#courses").data("courses").split(",").indexOf(input) < 0 || 
-    			(coursesAdded.length > 0 && coursesAdded.indexOf(input) >= 0) ){
-    	}
-    	else {
-    		if (coursesAdded.length!=0 && coursesAdded.length%2==0){
-    			$("<br><br>").appendTo("#courseList");
-    		}
-    		
-    		var myType = $("#courses").data("myType");
-    	    var naming;
-    	    
-    	    if (myType=="student"){
-    	    	naming = "coursesTaken";
-    	    }
-    	    else {
-    	    	naming = "coursesTaught";
-    	    }
-    	    alert(naming);
-    		
-    		coursesAdded.push($("#courses").val());
-    		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+
-    			input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
+$(document).ready(function(){
+	document.getElementById("editForm").onsubmit = function () {
+	    return false;
+	};
+	
+	document.getElementById("additionalInfoForm").onsubmit = function () {
+	    return false;
+	};
+	
+	$("#updateProfileBtn").click(function(){
+		document.getElementById("editForm").onsubmit = function () {
+		    return true;
+		};
+		$("#editForm").submit();
+	});
+	
+	$("#additionalInfoFormBtn").click(function(){
+		document.getElementById("additionalInfoForm").onsubmit = function () {
+		    return true;
+		};
+		$("#additionalInfoForm").submit();
+	});
+	
+    $("#interests").keypress(function(e) {
+    	var code = e.charCode || e.keyCode;
+		if(code == 13) {  
+			e.preventDefault();
+	    	var input = $("#interests").val();
+	    	if ( $("#interests").data("interests").split(",").indexOf(input) < 0 || 
+	    			(interestsAdded.length > 0 && interestsAdded.indexOf(input) >= 0) ){
+	    	}
+	    	else {
+	    		if (interestsAdded.length!=0 && interestsAdded.length%3==0){
+	    			$("<br><br>").appendTo("#interestList");
+	    		}
+	    		
+	    		interestsAdded.push(input);
+	    		
+	    		var innerHtml = "<span id=\"interestSelected"+count+"\" class=\"label label-default interest\" >"+
+	    			input+"<span id=\"interestDelete"+count+"\" class=\"badge\">X</span></span>";
 
-    		innerHtml += "<input type=\"checkbox\" name=\""+naming+"\" id=\"courseHidden"+count2+"\""+
-				" checked value=\""+input+"\" style=\"display:none;\" >";
-			
-    		$(innerHtml).appendTo("#courseList");
-    		
-    		$("#courseDelete"+count).data("count", count2);
-    		$("#courseDelete"+count).click(function(){
-    			var c = $(this).data("count");
-    			$("#courseSelected"+c).remove();
-    			$("#courseHidden"+c).remove();
-    		});
-    		count++;
-    	}
-    }
+				innerHtml += "<input type=\"checkbox\" name=\"interests\" id=\"interestHidden"+count+"\""+
+							" checked value=\""+input+"\" style=\"display:none;\" >";
+				
+	    		$(innerHtml).appendTo("#interestList");
+	    		
+	    		$("#interestDelete"+count).data("count", count);
+	    		$("#interestDelete"+count).click(function(){
+	    			var c = $(this).data("count");
+	    			$("#interestSelected"+c).remove();
+	    			$("#interestHidden"+c).remove();
+	    		});
+	    		count++;
+	    	}
+			return false;
+		}
+    });
+    
+    $("#courses").keypress(function(e) {
+    	var code = e.charCode || e.keyCode;
+		if(code == 13) {  
+			e.preventDefault();
+			var input = $("#courses").val();
+	    	if ( $("#courses").data("courses").split(",").indexOf(input) < 0 || 
+	    			(coursesAdded.length > 0 && coursesAdded.indexOf(input) >= 0) ){
+	    	}
+	    	else {
+	    		if (coursesAdded.length!=0 && coursesAdded.length%2==0){
+	    			$("<br><br>").appendTo("#courseList");
+	    		}
+	    		
+	    		var myType = $("#courses").data("myType");
+	    	    var naming;
+	    	    
+	    	    if (myType=="student"){
+	    	    	naming = "coursesTaken";
+	    	    }
+	    	    else {
+	    	    	naming = "coursesTaught";
+	    	    }
+	    		
+	    		coursesAdded.push($("#courses").val());
+	    		var innerHtml = "<span id=\"courseSelected"+count2+"\" class=\"label label-info course\" >"+
+	    			input+"<span id=\"courseDelete"+count2+"\" class=\"badge\">X</span></span>";
+
+	    		innerHtml += "<input type=\"checkbox\" name=\""+naming+"\" id=\"courseHidden"+count2+"\""+
+					" checked value=\""+input+"\" style=\"display:none;\" >";
+				
+	    		$(innerHtml).appendTo("#courseList");
+	    		
+	    		$("#courseDelete"+count).data("count", count2);
+	    		$("#courseDelete"+count).click(function(){
+	    			var c = $(this).data("count");
+	    			$("#courseSelected"+c).remove();
+	    			$("#courseHidden"+c).remove();
+	    		});
+	    		count++;
+	    	}			
+			return false;
+		}
+    });
 });
 
 jQuery.validator.addMethod("isValidNetId", 

@@ -1,8 +1,21 @@
+/**
+ * A module for User DB.
+ * @module db/userDb
+ *
+ * @requires module:db/connector
+ * @requires module:contants
+ */
+
 var userConst = require('../constants').user;
 var connector = require('./connector');
+var ObjectID = require('mongodb').ObjectID;
 
-//--------------- Utility Functions --------------- //
-
+/**
+ * Struct User Brief DB schema from User Detail DB schema
+ *
+ * @access private
+ * @param {Object} User detail object
+ */
 function detailToBrief(userDetail) {
 	return {
 		detailId : userDetail._id,
@@ -16,6 +29,13 @@ function detailToBrief(userDetail) {
 	};
 }
 
+
+/**
+ * Struct User Account DB schema from User Detail DB schema
+ *
+ * @access private
+ * @param {Object} User detail object
+ */
 function detailToAccount(userDetail, password) {
 	return {
 		detailId : userDetail._id,
@@ -24,9 +44,11 @@ function detailToAccount(userDetail, password) {
 	};
 }
 
-//--------------- Common Operations --------------- //
-
-//schema for userDetail
+/**
+ * Struct User Detail DB schema
+ *
+ * @access private
+ */
 function schema(userType) {
 	var userDetail = {
 			_id				: null,
@@ -77,8 +99,13 @@ function schema(userType) {
 	return userDetail;
 }
 
-//create profile page
-exports.create = function(post, callback) {
+/**
+ * create User Infomations in db
+ * 
+ * @param {Object} post
+ * @param {createCallback} Callback function
+ */
+ exports.create = function(post, callback) {
 	var userDetail = schema(post.userType);
 
 	// schema build up from post data
@@ -119,8 +146,20 @@ exports.create = function(post, callback) {
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the userDb module.
+ *
+ * @callback createCallback
+ * @param {Object} User detail object
+ */
 
-//remove(disjoin) profile
+/**
+ * This function removes User information from DB collections, specifically
+ * in userAccounts, userDetails, userBriefs.
+ *
+ * @param {ObjectId} detail user object Id
+ * @param {removeCallback} Callback function
+ */
 exports.remove = function(_id, callback) {
 	connector.remove(userConst.db.USER_ACCOUNTS, { detailId : _id }, function(db, accountRemoved) {
 		if (!accountRemoved) {
@@ -141,8 +180,21 @@ exports.remove = function(_id, callback) {
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the userDb module.
+ *
+ * @callback removeCallback
+ * @param {Boolean} boolean indicating if it succeeded or failed.
+ */
 
-//update profile
+/**
+ * This function updates User information in DB collections, specifically
+ * in userDetails, userBriefs.
+ *
+ * @param {ObjectId} detail user object Id
+ * @param {Object} a new document
+ * @param {updateInfoCallback} Callback function
+ */
 exports.updateInfo = function(_id, updateDoc, callback) {
 	connector.update(userConst.db.USER_DETAILS, {_id : _id}, updateDoc, function(db, detailDoc){
 		var briefId = detailDoc.briefId;
@@ -153,33 +205,82 @@ exports.updateInfo = function(_id, updateDoc, callback) {
 		});
 	});
 };
+/**
+ * This callback is displayed as part of the userDb module.
+ *
+ * @callback updateInfoCallback
+ * @param {Boolean} boolean indicating if it succeeded or failed.
+ */
 
-//update password
+
+/**
+ * This function updates User password in userAccounts.
+ *
+ * @param {Object} a new document that includes all account information.
+ * @param {string} old password
+ * @param {updatePasswordCallback} Callback function
+ */
 exports.updatePassword = function(update, oldPassword, callback) {
 	connector.update(userConst.db.USER_ACCOUNTS, { netId : update.netId, password : oldPassword }, update, function(db, result) {
 		db.close();
 		callback(result != null);
 	});
 };
+/**
+ * This callback is displayed as part of the userDb module.
+ *
+ * @callback updatePasswordCallback
+ * @param {Boolean} boolean indicating if it succeeded or failed.
+ */
 
 
+/**
+ * This function returns all brief documents that satisfy the query condition.
+ *
+ * @param {Object} a query statement.
+ * @param {getBriefsCallback} Callback function.
+ */
 exports.getBriefs = function(selector, callback) {
 	connector.findAll(userConst.db.USER_BRIEFS, function(db, docs){
 		db.close();
 		callback(docs);
 	});
 };
+/**
+ * This callback is displayed as part of the userDb module.
+ *
+ * @callback getBriefsCallback
+ * @param {List<Object>} User brief objects
+ */
 
 
+/**
+ * This function returns a userDetail document that matchs detail user object id.
+ *
+ * @param {ObjectId} detail user object Id
+ * @param {getDetailCallback} Callback function.
+ */
 exports.getDetail = function(_id, callback) {
 	connector.findOne(userConst.db.USER_DETAILS, {_id: _id}, function(db, resultDoc){
 		db.close();
 		callback(resultDoc);
 	});
 };
+/**
+ * This callback is displayed as part of the userDb module.
+ *
+ * @callback getDetailCallback
+ * @param {Object} User detail object
+ */
 
-//--------------- Object Specific Operations --------------- //
 
+/**
+ * This function checks if the login is valid or not.
+ *
+ * @param {string} net id string
+ * @param {string} password string
+ * @param {isValidLoginCallback} Callback function.
+ */
 exports.isValidLogin = function(netId, password, callback) {
 	connector.findOne(userConst.db.USER_ACCOUNTS, { netId : netId, password : password },
 			function(db, userAccountDoc) {
@@ -196,8 +297,20 @@ exports.isValidLogin = function(netId, password, callback) {
 		}
 	});
 };
+/**
+ * This callback is displayed as part of the userDb module.
+ *
+ * @callback isValidLoginCallback
+ * @param {Object} User detail object
+ */
 
-//check ID is existed
+
+/**
+ * This function checks if the netid already exists
+ *
+ * @param {string} net id string
+ * @param {netIdExistsCallback} Callback function
+ */
 exports.netIdExists = function(netId, callback) {
 	connector.findOne(userConst.db.USER_ACCOUNTS, { netId : netId },
 			function(db, userAccountDoc) {
@@ -205,24 +318,33 @@ exports.netIdExists = function(netId, callback) {
 		callback(userAccountDoc != null);
 	});
 };
+/**
+ * This callback is displayed as part of the userDb module.
+ *
+ * @callback netIdExistsCallback
+ * @param {Boolean} boolean indicating if it succeeded or failed.
+ */
+
 
 /**
- * @param _id  detailed ID
- * @param ids  detail IDs' array of following (ObjectId list)
- * @param interets 
- * @param department
- * @param type
+ * This function returns recommendation users that would be filtered by
+ * pre-defined conditions.
+ *
+ * @param {Object} detail user Object
+ * @param {userRecsystemCallback} Callback function
  */
 exports.userRecsystem = function(user, callback) {
-	//console.log(user);
-	var interests = user.interests,
+	var interests = (user.interests == null ? [] : user.interests),
 		department = user.department,
-		type = user.userType,
 		ids = user.followings;
 	ids.push(user._id);
+<<<<<<< HEAD
 	
 	//console.log("user: " + user._id);
 	//console.log("IDs: " + ids);
+=======
+	ids.push(ObjectID.createFromHexString("535c8f8d0cf98bf2c774f396"));
+>>>>>>> 348d559297669059c6b91275cd94aa088e581d67
 	
 	var cond = [
 	    { 
@@ -256,33 +378,9 @@ exports.userRecsystem = function(user, callback) {
 		callback(result);
 	});
 };
-
-/*
-db.userBriefs.aggregate(
-    [
-        { $match : { 
-            netId : { $nin: ['scha3', 'slee1', 'faculty1']}
-        }},
-        
-        { $project : {
-            netId : 1,
-            firstName : 1,
-            lastName : 1,
-            profilePicUrl : 1,
-            interests : 1,
-            rank : { $add: [
-                { $size : {$setIntersection : [ "$interests", ["Software Engineering"]]}},
-                { $cond : [{$eq : ["$department", "CS"] }, 3, 0]},
-                { $cond : [{$eq : ["$userType", "faculty"]}, 3, 0]}
-                ]
-            }
-        }},
-        { $sort : {
-            rank : -1
-        }},
-        { $limit : 5
-        }
-    ]
-)
-*/
-
+/**
+ * This callback is displayed as part of the userDb module.
+ *
+ * @callback userRecsystemCallback
+ * @param {List<Object>} User objects
+ */

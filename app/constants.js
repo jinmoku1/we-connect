@@ -1,24 +1,39 @@
 /**
- * New node file
+ * A module for keeping all constants used throughout the application.
+ * @module constants
  */
 
+/**
+ * Enum for DB connection url.
+ * @readonly
+ * @enum {string}
+ */
 exports.db = {
-	//CONNECTION_STRING : 'mongodb://127.0.0.1:27017/weconnect',
-	//CONNECTION_STRING : 'mongodb://hay.synology.me:27017/weconnect',
-	//CONNECTION_STRING : 'mongodb://wizub.com:27017/weconnect',
 	CONNECTION_STRING : 'mongodb://localhost:27017/weconnect',
 };
 
+/**
+ * A constant for the list of interests.
+ * @type {array}
+ */
 exports.interests = [
 	'Software Engineering', 'Data Mining', 'Machine Learning', 'Algorithm',
 	'Graphics', 'Multimedia', 'Artificial Intelligence', 'Database', 'User Inteface',
 	'Web Development', 'System Programming', 'Network', 'Security',
 ];
 
+/**
+ * A constant for the list of departments.
+ * @type {array}
+ */
 exports.departments = [
 	'CS', 'ECE', 'EE', 'PHYS', 'MATH', 'CHEM',
 ];
 
+/**
+ * A constant for the list of courses.
+ * @type {array}
+ */
 exports.courses = [
 	'CS411 Database Systems', 'CS438 Communication Networks', 'CS440 Artificial Intelligence',
 	'CS428 Software Engineering', 'CS210 Ethics in Computer Science', 'CS423 Operating Systems Design',
@@ -27,14 +42,27 @@ exports.courses = [
 	'PHYS214 Univ. Physics: Quantum Physics',
 ];
 
+/**
+ * A constant for the list of degrees.
+ * @type {array}
+ */
 exports.degrees = [
 	'Bachelor\'s', 'Master', 'Ph.D.', 'Post Doctoral',
 ];
 
+/**
+ * A constant for the list of class standings.
+ * @type {array}
+ */
 exports.classStandings = [
 	'Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate',
 ];
 
+/**
+ * Enum for user types.
+ * @readonly
+ * @enum {string}
+ */
 exports.user = {
 	TYPE_STUDENT	: 'student',
 	TYPE_FACULTY	: 'faculty',
@@ -47,6 +75,11 @@ exports.user = {
 	},
 };
 
+/**
+ * Enum for announcement pending status and list orderings.
+ * @readonly
+ * @enum {number}
+ */
 exports.annc = {
 	PENDING				: 0,
 	ACCEPTED			: 1,
@@ -64,6 +97,10 @@ exports.anncTypes = [
     'research', 'part-time', 'events'
 ];
 
+/**
+ * A constant for the list of developer profiles.
+ * @type {array}
+ */
 exports.developers = [
     {	
     	name: 'Cha, Seung H.',

@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:3000/" />
+<title>test_recsys_annc</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">test_recsys_annc</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/account/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>fac1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>12341234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Post Announcements</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=title</td>
+	<td>annc1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=content</td>
+	<td>annc1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=interests</td>
+	<td>Database</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=courses</td>
+	<td>CS428 Software Engineering</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=classStanding</td>
+	<td>label=Junior</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=overallGPA</td>
+	<td>3.0</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=technicalGPA</td>
+	<td>2.9</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=resumeRequired</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=announceFormBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/account/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>11111111</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>id=approve0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=approve0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>fac2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>12341234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>fac1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>12341234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Post Announcements</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=title</td>
+	<td>annc2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=content</td>
+	<td>annc2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=department</td>
+	<td>label=part-time</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=interests</td>
+	<td>Web Development</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-11</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=interests</td>
+	<td>Graphics</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-15</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=overallGPA</td>
+	<td>3.5</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=technicalGPA</td>
+	<td>3.0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=resumeRequired</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=announceFormBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/account/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>11111111</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=approve0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>stu1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>12341234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=annc2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>fac1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>12341234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Post Announcements</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=title</td>
+	<td>annc3</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=content</td>
+	<td>annc3</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=interests</td>
+	<td>Security</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-77</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=courses</td>
+	<td>CS438 Communication Networks</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=overallGPA</td>
+	<td>4.0</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=technicalGPA</td>
+	<td>4.0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=resumeRequired</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=announceFormBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/account/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>11111111</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=approve0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>stu3</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>12341234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=annc3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>fac1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>12341234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Post Announcements</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=title</td>
+	<td>annc4</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=content</td>
+	<td>annc4</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=interests</td>
+	<td>System Programming</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-10</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-29</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=courses</td>
+	<td>CS241 System Programming</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=overallGPA</td>
+	<td>3.5</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=technicalGPA</td>
+	<td>3.5</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=resumeRequired</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=announceFormBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/account/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>11111111</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=approve0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>stu2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>12341234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=annc4</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>fac1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>12341234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Post Announcements</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=title</td>
+	<td>annc5</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=content</td>
+	<td>annc5</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=interests</td>
+	<td>Artificial Intelligence</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-53</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=courses</td>
+	<td>CS465 User Interface Design</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=overallGPA</td>
+	<td>4.0</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=technicalGPA</td>
+	<td>4.0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=resumeRequired</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=announceFormBtn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/account/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>11111111</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=approve0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=netId</td>
+	<td>fac2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>12341234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=annc5</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

@@ -54,8 +54,80 @@
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="anncRecList">
+					<div class="anncList">
+						<%  
+						for (var i in recDetails) { %>
+						<div class="row">
+							<div class="col-xs-2">
+								<img src="/media/<%=recDetails[i].author._id%>/picture/<%=recDetails[i].author.netId%>" />
+							</div>
+							<div class="col-xs-7">
+								<h1 class="title">
+									<a href="announcement/<%=recDetails[i]._id%>"><%=recDetails[i].title%></a>
+									<span class="author">
+										<em><%=recDetails[i].author.name%></em>
+									</span>
+								</h1>
+								<p class="contentBrief">
+									<%=recDetails[i].content%>...
+									<span class="timeStamp">
+										<em>
+										<% var date = recDetails[i].timeStamp; %>
+										<%=""+date.getDate()+"/"
+											+(date.getMonth()+1)+"/"
+											+date.getFullYear()+" @ "
+											+date.getHours()+":"
+											+date.getMinutes()+":" 
+											+date.getSeconds()
+										%>
+										</em>
+									</span>
+								</p>
+								<p class="anncTypes">
+									<span class="label label-default"><%=recDetails[i].anncTypes%></span>
+								</p>
+							</div>
+						</div>
+						<% } %>
+					</div>
 				</div>
 				<div class="tab-pane" id="anncFollowerList">
+					<div class="anncList">
+						<%  
+						for (var i in followBriefs) { %>
+						<div class="row">
+							<div class="col-xs-2">
+								<img src="/media/<%=followBriefs[i].author._id%>/picture/<%=followBriefs[i].author.netId%>" />
+							</div>
+							<div class="col-xs-7">
+								<h1 class="title">
+									<a href="announcement/<%=followBriefs[i].detailId%>"><%=followBriefs[i].title%></a>
+									<span class="author">
+										<em><%=followBriefs[i].author.name%></em>
+									</span>
+								</h1>
+								<p class="contentBrief">
+									<%=followBriefs[i].contentBrief%>...
+									<span class="timeStamp">
+										<em>
+										<% var date = followBriefs[i].timeStamp; %>
+										<%=""+date.getDate()+"/"
+											+(date.getMonth()+1)+"/"
+											+date.getFullYear()+" @ "
+											+date.getHours()+":"
+											+date.getMinutes()+":" 
+											+date.getSeconds()
+										%>
+										</em>
+									</span>
+								</p>
+								<p class="anncTypes">
+									<span class="label label-default"><%=followBriefs[i].anncTypes%></span>
+								</p>
+							</div>
+						</div>
+						<% } %>
+					</div>
 				</div>
 				<div class="tab-pane" id="archive">
 					<div class="anncList">
@@ -63,7 +135,7 @@
 						for (var i in anncBriefs) { %>
 						<div class="row">
 							<div class="col-xs-2">
-								<img src="<%=anncBriefs[i].author.profilePic%>" />
+								<img src="/media/<%=anncBriefs[i].author._id%>/picture/<%=anncBriefs[i].author.netId%>" />
 							</div>
 							<div class="col-xs-7">
 								<h1 class="title">
@@ -103,7 +175,7 @@
 						%>
 						<div class="row">
 							<div class="col-xs-2">
-								<img src="<%=anncBriefs[i].author.profilePic%>" />
+								<img src="/media/<%=anncBriefs[i].author._id%>/picture/<%=anncBriefs[i].author.netId%>" />
 							</div>
 							<div class="col-xs-7">
 								<h1 class="title">
@@ -142,7 +214,7 @@
 						for (var i in user.bookmarkedAnncs) { %>
 						<div class="row">
 							<div class="col-xs-2">
-								<img src="<%=user.bookmarkedAnncs[i].author.profilePic%>" />
+								<img src="/media/<%=user.bookmarkedAnncs[i].author._id%>/picture/<%=user.bookmarkedAnncs[i].author.netId%>" />
 							</div>
 							<div class="col-xs-7">
 								<h1 class="title">
@@ -155,7 +227,14 @@
 									<%=user.bookmarkedAnncs[i].contentBrief%>...
 									<span class="timeStamp">
 										<em>
-										<%=user.bookmarkedAnncs[i].timeStamp %>
+										<% var date = user.bookmarkedAnncs[i].timeStamp; %>
+										<%=""+date.getDate()+"/"
+											+(date.getMonth()+1)+"/"
+											+date.getFullYear()+" @ "
+											+date.getHours()+":"
+											+date.getMinutes()+":" 
+											+date.getSeconds()
+										%>
 										</em>
 									</span>
 								</p>
@@ -240,14 +319,8 @@ function onToggleFollow(targetId) {
 	});
 }
 
-$('a[data-toggle=modal]').click(function(event) {
-	event.preventDefault();
-	var url = $(this).attr('href');
-	var target = $(this).data('target');
-	// load the url and show modal on success
-	$(target + ' .modal-content').load(url, function() { 
-		$(target).modal('show');
-	});
+$('body').on('hidden.bs.modal', '.modal', function () {
+	$(this).removeData('bs.modal');
 });
 
 updateSuggestedUsers();

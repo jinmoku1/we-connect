@@ -1,0 +1,10 @@
+{
+    "source": {
+        "include": ["controls","db","app.js","constants.js","router.js","session.js"]
+    },
+    "plugins": [],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    }
+}

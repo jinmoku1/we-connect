@@ -6,9 +6,7 @@
 			<div class="panel-heading"><h2 class="panel-title">Author:</h2></div>
 			<div class="panel-body">
 				<div class="picture">
-					<% if (annc.author.profilePic != null) { %>
-						<img src="<%=annc.author.profilePic%>" />
-					<% } %>
+					<img src="/media/<%=annc.author._id%>/picture/<%=annc.author.netId%>" />
 				</div>
 			</div>
 			<div class="panel-footer">
