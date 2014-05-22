@@ -221,8 +221,8 @@ exports.userRecsystem = function(user, callback) {
 		ids = user.followings;
 	ids.push(user._id);
 	
-	console.log("user: " + user._id);
-	console.log("IDs: " + ids);
+	//console.log("user: " + user._id);
+	//console.log("IDs: " + ids);
 	
 	var cond = [
 	    { 
