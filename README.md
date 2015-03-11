@@ -1,8 +1,8 @@
-# We-Connect
+# Faculty-Student Research Connection Webapp (We-Connect)
 
 ## Overview
 
-We-connect is a virtual job-board website that supports connection between students and faculty/staff in the university.
+We-connect is a virtual job-board website that supports connection between students and faculty/staff in the university. This had been developed as the academic project. So, there is no LICENSE to worry.
 
 ## Usage
 
