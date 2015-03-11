@@ -1,8 +1,12 @@
-# Faculty-Student Research Connection Webapp (We-Connect)
+# We-connect
+a web application that help building social networks between faculties and students.
 
 ## Overview
 
-We-connect is a virtual job-board website that supports connection between students and faculty/staff in the university. This had been developed as the academic project. So, there is no LICENSE to worry.
+We-connect is a virtual job-board website that supports connection between students and faculty/staff in the university. This had been developed as the academic project and left as a history. So, there is no LICENSE to worry.
+
+## Stack
+This application is built on ME(A)N stack without angularjs.
 
 ## Usage
 
@@ -16,10 +20,6 @@ We-connect is a virtual job-board website that supports connection between stude
 
 1. Make sure NPM mocha is installed in global level: 'npm install -g mocha'.
 2. In '/app' directory, enter 'mocha tests/app_test.js'.
-
-## Developing
-
-
 
 ### Tools
 
